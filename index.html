@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trust You Go - Travel Sri Lanka</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#offers">Offers</a>
+      <a href="#guides">Travel Guides</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+      <a href="#booking">Booking</a>
+    </nav>
+  </header>
+  <section id="home" class="hero">
+    <h1>Welcome to Trust You Go</h1>
+    <p>Your gateway to unforgettable Sri Lankan travel experiences.</p>
+    <a href="#booking" class="btn">Book Now</a>
+  </section>
+  <section id="about">
+    <h2>About Trust You Go</h2>
+    <p>Trust You Go is dedicated to providing the best travel experiences in Sri Lanka. Our team curates unique journeys, exclusive offers, and expert travel guides to help you explore the island with confidence.</p>
+    <p>We believe in authentic hospitality, memorable adventures, and making every trip special.</p>
+  </section>
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
+      <img src="images/sample1.jpg" alt="Destination 1" style="width:100%;max-width:300px;">
+      <img src="images/sample2.jpg" alt="Destination 2" style="width:100%;max-width:300px;">
+      <img src="images/sample3.jpg" alt="Destination 3" style="width:100%;max-width:300px;">
+      <img src="images/sample4.jpg" alt="Destination 4" style="width:100%;max-width:300px;">
+    </div>
+  </section>
+  <section id="offers">
+    <h2>Special Offers</h2>
+    <div>
+      <h3>Summer Special</h3>
+      <p>Enjoy 20% off on selected destinations. Limited time only!</p>
+      <a href="#booking" class="btn">Book Now</a>
+    </div>
+    <div>
+      <h3>Early Bird</h3>
+      <p>Book in advance and get exclusive discounts for your next adventure.</p>
+      <a href="#booking" class="btn">Book Now</a>
+    </div>
+  </section>
+  <section id="guides">
+    <h2>Travel Guides</h2>
+    <div>
+      <h3>Top Destinations</h3>
+      <ul>
+        <li><strong>Kandy:</strong> Explore the cultural capital of Sri Lanka.</li>
+        <li><strong>Galle:</strong> Discover colonial history and beautiful beaches.</li>
+        <li><strong>Sigiriya:</strong> Climb the ancient rock fortress.</li>
+        <li><strong>Yala:</strong> Experience wildlife and safaris.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Travel Tips</h3>
+      <ul>
+        <li>Best time to visit: December to April</li>
+        <li>Local currency: Sri Lankan Rupee (LKR)</li>
+        <li>Language: Sinhala, Tamil, English</li>
+      </ul>
+    </div>
+  </section>
+  <section id="reviews">
+    <h2>User Reviews</h2>
+    <blockquote>
+      "Amazing experience! The guides were knowledgeable and the trip was unforgettable."<br>
+      <strong>- Priya S.</strong>
+    </blockquote>
+    <blockquote>
+      "Loved the offers and the booking process was super easy!"<br>
+      <strong>- John D.</strong>
+    </blockquote>
+    <blockquote>
+      "Beautiful gallery and great travel tips. Highly recommend Trust You Go!"<br>
+      <strong>- Ayesha R.</strong>
+    </blockquote>
+  </section>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form action="mailto:info@trustyougo.com" method="POST" enctype="text/plain">
+      <label for="name">Name:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+      <label for="message">Message:</label><br>
+      <textarea id="message" name="message" rows="5" required></textarea><br><br>
+      <button type="submit" class="btn">Send</button>
+    </form>
+  </section>
+  <section id="booking">
+    <h2>Booking Form</h2>
+    <form action="mailto:booking@trustyougo.com" method="POST" enctype="text/plain">
+      <label for="name">Name:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+      <label for="checkin">Check-in Date:</label><br>
+      <input type="date" id="checkin" name="checkin" required><br><br>
+      <label for="checkout">Check-out Date:</label><br>
+      <input type="date" id="checkout" name="checkout" required><br><br>
+      <label for="guests">Number of Guests:</label><br>
+      <input type="number" id="guests" name="guests" min="1" required><br><br>
+      <label for="message">Additional Requests:</label><br>
+      <textarea id="message" name="message" rows="4"></textarea><br><br>
+      <button type="submit" class="btn">Book Now</button>
+    </form>
+  </section>
+  <footer style="background:var(--secondary);color:var(--white);text-align:center;padding:1rem;">
+    &copy; 2025 Trust You Go. All rights reserved.
+  </footer>
+</body>
+</html>
