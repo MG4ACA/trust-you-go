@@ -17,8 +17,9 @@ header {
 }
 nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 2rem;
+  width: 99vw;
 }
 nav a {
   color: var(--white);
@@ -36,7 +37,6 @@ nav a:hover {
 }
 section {
   padding: 2rem 1rem;
-  max-width: 1200px;
   margin: auto;
 }
 .btn {

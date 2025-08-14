@@ -10,22 +10,26 @@
     <!-- All custom styles moved to css/custom.css -->
   </head>
   <body>
-    <header>
+    <header id="main-header">
       <nav>
-        <img id="site-logo" alt="Trust You Go Logo" src="images/logo.png" style="height: 60px" />
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#offers">Offers</a>
-        <a href="#guides">Travel Guides</a>
-        <a href="#reviews">Reviews</a>
-        <a href="#contact">Contact</a>
+        <div class="logo-container" id="logo-container">
+          <img id="site-logo" alt="Trust You Go Logo" src="images/logo.png" style="height: 60px" />
+        </div>
+        <div class="nav-list">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#offers">Offers</a>
+          <a href="#guides">Travel Guides</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#contact">Contact</a>
+        </div>
       </nav>
     </header>
     <section id="home" class="hero">
-      <h1 class="hero-title">Welcome to Trust You Go</h1>
+      <!-- <h1 class="hero-title">Welcome to Trust You Go</h1>
       <p class="hero-desc">Your gateway to unforgettable Sri Lankan travel experiences.</p>
-      <a href="#booking" class="btn">Book Now</a>
+      <a href="#booking" class="btn">Book Now</a> -->
     </section>
     <section id="about">
       <h2>About Trust You Go</h2>
@@ -37,34 +41,6 @@
       <p>
         We believe in authentic hospitality, memorable adventures, and making every trip special.
       </p>
-    </section>
-    <section id="gallery">
-      <h2>Gallery</h2>
-      <div class="gallery-images">
-        <img
-          src="images/locations/colombo.jpg"
-          alt="Colombo"
-          style="width: 100%; max-width: 300px"
-        />
-        <img src="images/locations/ella.jpg" alt="Ella" style="width: 100%; max-width: 300px" />
-        <img src="images/locations/galle.jpg" alt="Galle" style="width: 100%; max-width: 300px" />
-        <img src="images/locations/kandy.jpg" alt="Kandy" style="width: 100%; max-width: 300px" />
-        <img
-          src="images/locations/pinnavala.jpg"
-          alt="Pinnavala"
-          style="width: 100%; max-width: 300px"
-        />
-        <img
-          src="images/locations/sigiriya.jpg"
-          alt="Sigiriya"
-          style="width: 100%; max-width: 300px"
-        />
-        <img
-          src="images/locations/yapahuva.jpg"
-          alt="Yapahuva"
-          style="width: 100%; max-width: 300px"
-        />
-      </div>
     </section>
     <section id="offers">
       <h2>Special Offers</h2>
@@ -191,5 +167,6 @@
     >
       &copy; 2025 Trust You Go. All rights reserved.
     </footer>
+  <script src="js/main.js"></script>
   </body>
 </html>
