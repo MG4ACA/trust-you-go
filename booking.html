@@ -1,44 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Booking - Trust You Go</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <header>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="offers.html">Offers</a>
-      <a href="guides.html">Travel Guides</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="contact.html">Contact</a>
-      <a href="booking.html">Booking</a>
-    </nav>
-  </header>
-  <section>
-    <h1>Booking Form</h1>
-    <form action="mailto:booking@trustyougo.com" method="POST" enctype="text/plain">
-      <label for="name">Name:</label><br>
-      <input type="text" id="name" name="name" required><br><br>
-      <label for="email">Email:</label><br>
-      <input type="email" id="email" name="email" required><br><br>
-      <label for="checkin">Check-in Date:</label><br>
-      <input type="date" id="checkin" name="checkin" required><br><br>
-      <label for="checkout">Check-out Date:</label><br>
-      <input type="date" id="checkout" name="checkout" required><br><br>
-      <label for="guests">Number of Guests:</label><br>
-      <input type="number" id="guests" name="guests" min="1" required><br><br>
-      <label for="message">Additional Requests:</label><br>
-      <textarea id="message" name="message" rows="4"></textarea><br><br>
-      <button type="submit" class="btn">Book Now</button>
-    </form>
-  </section>
-  <footer style="background:var(--secondary);color:var(--white);text-align:center;padding:1rem;">
-    &copy; 2025 Trust You Go. All rights reserved.
-  </footer>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking - Trust You Go</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="offers.html">Offers</a>
+        <a href="guides.html">Travel Guides</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="contact.html">Contact</a>
+        <a href="booking.html">Booking</a>
+      </nav>
+    </header>
+    <section>
+      <h1>Booking Form</h1>
+      <form action="mailto:booking@trustyougo.com" method="POST" enctype="text/plain">
+        <label for="name">Name:</label>
+        <br />
+        <input type="text" id="name" name="name" required />
+        <br />
+        <br />
+        <label for="email">Email:</label>
+        <br />
+        <input type="email" id="email" name="email" required />
+        <br />
+        <br />
+        <label for="checkin">Check-in Date:</label>
+        <br />
+        <input type="date" id="checkin" name="checkin" required />
+        <br />
+        <br />
+        <label for="checkout">Check-out Date:</label>
+        <br />
+        <input type="date" id="checkout" name="checkout" required />
+        <br />
+        <br />
+        <label for="guests">Number of Guests:</label>
+        <br />
+        <input type="number" id="guests" name="guests" min="1" required />
+        <br />
+        <br />
+        <label for="message">Additional Requests:</label>
+        <br />
+        <textarea id="message" name="message" rows="4"></textarea>
+        <br />
+        <br />
+        <button type="submit" class="btn">Book Now</button>
+      </form>
+    </section>
+    <footer
+      style="background: var(--secondary); color: var(--white); text-align: center; padding: 1rem"
+    >
+      &copy; 2025 Trust You Go. All rights reserved.
+    </footer>
+  </body>
 </html>
