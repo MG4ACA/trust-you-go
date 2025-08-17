@@ -11,6 +11,11 @@ function App() {
       <Header />
       <LanguageSelector />
 
+      {/* Logo Border Overlay */}
+      <div className="fixed inset-0 w-screen h-screen z-50 pointer-events-none flex items-center justify-center">
+        <img src="/logo-border.png" alt="Logo Border" className="w-[70vw] object-cover p-[8rem]" />
+      </div>
+
       {/* Hero Section with Video Background */}
       <section id="home" className="relative">
         <VideoBackground
