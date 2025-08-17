@@ -4,7 +4,7 @@ const Header = () => {
   const { t } = useLanguage();
 
   return (
-    <header className="bg-[#075b95] text-white py-4 w-full">
+    <header className="py-4 w-full bg-transparent absolute z-10">
       <nav className="flex flex-wrap justify-center gap-8 px-4 w-full">
         <a href="#home" className="font-bold hover:text-[#65b25f]">
           {t("nav.home")}

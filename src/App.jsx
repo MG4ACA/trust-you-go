@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import LanguageSelector from "./components/LanguageSelector";
+import VideoBackground from "./components/VideoBackground";
 import { useLanguage } from "./hooks/useLanguage";
 
 function App() {
@@ -10,16 +11,47 @@ function App() {
       <Header />
       <LanguageSelector />
 
-      {/* Hero Section */}
-      <section id="home" className="bg-[#65b25f] text-white py-12 text-center w-full">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4">{t("hero.title")}</h1>
-        <p className="mb-6 text-lg">{t("hero.subtitle")}</p>
-        <a
-          href="#booking"
-          className="inline-block bg-[#075b95] hover:bg-[#65b25f] text-white px-6 py-2 rounded font-bold transition"
+      {/* Hero Section with Video Background */}
+      <section id="home" className="relative">
+        <VideoBackground
+          videoSrc="/sigiriya_aerial.mp4"
+          fallbackImage="/locations/segiriya-rock.jpg"
         >
-          {t("hero.bookNow")}
-        </a>
+          <div className="text-center px-4 max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-7xl font-extrabold mb-6 text-white drop-shadow-2xl animate-fade-in">
+              {/* {t("hero.title")} */}
+            </h1>
+            <p className="mb-8 text-xl md:text-2xl text-white/90 drop-shadow-lg max-w-2xl mx-auto leading-relaxed animate-fade-in-delay">
+              {/* {t("hero.subtitle")} */}
+            </p>
+            {/* <a
+              href="#booking"
+              className="inline-block bg-[#075b95]/90 hover:bg-[#65b25f]/90 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 backdrop-blur-sm border border-white/20 hover:transform hover:scale-105 shadow-2xl animate-fade-in-delay-2"
+            >
+              {t("hero.bookNow")}
+            </a> */}
+          </div>
+
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" className="text-white/80 hover:text-white transition-colors">
+              <svg
+                className="w-6 h-6 mx-auto"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </svg>
+              <p className="text-sm mt-2">Scroll</p>
+            </a>
+          </div>
+        </VideoBackground>
       </section>
 
       {/* About Section */}
