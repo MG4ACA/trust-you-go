@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import LanguageSelector from "./components/LanguageSelector";
+import SocialMediaLinks from "./components/SocialMediaLinks";
 import VideoBackground from "./components/VideoBackground";
 import { useLanguage } from "./hooks/useLanguage";
 
@@ -10,6 +11,7 @@ function App() {
     <div className="w-full bg-white text-gray-900 font-sans">
       <Header />
       <LanguageSelector />
+      <SocialMediaLinks />
 
       {/* Logo Border Overlay */}
       <div className="fixed inset-0 w-screen h-screen z-50 pointer-events-none flex items-center justify-center">
