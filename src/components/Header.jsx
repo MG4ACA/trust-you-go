@@ -13,28 +13,28 @@ const Header = () => {
 
         {/* Navigation */}
         <nav className="flex flex-wrap justify-center gap-8">
-          <a href="#home" className="font-bold hover:text-[#65b25f]">
+          <a href="#home" className="header-nav-link">
             {t("nav.home")}
           </a>
-          <a href="#about" className="font-bold hover:text-[#65b25f]">
+          <a href="#about" className="header-nav-link">
             {t("nav.about")}
           </a>
-          <a href="#gallery" className="font-bold hover:text-[#65b25f]">
+          <a href="#gallery" className="header-nav-link">
             {t("nav.gallery")}
           </a>
-          <a href="#offers" className="font-bold hover:text-[#65b25f]">
+          <a href="#offers" className="header-nav-link">
             {t("nav.offers")}
           </a>
-          <a href="#guides" className="font-bold hover:text-[#65b25f]">
+          <a href="#guides" className="header-nav-link">
             {t("nav.guides")}
           </a>
-          <a href="#reviews" className="font-bold hover:text-[#65b25f]">
+          <a href="#reviews" className="header-nav-link">
             {t("nav.reviews")}
           </a>
-          <a href="#contact" className="font-bold hover:text-[#65b25f]">
+          <a href="#contact" className="header-nav-link">
             {t("nav.contact")}
           </a>
-          <a href="#booking" className="font-bold hover:text-[#65b25f]">
+          <a href="#booking" className="header-nav-link">
             {t("nav.booking")}
           </a>
         </nav>

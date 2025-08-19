@@ -1,32 +1,37 @@
-const SocialMediaLinks = ({ onGalleryToggle, isGalleryMode }) => {
-  return (
-    <div className=" fixed z-[110] left-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 glass-social-container-social-bar">
-      {/* Gallery Toggle */}
-      <button
-        onClick={onGalleryToggle}
-        className={`transition-colors duration-300 ${
-          isGalleryMode
-            ? "text-yellow-400 hover:text-yellow-300"
-            : "text-white hover:text-yellow-400"
-        }`}
-        title={isGalleryMode ? "Switch to Video" : "Switch to Gallery"}
-      >
-        <svg
-          className="w-6 h-6"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M4 4h7V2H4c-1.1 0-2 .9-2 2v7h2V4zm6 9l-4 5h12l-3-4-2.03 2.71L10 13zm7-4.5c0-.83-.67-1.5-1.5-1.5S14 7.67 14 8.5s.67 1.5 1.5 1.5S17 9.33 17 8.5zM20 2h-7v2h7v7h2V4c0-1.1-.9-2-2-2zm0 18h-7v2h7c1.1 0 2-.9 2-2v-7h-2v7zM4 13H2v7c0 1.1.9 2 2 2h7v-2H4v-7z" />
-        </svg>
-      </button>
+import { useState, useEffect } from 'react';
 
+const SocialMediaLinks = () => {
+  const [isWhite, setIsWhite] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const aboutSection = document.getElementById('about');
+      if (aboutSection) {
+        const aboutTop = aboutSection.offsetTop;
+        const scrollPosition = window.scrollY + window.innerHeight * 0.3; // Trigger when about section is 30% visible
+        
+        if (scrollPosition >= aboutTop) {
+          setIsWhite(false);
+        } else {
+          setIsWhite(true);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div className="fixed z-[110] left-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 glass-social-container-social-bar">
       {/* Facebook */}
       <a
         href="https://facebook.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-white hover:text-blue-500 transition-colors duration-300"
+        className={`${isWhite ? 'text-white hover:text-gray-200' : 'text-[#1877F2] hover:text-[#166FE5]'} transition-all duration-500 transform hover:scale-110 hover:rotate-12 social-icon-bounce`}
       >
         <svg
           className="w-6 h-6"
@@ -43,7 +48,7 @@ const SocialMediaLinks = ({ onGalleryToggle, isGalleryMode }) => {
         href="https://instagram.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-white hover:text-pink-500 transition-colors duration-300"
+        className={`${isWhite ? 'text-white hover:text-gray-200' : 'text-[#E4405F] hover:text-[#C13584]'} transition-all duration-500 transform hover:scale-110 hover:-rotate-12 social-icon-pulse`}
       >
         <svg
           className="w-6 h-6"
@@ -51,9 +56,7 @@ const SocialMediaLinks = ({ onGalleryToggle, isGalleryMode }) => {
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.596-3.204-1.526L6.71 14.07c.513.513 1.181.513 1.694 0 .513-.513.513-1.181 0-1.694-.513-.513-1.181-.513-1.694 0L5.245 13.84c-.93-.756-1.526-1.907-1.526-3.204 0-2.268 1.839-4.107 4.107-4.107s4.107 1.839 4.107 4.107-1.839 4.107-4.107 4.107z" />
-          <path d="M8 5.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 10.5a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" />
-          <circle cx="18.5" cy="5.5" r="1.5" />
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
         </svg>
       </a>
 
@@ -62,7 +65,7 @@ const SocialMediaLinks = ({ onGalleryToggle, isGalleryMode }) => {
         href="https://twitter.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-white hover:text-blue-400 transition-colors duration-300"
+        className={`${isWhite ? 'text-white hover:text-gray-200' : 'text-[#1DA1F2] hover:text-[#0C8BD9]'} transition-all duration-500 transform hover:scale-110 hover:rotate-6 social-icon-wiggle`}
       >
         <svg
           className="w-6 h-6"
@@ -79,7 +82,7 @@ const SocialMediaLinks = ({ onGalleryToggle, isGalleryMode }) => {
         href="https://youtube.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-white hover:text-red-500 transition-colors duration-300"
+        className={`${isWhite ? 'text-white hover:text-gray-200' : 'text-[#FF0000] hover:text-[#CC0000]'} transition-all duration-500 transform hover:scale-110 hover:-rotate-6 social-icon-float`}
       >
         <svg
           className="w-6 h-6"
@@ -96,7 +99,7 @@ const SocialMediaLinks = ({ onGalleryToggle, isGalleryMode }) => {
         href="https://wa.me/your-number"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-white hover:text-green-500 transition-colors duration-300"
+        className={`${isWhite ? 'text-white hover:text-gray-200' : 'text-[#25D366] hover:text-[#1DA851]'} transition-all duration-500 transform hover:scale-110 hover:rotate-12 social-icon-shake`}
       >
         <svg
           className="w-6 h-6"

@@ -1,8 +1,6 @@
-import { useState } from "react";
 import About from "../About";
 import Booking from "../Booking";
 import Header from "../components/Header";
-import ImageCarousel from "../components/ImageCarousel";
 import LanguageSelector from "../components/LanguageSelector";
 import SocialMediaLinks from "../components/SocialMediaLinks";
 import VideoBackground from "../components/VideoBackground";
@@ -15,87 +13,37 @@ import TravelGuides from "../TravelGuides";
 
 const Home = () => {
   const { t } = useLanguage();
-  const [isGalleryMode, setIsGalleryMode] = useState(false);
-
-  const handleGalleryToggle = () => {
-    setIsGalleryMode(!isGalleryMode);
-  };
 
   return (
     <div className="w-full bg-white text-gray-900 font-sans">
       <Header />
       <LanguageSelector />
-      <SocialMediaLinks onGalleryToggle={handleGalleryToggle} isGalleryMode={isGalleryMode} />
+      <SocialMediaLinks />
 
       {/* Logo Border Overlay */}
       <div className="fixed inset-0 w-screen h-screen z-50 pointer-events-none flex items-center justify-center">
         <img src="/logo-border.png" alt="Logo Border" className="w-[70vw] object-cover p-[8rem]" />
       </div>
 
-      {/* Hero Section with Video Background or Image Carousel */}
+      {/* Hero Section with Video Background */}
       <section id="home" className="relative">
-        {isGalleryMode ? (
-          <div className="h-screen w-full relative">
-            <ImageCarousel overlay={true} />
-            <div className="absolute inset-0 flex items-center justify-center z-10">
-              <div className="text-center px-4 max-w-4xl mx-auto">
-                <h1 className="text-5xl md:text-7xl font-extrabold mb-6 text-white drop-shadow-2xl animate-fade-in">
-                  {/* {t("hero.title")} */}
-                </h1>
-                <p className="mb-8 text-xl md:text-2xl text-white/90 drop-shadow-lg max-w-2xl mx-auto leading-relaxed animate-fade-in-delay">
-                  {/* {t("hero.subtitle")} */}
-                </p>
-              </div>
-
-              {/* Scroll Indicator */}
-              <a
-                href="#about"
-                className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white hover:text-yellow-400 transition-colors duration-300 z-20 animate-bounce"
-              >
-                <svg
-                  className="w-8 h-8 mx-auto"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                  />
-                </svg>
-                <p className="text-sm mt-2">Scroll</p>
-              </a>
-            </div>
-          </div>
-        ) : (
-          <VideoBackground
-            videoSrc="/sigiriya_aerial.mp4"
-            fallbackImage="/locations/segiriya-rock.jpg"
+        <VideoBackground videoSrc="/sl-clip.mp4" fallbackImage="/locations/segiriya-rock.jpg">
+          {/* Scroll Indicator */}
+          <a
+            href="#about"
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white hover:text-yellow-400 transition-colors duration-300 z-20 animate-bounce"
           >
-            {/* Scroll Indicator */}
-            <a
-              href="#about"
-              className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white hover:text-yellow-400 transition-colors duration-300 z-20 animate-bounce"
-            >
-              <svg
-                className="w-8 h-8 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
-              </svg>
-              <p className="text-sm mt-2">Scroll</p>
-            </a>
-          </VideoBackground>
-        )}
+            <svg className="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+            <p className="text-sm mt-2">Scroll</p>
+          </a>
+        </VideoBackground>
       </section>
 
       {/* About Section */}
