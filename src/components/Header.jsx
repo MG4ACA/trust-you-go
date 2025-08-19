@@ -4,8 +4,8 @@ const Header = () => {
   const { t } = useLanguage();
 
   return (
-    <header className="py-4 w-full bg-transparent absolute z-10">
-      <div className="flex items-center justify-between px-4 w-full">
+    <header className="py-4 w-full bg-transparent absolute z-100">
+      <div className="flex items-center justify-between px-4 w-full pr-[5rem]">
         {/* Logo */}
         <div className="">
           <img src="/logo.svg" alt="Trust You Go Logo" className="h-[5rem] w-auto" />
