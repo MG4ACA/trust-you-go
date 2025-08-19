@@ -1,6 +1,6 @@
 const SocialMediaLinks = ({ onGalleryToggle, isGalleryMode }) => {
   return (
-    <div className="fixed z-[110] left-6 top-1/2 transform -translate-y-1/2 z-20 flex flex-col gap-4">
+    <div className=" fixed z-[110] left-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 glass-social-container-social-bar">
       {/* Gallery Toggle */}
       <button
         onClick={onGalleryToggle}

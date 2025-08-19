@@ -5,7 +5,7 @@ const Header = () => {
 
   return (
     <header className="py-4 w-full bg-transparent absolute z-100">
-      <div className="flex items-center justify-between px-4 w-full pr-[5rem]">
+      <div className="flex items-center justify-between px-4 w-full pr-[5rem]       glass-social-container">
         {/* Logo */}
         <div className="">
           <img src="/logo.svg" alt="Trust You Go Logo" className="h-[5rem] w-auto" />
