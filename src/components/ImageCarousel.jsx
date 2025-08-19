@@ -78,7 +78,7 @@ const ImageCarousel = ({ overlay = true }) => {
       </button> */}
 
       {/* Dots Indicator */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-[200]">
+      <div className="absolute bottom-[11px] left-1/2 transform -translate-x-1/2 flex space-x-2 z-[200]">
         {images.map((_, index) => (
           <button
             key={index}
