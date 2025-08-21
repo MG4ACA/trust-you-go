@@ -132,15 +132,6 @@ button:focus-visible {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.glass-social-container-social-bar {
-  border-radius: 2rem;
-  padding: 10px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
 .glass-gallery-toggle {
   padding: 0.5rem;
   border-radius: 0.5rem;
@@ -264,7 +255,6 @@ button:focus-visible {
 
 /* Enhanced social media container with subtle glow */
 .glass-social-container-social-bar {
-  border-radius: 2rem;
   padding: 10px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -272,6 +262,7 @@ button:focus-visible {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 0 20px rgba(59, 130, 246, 0.1);
   background: rgba(255, 255, 255, 0.05);
   transition: all 0.3s ease;
+  border-radius: 0 20px 20px 0;
 }
 
 .glass-social-container-social-bar:hover {
@@ -303,7 +294,7 @@ button:focus-visible {
 }
 
 .header-nav-link::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 2px;
@@ -316,4 +307,17 @@ button:focus-visible {
 
 .header-nav-link:hover::after {
   width: 100%;
+}
+
+/* Logo Container Styles */
+.logo-container {
+  border-radius: 0 0 30px 0;
+}
+
+.logo-container:hover {
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }

@@ -5,33 +5,40 @@ const Booking = () => {
   const { t } = useLanguage();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    checkin: '',
-    checkout: '',
-    guests: '',
-    message: '',
+    name: "",
+    email: "",
+    checkin: "",
+    checkout: "",
+    guests: "",
+    message: "",
     activities: [],
-    accommodation: '',
-    transport: []
+    accommodation: "",
+    transport: [],
+    selectedVehicle: "",
   });
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
-    if (type === 'checkbox') {
-      if (name === 'activities' || name === 'transport') {
-        setFormData(prev => ({
+
+    if (type === "checkbox") {
+      if (name === "activities" || name === "transport") {
+        setFormData((prev) => ({
           ...prev,
-          [name]: checked 
-            ? [...prev[name], value]
-            : prev[name].filter(item => item !== value)
+          [name]: checked ? [...prev[name], value] : prev[name].filter((item) => item !== value),
         }));
+
+        // Reset vehicle selection if private transport is unchecked
+        if (name === "transport" && value === "private" && !checked) {
+          setFormData((prev) => ({
+            ...prev,
+            selectedVehicle: "",
+          }));
+        }
       }
     } else {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        [name]: value
+        [name]: value,
       }));
     }
   };
@@ -49,20 +56,21 @@ const Booking = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Here you would typically send the inquiry to your backend
-    console.log('Inquiry submitted:', formData);
-    alert('Thank you for your inquiry! We will contact you within 24 hours.');
-    
+    console.log("Inquiry submitted:", formData);
+    alert("Thank you for your inquiry! We will contact you within 24 hours.");
+
     // Reset form
     setFormData({
-      name: '',
-      email: '',
-      checkin: '',
-      checkout: '',
-      guests: '',
-      message: '',
+      name: "",
+      email: "",
+      checkin: "",
+      checkout: "",
+      guests: "",
+      message: "",
       activities: [],
-      accommodation: '',
-      transport: []
+      accommodation: "",
+      transport: [],
+      selectedVehicle: "",
     });
     setCurrentStep(1);
   };
@@ -72,26 +80,31 @@ const Booking = () => {
     const today = new Date();
     const nextMonth = new Date(today);
     nextMonth.setMonth(today.getMonth() + 1);
-    
+
     const formatDate = (date) => {
-      return date.toISOString().split('T')[0];
+      return date.toISOString().split("T")[0];
     };
 
     setFormData({
-      name: 'John Doe',
-      email: 'john.doe@example.com',
+      name: "John Doe",
+      email: "john.doe@example.com",
       checkin: formatDate(nextMonth),
       checkout: formatDate(new Date(nextMonth.getTime() + 7 * 24 * 60 * 60 * 1000)), // 7 days later
-      guests: '2',
-      message: 'We are interested in experiencing authentic Sri Lankan culture and would love to visit ancient temples and enjoy local cuisine. Please suggest the best time to visit tea plantations.',
-      activities: ['hiking', 'temples', 'tea', 'wildlife'],
-      accommodation: 'comfort',
-      transport: ['private']
+      guests: "2",
+      message:
+        "We are interested in experiencing authentic Sri Lankan culture and would love to visit ancient temples and enjoy local cuisine. Please suggest the best time to visit tea plantations.",
+      activities: ["hiking", "temples", "tea", "wildlife"],
+      accommodation: "comfort",
+      transport: ["private"],
+      selectedVehicle: "suv",
     });
   };
 
   return (
-    <section id="booking" className="py-20 px-6 bg-gradient-to-br from-[#075b95]/10 via-white to-[#65b25f]/10">
+    <section
+      id="booking"
+      className="py-20 px-6 bg-gradient-to-br from-[#075b95]/10 via-white to-[#65b25f]/10"
+    >
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -112,7 +125,7 @@ const Booking = () => {
           <div className="bg-gradient-to-r from-[#075b95] to-[#065a87] px-8 py-6">
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-bold text-white">
-                {currentStep === 1 ? 'Customize Your Trip' : 'Review & Send Inquiry'}
+                {currentStep === 1 ? "Customize Your Trip" : "Review & Send Inquiry"}
               </h3>
               <div className="flex items-center space-x-4">
                 {currentStep === 1 && (
@@ -123,7 +136,12 @@ const Booking = () => {
                     title="Fill form with sample data"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      />
                     </svg>
                     <span>Demo Data</span>
                   </button>
@@ -144,7 +162,10 @@ const Booking = () => {
                   {/* Personal Information */}
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label htmlFor="booking-name" className="block text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                      <label
+                        htmlFor="booking-name"
+                        className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
+                      >
                         {t("booking.name")}
                       </label>
                       <input
@@ -160,7 +181,10 @@ const Booking = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <label htmlFor="booking-email" className="block text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                      <label
+                        htmlFor="booking-email"
+                        className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
+                      >
                         {t("booking.email")}
                       </label>
                       <input
@@ -179,7 +203,10 @@ const Booking = () => {
                   {/* Travel Dates */}
                   <div className="grid md:grid-cols-3 gap-6">
                     <div className="space-y-2">
-                      <label htmlFor="checkin" className="block text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                      <label
+                        htmlFor="checkin"
+                        className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
+                      >
                         {t("booking.checkin")}
                       </label>
                       <input
@@ -194,7 +221,10 @@ const Booking = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <label htmlFor="checkout" className="block text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                      <label
+                        htmlFor="checkout"
+                        className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
+                      >
                         {t("booking.checkout")}
                       </label>
                       <input
@@ -209,7 +239,10 @@ const Booking = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <label htmlFor="guests" className="block text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                      <label
+                        htmlFor="guests"
+                        className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
+                      >
                         {t("booking.guests")}
                       </label>
                       <select
@@ -232,7 +265,10 @@ const Booking = () => {
 
                   {/* Special Requests */}
                   <div className="space-y-2">
-                    <label htmlFor="booking-message" className="block text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                    <label
+                      htmlFor="booking-message"
+                      className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
+                    >
                       {t("booking.requests")}
                     </label>
                     <textarea
@@ -248,55 +284,62 @@ const Booking = () => {
 
                   {/* Customize Your Package */}
                   <div className="bg-gray-50 rounded-2xl p-6">
-                    <h4 className="text-lg font-bold text-gray-900 mb-4">Customize Your Experience</h4>
-                    <p className="text-gray-600 mb-6">Select the activities and experiences you'd like to include in your Sri Lankan adventure</p>
-                    
+                    <h4 className="text-lg font-bold text-gray-900 mb-4">
+                      Customize Your Experience
+                    </h4>
+                    <p className="text-gray-600 mb-6">
+                      Select the activities and experiences you'd like to include in your Sri Lankan
+                      adventure
+                    </p>
+
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Activity Categories */}
                       <div className="space-y-4">
                         <h5 className="font-semibold text-gray-800">Adventure Activities</h5>
                         <div className="space-y-3">
                           <label className="flex items-center space-x-3">
-                            <input 
-                              type="checkbox" 
-                              name="activities" 
-                              value="hiking" 
-                              checked={formData.activities.includes('hiking')}
+                            <input
+                              type="checkbox"
+                              name="activities"
+                              value="hiking"
+                              checked={formData.activities.includes("hiking")}
                               onChange={handleInputChange}
-                              className="rounded text-[#075b95] focus:ring-[#075b95]" 
+                              className="rounded text-[#075b95] focus:ring-[#075b95]"
                             />
                             <span className="text-gray-700">Mountain Hiking & Trekking</span>
                           </label>
                           <label className="flex items-center space-x-3">
-                            <input 
-                              type="checkbox" 
-                              name="activities" 
-                              value="wildlife" 
-                              checked={formData.activities.includes('wildlife')}
+                            <input
+                              type="checkbox"
+                              name="activities"
+                              value="wildlife"
+                              checked={formData.activities.includes("wildlife")}
                               onChange={handleInputChange}
-                              className="rounded text-[#075b95] focus:ring-[#075b95]" 
+                              className="rounded text-[#075b95] focus:ring-[#075b95]"
                             />
-                            <span className="text-gray-700">Wildlife Safari (Yala National Park)</span>
+                            <span className="text-gray-700">
+                              Wildlife Safari (Yala National Park)
+                            </span>
                           </label>
                           <label className="flex items-center space-x-3">
-                            <input 
-                              type="checkbox" 
-                              name="activities" 
-                              value="watersports" 
-                              checked={formData.activities.includes('watersports')}
+                            <input
+                              type="checkbox"
+                              name="activities"
+                              value="watersports"
+                              checked={formData.activities.includes("watersports")}
                               onChange={handleInputChange}
-                              className="rounded text-[#075b95] focus:ring-[#075b95]" 
+                              className="rounded text-[#075b95] focus:ring-[#075b95]"
                             />
                             <span className="text-gray-700">Water Sports & Diving</span>
                           </label>
                           <label className="flex items-center space-x-3">
-                            <input 
-                              type="checkbox" 
-                              name="activities" 
-                              value="cycling" 
-                              checked={formData.activities.includes('cycling')}
+                            <input
+                              type="checkbox"
+                              name="activities"
+                              value="cycling"
+                              checked={formData.activities.includes("cycling")}
                               onChange={handleInputChange}
-                              className="rounded text-[#075b95] focus:ring-[#075b95]" 
+                              className="rounded text-[#075b95] focus:ring-[#075b95]"
                             />
                             <span className="text-gray-700">Cycling Tours</span>
                           </label>
@@ -307,46 +350,46 @@ const Booking = () => {
                         <h5 className="font-semibold text-gray-800">Cultural Experiences</h5>
                         <div className="space-y-3">
                           <label className="flex items-center space-x-3">
-                            <input 
-                              type="checkbox" 
-                              name="activities" 
-                              value="temples" 
-                              checked={formData.activities.includes('temples')}
+                            <input
+                              type="checkbox"
+                              name="activities"
+                              value="temples"
+                              checked={formData.activities.includes("temples")}
                               onChange={handleInputChange}
-                              className="rounded text-[#075b95] focus:ring-[#075b95]" 
+                              className="rounded text-[#075b95] focus:ring-[#075b95]"
                             />
                             <span className="text-gray-700">Ancient Temples & Heritage Sites</span>
                           </label>
                           <label className="flex items-center space-x-3">
-                            <input 
-                              type="checkbox" 
-                              name="activities" 
-                              value="cooking" 
-                              checked={formData.activities.includes('cooking')}
+                            <input
+                              type="checkbox"
+                              name="activities"
+                              value="cooking"
+                              checked={formData.activities.includes("cooking")}
                               onChange={handleInputChange}
-                              className="rounded text-[#075b95] focus:ring-[#075b95]" 
+                              className="rounded text-[#075b95] focus:ring-[#075b95]"
                             />
                             <span className="text-gray-700">Cooking Classes</span>
                           </label>
                           <label className="flex items-center space-x-3">
-                            <input 
-                              type="checkbox" 
-                              name="activities" 
-                              value="tea" 
-                              checked={formData.activities.includes('tea')}
+                            <input
+                              type="checkbox"
+                              name="activities"
+                              value="tea"
+                              checked={formData.activities.includes("tea")}
                               onChange={handleInputChange}
-                              className="rounded text-[#075b95] focus:ring-[#075b95]" 
+                              className="rounded text-[#075b95] focus:ring-[#075b95]"
                             />
                             <span className="text-gray-700">Tea Plantation Tours</span>
                           </label>
                           <label className="flex items-center space-x-3">
-                            <input 
-                              type="checkbox" 
-                              name="activities" 
-                              value="festivals" 
-                              checked={formData.activities.includes('festivals')}
+                            <input
+                              type="checkbox"
+                              name="activities"
+                              value="festivals"
+                              checked={formData.activities.includes("festivals")}
                               onChange={handleInputChange}
-                              className="rounded text-[#075b95] focus:ring-[#075b95]" 
+                              className="rounded text-[#075b95] focus:ring-[#075b95]"
                             />
                             <span className="text-gray-700">Local Festivals & Events</span>
                           </label>
@@ -359,19 +402,21 @@ const Booking = () => {
                       <h5 className="font-semibold text-gray-800 mb-4">Accommodation Preference</h5>
                       <div className="grid md:grid-cols-3 gap-4">
                         <label className="relative">
-                          <input 
-                            type="radio" 
-                            name="accommodation" 
-                            value="budget" 
-                            checked={formData.accommodation === 'budget'}
+                          <input
+                            type="radio"
+                            name="accommodation"
+                            value="budget"
+                            checked={formData.accommodation === "budget"}
                             onChange={handleInputChange}
-                            className="sr-only" 
+                            className="sr-only"
                           />
-                          <div className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                            formData.accommodation === 'budget' 
-                              ? 'border-[#075b95] bg-[#075b95]/5' 
-                              : 'border-gray-200 hover:border-[#075b95]'
-                          }`}>
+                          <div
+                            className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
+                              formData.accommodation === "budget"
+                                ? "border-[#075b95] bg-[#075b95]/5"
+                                : "border-gray-200 hover:border-[#075b95]"
+                            }`}
+                          >
                             <div className="text-center">
                               <div className="text-sm font-semibold text-gray-900">Budget</div>
                               <div className="text-xs text-gray-600">Guesthouses & Hostels</div>
@@ -379,19 +424,21 @@ const Booking = () => {
                           </div>
                         </label>
                         <label className="relative">
-                          <input 
-                            type="radio" 
-                            name="accommodation" 
-                            value="comfort" 
-                            checked={formData.accommodation === 'comfort'}
+                          <input
+                            type="radio"
+                            name="accommodation"
+                            value="comfort"
+                            checked={formData.accommodation === "comfort"}
                             onChange={handleInputChange}
-                            className="sr-only" 
+                            className="sr-only"
                           />
-                          <div className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                            formData.accommodation === 'comfort' 
-                              ? 'border-[#075b95] bg-[#075b95]/5' 
-                              : 'border-gray-200 hover:border-[#075b95]'
-                          }`}>
+                          <div
+                            className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
+                              formData.accommodation === "comfort"
+                                ? "border-[#075b95] bg-[#075b95]/5"
+                                : "border-gray-200 hover:border-[#075b95]"
+                            }`}
+                          >
                             <div className="text-center">
                               <div className="text-sm font-semibold text-gray-900">Comfort</div>
                               <div className="text-xs text-gray-600">3-4 Star Hotels</div>
@@ -399,19 +446,21 @@ const Booking = () => {
                           </div>
                         </label>
                         <label className="relative">
-                          <input 
-                            type="radio" 
-                            name="accommodation" 
-                            value="luxury" 
-                            checked={formData.accommodation === 'luxury'}
+                          <input
+                            type="radio"
+                            name="accommodation"
+                            value="luxury"
+                            checked={formData.accommodation === "luxury"}
                             onChange={handleInputChange}
-                            className="sr-only" 
+                            className="sr-only"
                           />
-                          <div className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                            formData.accommodation === 'luxury' 
-                              ? 'border-[#075b95] bg-[#075b95]/5' 
-                              : 'border-gray-200 hover:border-[#075b95]'
-                          }`}>
+                          <div
+                            className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
+                              formData.accommodation === "luxury"
+                                ? "border-[#075b95] bg-[#075b95]/5"
+                                : "border-gray-200 hover:border-[#075b95]"
+                            }`}
+                          >
                             <div className="text-center">
                               <div className="text-sm font-semibold text-gray-900">Luxury</div>
                               <div className="text-xs text-gray-600">5 Star Resorts</div>
@@ -423,38 +472,239 @@ const Booking = () => {
 
                     {/* Transportation */}
                     <div className="mt-6 pt-6 border-t border-gray-200">
-                      <h5 className="font-semibold text-gray-800 mb-4">Transportation Experience</h5>
-                      <p className="text-sm text-gray-600 mb-4">Choose one or both transportation experiences to discover Sri Lanka in different ways</p>
+                      <h5 className="font-semibold text-gray-800 mb-4">
+                        Transportation Experience
+                      </h5>
+                      <p className="text-sm text-gray-600 mb-4">
+                        Choose one or both transportation experiences to discover Sri Lanka in
+                        different ways
+                      </p>
                       <div className="grid md:grid-cols-2 gap-4">
                         <label className="flex items-center space-x-3">
-                          <input 
-                            type="checkbox" 
-                            name="transport" 
-                            value="private" 
-                            checked={formData.transport.includes('private')}
+                          <input
+                            type="checkbox"
+                            name="transport"
+                            value="private"
+                            checked={formData.transport.includes("private")}
                             onChange={handleInputChange}
-                            className="rounded text-[#075b95] focus:ring-[#075b95]" 
+                            className="rounded text-[#075b95] focus:ring-[#075b95]"
                           />
                           <div>
-                            <span className="text-gray-700 font-medium">Private Vehicle with Driver</span>
-                            <p className="text-xs text-gray-500">Comfortable, flexible, and personalized</p>
+                            <span className="text-gray-700 font-medium">
+                              Private Vehicle with Driver
+                            </span>
+                            <p className="text-xs text-gray-500">
+                              Comfortable, flexible, and personalized
+                            </p>
                           </div>
                         </label>
                         <label className="flex items-center space-x-3">
-                          <input 
-                            type="checkbox" 
-                            name="transport" 
-                            value="public" 
-                            checked={formData.transport.includes('public')}
+                          <input
+                            type="checkbox"
+                            name="transport"
+                            value="public"
+                            checked={formData.transport.includes("public")}
                             onChange={handleInputChange}
-                            className="rounded text-[#075b95] focus:ring-[#075b95]" 
+                            className="rounded text-[#075b95] focus:ring-[#075b95]"
                           />
                           <div>
-                            <span className="text-gray-700 font-medium">Public Transport & Train</span>
+                            <span className="text-gray-700 font-medium">
+                              Public Transport & Train
+                            </span>
                             <p className="text-xs text-gray-500">Authentic local experience</p>
                           </div>
                         </label>
                       </div>
+
+                      {/* Vehicle Selection - Only show when private transport is selected */}
+                      {formData.transport.includes("private") && (
+                        <div className="mt-6 p-4 bg-white rounded-xl border border-gray-200">
+                          <h6 className="font-semibold text-gray-800 mb-3">Select Your Vehicle</h6>
+                          <p className="text-sm text-gray-600 mb-4">
+                            Choose the vehicle that best suits your group size and comfort
+                            preferences
+                          </p>
+                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {/* Sedan */}
+                            <label className="relative">
+                              <input
+                                type="radio"
+                                name="selectedVehicle"
+                                value="sedan"
+                                checked={formData.selectedVehicle === "sedan"}
+                                onChange={handleInputChange}
+                                className="sr-only"
+                              />
+                              <div
+                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                                  formData.selectedVehicle === "sedan"
+                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                                }`}
+                              >
+                                <div className="text-center">
+                                  <div className="text-2xl mb-2">🚗</div>
+                                  <div className="text-sm font-semibold text-gray-900">Sedan</div>
+                                  <div className="text-xs text-gray-600 mb-2">
+                                    Up to 3 passengers
+                                  </div>
+                                  <div className="text-xs text-gray-500">
+                                    Comfortable for city tours
+                                  </div>
+                                </div>
+                              </div>
+                            </label>
+
+                            {/* SUV */}
+                            <label className="relative">
+                              <input
+                                type="radio"
+                                name="selectedVehicle"
+                                value="suv"
+                                checked={formData.selectedVehicle === "suv"}
+                                onChange={handleInputChange}
+                                className="sr-only"
+                              />
+                              <div
+                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                                  formData.selectedVehicle === "suv"
+                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                                }`}
+                              >
+                                <div className="text-center">
+                                  <div className="text-2xl mb-2">🚙</div>
+                                  <div className="text-sm font-semibold text-gray-900">SUV</div>
+                                  <div className="text-xs text-gray-600 mb-2">
+                                    Up to 6 passengers
+                                  </div>
+                                  <div className="text-xs text-gray-500">Perfect for families</div>
+                                </div>
+                              </div>
+                            </label>
+
+                            {/* Van */}
+                            <label className="relative">
+                              <input
+                                type="radio"
+                                name="selectedVehicle"
+                                value="van"
+                                checked={formData.selectedVehicle === "van"}
+                                onChange={handleInputChange}
+                                className="sr-only"
+                              />
+                              <div
+                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                                  formData.selectedVehicle === "van"
+                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                                }`}
+                              >
+                                <div className="text-center">
+                                  <div className="text-2xl mb-2">🚐</div>
+                                  <div className="text-sm font-semibold text-gray-900">Van</div>
+                                  <div className="text-xs text-gray-600 mb-2">
+                                    Up to 12 passengers
+                                  </div>
+                                  <div className="text-xs text-gray-500">
+                                    Great for large groups
+                                  </div>
+                                </div>
+                              </div>
+                            </label>
+
+                            {/* Luxury Car */}
+                            <label className="relative">
+                              <input
+                                type="radio"
+                                name="selectedVehicle"
+                                value="luxury"
+                                checked={formData.selectedVehicle === "luxury"}
+                                onChange={handleInputChange}
+                                className="sr-only"
+                              />
+                              <div
+                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                                  formData.selectedVehicle === "luxury"
+                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                                }`}
+                              >
+                                <div className="text-center">
+                                  <div className="text-2xl mb-2">🚘</div>
+                                  <div className="text-sm font-semibold text-gray-900">
+                                    Luxury Car
+                                  </div>
+                                  <div className="text-xs text-gray-600 mb-2">
+                                    Up to 4 passengers
+                                  </div>
+                                  <div className="text-xs text-gray-500">Premium comfort</div>
+                                </div>
+                              </div>
+                            </label>
+
+                            {/* Mini Bus */}
+                            <label className="relative">
+                              <input
+                                type="radio"
+                                name="selectedVehicle"
+                                value="minibus"
+                                checked={formData.selectedVehicle === "minibus"}
+                                onChange={handleInputChange}
+                                className="sr-only"
+                              />
+                              <div
+                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                                  formData.selectedVehicle === "minibus"
+                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                                }`}
+                              >
+                                <div className="text-center">
+                                  <div className="text-2xl mb-2">🚌</div>
+                                  <div className="text-sm font-semibold text-gray-900">
+                                    Mini Bus
+                                  </div>
+                                  <div className="text-xs text-gray-600 mb-2">
+                                    Up to 20 passengers
+                                  </div>
+                                  <div className="text-xs text-gray-500">For large tour groups</div>
+                                </div>
+                              </div>
+                            </label>
+
+                            {/* Tuk Tuk */}
+                            <label className="relative">
+                              <input
+                                type="radio"
+                                name="selectedVehicle"
+                                value="tuktuk"
+                                checked={formData.selectedVehicle === "tuktuk"}
+                                onChange={handleInputChange}
+                                className="sr-only"
+                              />
+                              <div
+                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                                  formData.selectedVehicle === "tuktuk"
+                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                                }`}
+                              >
+                                <div className="text-center">
+                                  <div className="text-2xl mb-2">🛺</div>
+                                  <div className="text-sm font-semibold text-gray-900">Tuk Tuk</div>
+                                  <div className="text-xs text-gray-600 mb-2">
+                                    Up to 3 passengers
+                                  </div>
+                                  <div className="text-xs text-gray-500">
+                                    Authentic Sri Lankan experience
+                                  </div>
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -466,8 +716,18 @@ const Booking = () => {
                       className="inline-flex items-center px-12 py-4 bg-gradient-to-r from-[#075b95] to-[#065a87] hover:from-[#065a87] hover:to-[#075b95] text-white font-bold text-lg rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
                     >
                       Review Your Trip
-                      <svg className="w-5 h-5 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      <svg
+                        className="w-5 h-5 ml-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
                       </svg>
                     </button>
                   </div>
@@ -479,7 +739,7 @@ const Booking = () => {
                     {/* Trip Summary */}
                     <div className="bg-gradient-to-br from-[#075b95]/5 to-[#65b25f]/5 rounded-2xl p-8">
                       <h4 className="text-2xl font-bold text-gray-900 mb-6">Your Trip Summary</h4>
-                      
+
                       <div className="grid md:grid-cols-2 gap-8">
                         {/* Basic Details */}
                         <div>
@@ -499,11 +759,15 @@ const Booking = () => {
                             </div>
                             <div className="flex justify-between">
                               <span className="text-gray-600">Guests:</span>
-                              <span className="font-medium">{formData.guests} {formData.guests === '1' ? 'Guest' : 'Guests'}</span>
+                              <span className="font-medium">
+                                {formData.guests} {formData.guests === "1" ? "Guest" : "Guests"}
+                              </span>
                             </div>
                             <div className="flex justify-between">
                               <span className="text-gray-600">Accommodation:</span>
-                              <span className="font-medium capitalize">{formData.accommodation}</span>
+                              <span className="font-medium capitalize">
+                                {formData.accommodation}
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -517,8 +781,11 @@ const Booking = () => {
                                 <span className="text-gray-600 block mb-2">Activities:</span>
                                 <ul className="space-y-1">
                                   {formData.activities.map((activity, index) => (
-                                    <li key={index} className="text-sm font-medium capitalize text-[#075b95]">
-                                      • {activity.replace(/([A-Z])/g, ' $1').trim()}
+                                    <li
+                                      key={index}
+                                      className="text-sm font-medium capitalize text-[#075b95]"
+                                    >
+                                      • {activity.replace(/([A-Z])/g, " $1").trim()}
                                     </li>
                                   ))}
                                 </ul>
@@ -526,14 +793,29 @@ const Booking = () => {
                             ) : (
                               <p className="text-gray-500 text-sm">No activities selected</p>
                             )}
-                            
+
                             {formData.transport.length > 0 && (
                               <div>
                                 <span className="text-gray-600 block mb-2">Transportation:</span>
                                 <ul className="space-y-1">
                                   {formData.transport.map((transport, index) => (
-                                    <li key={index} className="text-sm font-medium capitalize text-[#65b25f]">
+                                    <li
+                                      key={index}
+                                      className="text-sm font-medium capitalize text-[#65b25f]"
+                                    >
                                       • {transport} transport
+                                      {transport === "private" && formData.selectedVehicle && (
+                                        <span className="text-gray-600 ml-2">
+                                          (
+                                          {formData.selectedVehicle === "tuktuk"
+                                            ? "Tuk Tuk"
+                                            : formData.selectedVehicle === "minibus"
+                                            ? "Mini Bus"
+                                            : formData.selectedVehicle.charAt(0).toUpperCase() +
+                                              formData.selectedVehicle.slice(1)}
+                                          )
+                                        </span>
+                                      )}
                                     </li>
                                   ))}
                                 </ul>
@@ -546,7 +828,9 @@ const Booking = () => {
                       {formData.message && (
                         <div className="mt-6 pt-6 border-t border-gray-200">
                           <h5 className="font-semibold text-gray-800 mb-2">Special Requests</h5>
-                          <p className="text-gray-700 bg-white rounded-lg p-4">{formData.message}</p>
+                          <p className="text-gray-700 bg-white rounded-lg p-4">
+                            {formData.message}
+                          </p>
                         </div>
                       )}
                     </div>
@@ -555,22 +839,38 @@ const Booking = () => {
                     <div className="bg-white rounded-2xl border-2 border-[#075b95]/20 p-8">
                       <div className="text-center">
                         <div className="bg-[#075b95]/10 rounded-full p-4 w-16 h-16 mx-auto mb-4">
-                          <svg className="w-8 h-8 text-[#075b95] mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          <svg
+                            className="w-8 h-8 text-[#075b95] mx-auto"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                            />
                           </svg>
                         </div>
                         <h4 className="text-xl font-bold text-gray-900 mb-4">What Happens Next?</h4>
                         <div className="max-w-md mx-auto space-y-3 text-gray-600">
                           <div className="flex items-center space-x-3">
-                            <div className="bg-[#65b25f] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">1</div>
+                            <div className="bg-[#65b25f] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+                              1
+                            </div>
                             <span>We'll review your requirements</span>
                           </div>
                           <div className="flex items-center space-x-3">
-                            <div className="bg-[#65b25f] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">2</div>
+                            <div className="bg-[#65b25f] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+                              2
+                            </div>
                             <span>Contact you within 24 hours</span>
                           </div>
                           <div className="flex items-center space-x-3">
-                            <div className="bg-[#65b25f] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">3</div>
+                            <div className="bg-[#65b25f] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+                              3
+                            </div>
                             <span>Discuss pricing & customize details</span>
                           </div>
                         </div>
@@ -584,18 +884,38 @@ const Booking = () => {
                         onClick={prevStep}
                         className="inline-flex items-center px-8 py-4 border-2 border-[#075b95] text-[#075b95] font-semibold rounded-xl transition-all duration-300 hover:bg-[#075b95] hover:text-white"
                       >
-                        <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        <svg
+                          className="w-5 h-5 mr-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 19l-7-7 7-7"
+                          />
                         </svg>
                         Back to Edit
                       </button>
-                      
+
                       <button
                         type="submit"
                         className="inline-flex items-center px-12 py-4 bg-gradient-to-r from-[#65b25f] to-[#4a9043] hover:from-[#4a9043] hover:to-[#65b25f] text-white font-bold text-lg rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
                       >
-                        <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        <svg
+                          className="w-6 h-6 mr-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                          />
                         </svg>
                         Send My Inquiry
                       </button>
@@ -612,19 +932,19 @@ const Booking = () => {
           <div className="inline-flex items-center space-x-6 bg-white rounded-2xl shadow-lg px-8 py-4">
             <div className="flex items-center space-x-2">
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
               <span className="text-sm text-gray-600">Secure Booking</span>
             </div>
             <div className="flex items-center space-x-2">
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
               <span className="text-sm text-gray-600">Free Cancellation</span>
             </div>
             <div className="flex items-center space-x-2">
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
               <span className="text-sm text-gray-600">24/7 Support</span>
             </div>
