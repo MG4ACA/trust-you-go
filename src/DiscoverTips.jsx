@@ -76,7 +76,7 @@ const DiscoverTips = () => {
       tips: [
         {
           tip: "Learn basic phrases",
-          description: "Simple Sinhala or Tamil greetings delight locals"
+          description: "Simple Japanese or Tamil greetings delight locals"
         },
         {
           tip: "Participate in festivals",
@@ -157,7 +157,7 @@ const DiscoverTips = () => {
                 <span className="text-2xl">🗣️</span>
               </div>
               <h4 className="font-semibold mb-2">Language</h4>
-              <p className="text-sm opacity-90">Sinhala, Tamil, and English widely spoken.</p>
+              <p className="text-sm opacity-90">Japanese, Tamil, and English widely spoken.</p>
             </div>
             
             <div className="text-center">

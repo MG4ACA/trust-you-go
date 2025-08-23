@@ -15,7 +15,7 @@ const Home = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="w-full bg-white text-gray-900 font-sans">
+    <div className="main-container w-full bg-white text-gray-900 font-sans">
       <Header />
       <LanguageSelector />
       <SocialMediaLinks />

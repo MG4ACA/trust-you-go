@@ -23,7 +23,7 @@ const LanguageSelector = () => {
   // Simple language options with just letters/icons
   const languages = [
     { code: "en", display: "EN" },
-    { code: "si", display: "සි" },
+    { code: "ja", display: "日" },
     { code: "ta", display: "த" },
   ];
 

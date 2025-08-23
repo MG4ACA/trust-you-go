@@ -1,15 +1,15 @@
 import { en } from "./en.js";
-import { si } from "./si.js";
+import { ja } from "./ja.js";
 import { ta } from "./ta.js";
 
 export const translations = {
   en,
-  si,
+  ja,
   ta,
 };
 
 export const languages = [
   { code: "en", name: "EN", nativeName: "English" },
-  { code: "si", name: "සි", nativeName: "සිංහල" },
+  { code: "ja", name: "日", nativeName: "日本語" },
   { code: "ta", name: "த", nativeName: "தமிழ்" },
 ];

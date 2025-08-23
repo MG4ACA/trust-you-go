@@ -282,7 +282,6 @@ button:focus-visible {
 /* Header Navigation Styles */
 .header-nav-link {
   color: white;
-  font-weight: bold;
   transition: all 0.3s ease;
   position: relative;
   padding: 0.5rem 0;
@@ -312,6 +311,11 @@ button:focus-visible {
 /* Logo Container Styles */
 .logo-container {
   border-radius: 0 0 30px 0;
+}
+
+.logo-container-fixed {
+  position: fixed;
+  z-index: 100;
 }
 
 .logo-container:hover {
