@@ -18,24 +18,32 @@ const About = () => {
                   {t("about.title")}
                 </h2>
               </div>
-              <p className="text-lg text-gray-700 leading-relaxed mb-8">
-                {t("about.content")}
-              </p>
+              <p className="text-lg text-gray-700 leading-relaxed mb-8">{t("about.content")}</p>
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-[#65b25f] rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <div className="w-12 h-12 bg-[#075b95]/10 rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                 </div>
                 <span className="text-gray-600 font-medium">Trusted by 1000+ travelers</span>
               </div>
             </div>
-            
+
             {/* Image Side */}
             <div className="relative h-64 md:h-auto">
-              <img 
-                src="/locations/segiriya-rock.jpg" 
-                alt="About Us" 
+              <img
+                src="/locations/segiriya-rock.jpg"
+                alt="About Us"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#075b95]/20 to-transparent"></div>

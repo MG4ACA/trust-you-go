@@ -103,14 +103,13 @@ const DiscoverTips = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-[#e67e22]/10 text-[#e67e22] font-semibold rounded-full text-sm tracking-wide uppercase mb-4">
-            Pro Tips
+            {t("discoverTips.proTips")}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Discover Insider Tips
+            {t("discoverTips.title")}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Expert advice and insider secrets to help you make the most of your Sri Lankan adventure
-            while staying safe and culturally aware
+            {t("discoverTips.description")}
           </p>
         </div>
 
@@ -124,15 +123,15 @@ const DiscoverTips = () => {
               {/* Category Header */}
               <div className="text-center mb-6">
                 <div className="text-4xl mb-3">{category.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900">{category.title}</h3>
+                <h3 className="text-xl font-bold text-gray-900">{t(`discoverTips.category.${index}.title`)}</h3>
               </div>
 
               {/* Tips List */}
               <div className="space-y-4">
                 {category.tips.map((item, tipIndex) => (
                   <div key={tipIndex} className="border-l-4 border-[#65b25f] pl-4">
-                    <h4 className="font-semibold text-gray-900 mb-1">{item.tip}</h4>
-                    <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                    <h4 className="font-semibold text-gray-900 mb-1">{t(`discoverTips.category.${index}.tip.${tipIndex}.title`)}</h4>
+                    <p className="text-sm text-gray-600 leading-relaxed">{t(`discoverTips.category.${index}.tip.${tipIndex}.desc`)}</p>
                   </div>
                 ))}
               </div>
@@ -143,8 +142,8 @@ const DiscoverTips = () => {
         {/* Quick Tips Bar */}
         <div className="bg-gradient-to-r from-[#075b95] to-[#065a87] rounded-3xl p-8 text-white">
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold mb-4">Quick Essential Tips</h3>
-            <p className="text-lg opacity-90">Must-know basics for every Sri Lanka traveler</p>
+            <h3 className="text-2xl font-bold mb-4">{t("discoverTips.quickTitle")}</h3>
+            <p className="text-lg opacity-90">{t("discoverTips.quickDesc")}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -152,32 +151,32 @@ const DiscoverTips = () => {
               <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
                 <span className="text-2xl">💵</span>
               </div>
-              <h4 className="font-semibold mb-2">Currency</h4>
-              <p className="text-sm opacity-90">Sri Lankan Rupee (LKR). USD widely accepted.</p>
+              <h4 className="font-semibold mb-2">{t("discoverTips.quick.currency.title")}</h4>
+              <p className="text-sm opacity-90">{t("discoverTips.quick.currency.desc")}</p>
             </div>
 
             <div className="text-center">
               <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
                 <span className="text-2xl">🗣️</span>
               </div>
-              <h4 className="font-semibold mb-2">Language</h4>
-              <p className="text-sm opacity-90">Japanese, Tamil, and English widely spoken.</p>
+              <h4 className="font-semibold mb-2">{t("discoverTips.quick.language.title")}</h4>
+              <p className="text-sm opacity-90">{t("discoverTips.quick.language.desc")}</p>
             </div>
 
             <div className="text-center">
               <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
                 <span className="text-2xl">🔌</span>
               </div>
-              <h4 className="font-semibold mb-2">Power</h4>
-              <p className="text-sm opacity-90">Type G plugs, 230V. Bring universal adapter.</p>
+              <h4 className="font-semibold mb-2">{t("discoverTips.quick.power.title")}</h4>
+              <p className="text-sm opacity-90">{t("discoverTips.quick.power.desc")}</p>
             </div>
 
             <div className="text-center">
               <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
                 <span className="text-2xl">⏰</span>
               </div>
-              <h4 className="font-semibold mb-2">Time Zone</h4>
-              <p className="text-sm opacity-90">GMT +5:30 (same as India, no daylight saving).</p>
+              <h4 className="font-semibold mb-2">{t("discoverTips.quick.timezone.title")}</h4>
+              <p className="text-sm opacity-90">{t("discoverTips.quick.timezone.desc")}</p>
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@ const Header = () => {
           style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
           aria-label="Scroll to top"
         >
-          <img src="/logo.png" alt="Trust You Go Logo" className="logo-container h-[5rem] w-auto" />
+          <img src="/logo.png" alt="Trust You Go Logo" className="logo-container h-12 sm:h-[5rem] w-auto" />
         </button>
       </div>
       {/* Navigation */}

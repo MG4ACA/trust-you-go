@@ -460,7 +460,11 @@ const Booking = () => {
                           }`}
                         >
                           <div className="text-center">
-                            <img src="/car-icon.png" alt="Sedan" className="mx-auto mb-2 w-10 h-10 object-contain" />
+                            <img
+                              src="/car-icon.png"
+                              alt="Sedan"
+                              className="mx-auto mb-2 w-10 h-10 object-contain"
+                            />
                             <div className="text-sm font-semibold text-gray-900">Sedan</div>
                             <div className="text-xs text-gray-600 mb-2">Up to 3 passengers</div>
                             <div className="text-xs text-gray-500">Comfortable for city tours</div>
@@ -486,7 +490,11 @@ const Booking = () => {
                           }`}
                         >
                           <div className="text-center">
-                            <img src="/car-icon-02.png" alt="SUV" className="mx-auto mb-2 w-10 h-10 object-contain" />
+                            <img
+                              src="/car-icon-02.png"
+                              alt="SUV"
+                              className="mx-auto mb-2 w-10 h-10 object-contain"
+                            />
                             <div className="text-sm font-semibold text-gray-900">SUV</div>
                             <div className="text-xs text-gray-600 mb-2">Up to 6 passengers</div>
                             <div className="text-xs text-gray-500">Perfect for families</div>
@@ -512,7 +520,11 @@ const Booking = () => {
                           }`}
                         >
                           <div className="text-center">
-                            <img src="/van-icon-02.png" alt="Van" className="mx-auto mb-2 w-10 h-10 object-contain" />
+                            <img
+                              src="/van-icon-02.png"
+                              alt="Van"
+                              className="mx-auto mb-2 w-10 h-10 object-contain"
+                            />
                             <div className="text-sm font-semibold text-gray-900">Van</div>
                             <div className="text-xs text-gray-600 mb-2">Up to 12 passengers</div>
                             <div className="text-xs text-gray-500">Great for large groups</div>
@@ -538,7 +550,11 @@ const Booking = () => {
                           }`}
                         >
                           <div className="text-center">
-                            <img src="/luxury-car.png" alt="Luxury Car" className="mx-auto mb-2 w-10 h-10 object-contain" />
+                            <img
+                              src="/luxury-car.png"
+                              alt="Luxury Car"
+                              className="mx-auto mb-2 w-10 h-10 object-contain"
+                            />
                             <div className="text-sm font-semibold text-gray-900">Luxury Car</div>
                             <div className="text-xs text-gray-600 mb-2">Up to 4 passengers</div>
                             <div className="text-xs text-gray-500">Premium comfort</div>
@@ -564,7 +580,11 @@ const Booking = () => {
                           }`}
                         >
                           <div className="text-center">
-                            <img src="/bus-icon.png" alt="Mini Bus" className="mx-auto mb-2 w-10 h-10 object-contain" />
+                            <img
+                              src="/bus-icon.png"
+                              alt="Mini Bus"
+                              className="mx-auto mb-2 w-10 h-10 object-contain"
+                            />
                             <div className="text-sm font-semibold text-gray-900">Mini Bus</div>
                             <div className="text-xs text-gray-600 mb-2">Up to 20 passengers</div>
                             <div className="text-xs text-gray-500">For large tour groups</div>
@@ -620,19 +640,19 @@ const Booking = () => {
                 <h4 className="text-xl font-bold text-gray-900 mb-4">What Happens Next?</h4>
                 <div className="max-w-md mx-auto space-y-3 text-gray-600">
                   <div className="flex items-center space-x-3">
-                    <div className="bg-[#65b25f] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+                    <div className="bg-[#075b95]/10 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       1
                     </div>
                     <span>We'll review your requirements</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="bg-[#65b25f] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+                    <div className="bg-[#075b95]/10 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       2
                     </div>
                     <span>Contact you within 24 hours</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="bg-[#65b25f] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+                    <div className="bg-[#075b95]/10 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       3
                     </div>
                     <span>Discuss pricing & customize details</span>
