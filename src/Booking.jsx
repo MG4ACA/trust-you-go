@@ -13,7 +13,6 @@ const Booking = () => {
     message: "",
     activities: [],
     accommodation: "",
-    transport: [],
     selectedVehicle: "",
   });
 
@@ -21,19 +20,11 @@ const Booking = () => {
     const { name, value, type, checked } = e.target;
 
     if (type === "checkbox") {
-      if (name === "activities" || name === "transport") {
+      if (name === "activities") {
         setFormData((prev) => ({
           ...prev,
           [name]: checked ? [...prev[name], value] : prev[name].filter((item) => item !== value),
         }));
-
-        // Reset vehicle selection if private transport is unchecked
-        if (name === "transport" && value === "private" && !checked) {
-          setFormData((prev) => ({
-            ...prev,
-            selectedVehicle: "",
-          }));
-        }
       }
     } else {
       setFormData((prev) => ({
@@ -69,7 +60,6 @@ const Booking = () => {
       message: "",
       activities: [],
       accommodation: "",
-      transport: [],
       selectedVehicle: "",
     });
     setCurrentStep(1);
@@ -95,7 +85,6 @@ const Booking = () => {
         "We are interested in experiencing authentic Sri Lankan culture and would love to visit ancient temples and enjoy local cuisine. Please suggest the best time to visit tea plantations.",
       activities: ["hiking", "temples", "tea", "wildlife"],
       accommodation: "comfort",
-      transport: ["private"],
       selectedVehicle: "suv",
     });
   };
@@ -472,239 +461,151 @@ const Booking = () => {
 
                     {/* Transportation */}
                     <div className="mt-6 pt-6 border-t border-gray-200">
-                      <h5 className="font-semibold text-gray-800 mb-4">
-                        Transportation Experience
-                      </h5>
+                      <h5 className="font-semibold text-gray-800 mb-4">Select Your Vehicle</h5>
                       <p className="text-sm text-gray-600 mb-4">
-                        Choose one or both transportation experiences to discover Sri Lanka in
-                        different ways
+                        Choose the vehicle that best suits your group size and comfort preferences
                       </p>
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <label className="flex items-center space-x-3">
-                          <input
-                            type="checkbox"
-                            name="transport"
-                            value="private"
-                            checked={formData.transport.includes("private")}
-                            onChange={handleInputChange}
-                            className="rounded text-[#075b95] focus:ring-[#075b95]"
-                          />
-                          <div>
-                            <span className="text-gray-700 font-medium">
-                              Private Vehicle with Driver
-                            </span>
-                            <p className="text-xs text-gray-500">
-                              Comfortable, flexible, and personalized
-                            </p>
-                          </div>
-                        </label>
-                        <label className="flex items-center space-x-3">
-                          <input
-                            type="checkbox"
-                            name="transport"
-                            value="public"
-                            checked={formData.transport.includes("public")}
-                            onChange={handleInputChange}
-                            className="rounded text-[#075b95] focus:ring-[#075b95]"
-                          />
-                          <div>
-                            <span className="text-gray-700 font-medium">
-                              Public Transport & Train
-                            </span>
-                            <p className="text-xs text-gray-500">Authentic local experience</p>
-                          </div>
-                        </label>
-                      </div>
-
-                      {/* Vehicle Selection - Only show when private transport is selected */}
-                      {formData.transport.includes("private") && (
-                        <div className="mt-6 p-4 bg-white rounded-xl border border-gray-200">
-                          <h6 className="font-semibold text-gray-800 mb-3">Select Your Vehicle</h6>
-                          <p className="text-sm text-gray-600 mb-4">
-                            Choose the vehicle that best suits your group size and comfort
-                            preferences
-                          </p>
-                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {/* Sedan */}
-                            <label className="relative">
-                              <input
-                                type="radio"
-                                name="selectedVehicle"
-                                value="sedan"
-                                checked={formData.selectedVehicle === "sedan"}
-                                onChange={handleInputChange}
-                                className="sr-only"
-                              />
-                              <div
-                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                                  formData.selectedVehicle === "sedan"
-                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
-                                }`}
-                              >
-                                <div className="text-center">
-                                  <div className="text-2xl mb-2">🚗</div>
-                                  <div className="text-sm font-semibold text-gray-900">Sedan</div>
-                                  <div className="text-xs text-gray-600 mb-2">
-                                    Up to 3 passengers
-                                  </div>
-                                  <div className="text-xs text-gray-500">
-                                    Comfortable for city tours
-                                  </div>
+                      <div className="p-4 bg-white rounded-xl border border-gray-200">
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {/* Sedan */}
+                          <label className="relative">
+                            <input
+                              type="radio"
+                              name="selectedVehicle"
+                              value="sedan"
+                              checked={formData.selectedVehicle === "sedan"}
+                              onChange={handleInputChange}
+                              className="sr-only"
+                            />
+                            <div
+                              className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                                formData.selectedVehicle === "sedan"
+                                  ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                                  : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                              }`}
+                            >
+                              <div className="text-center">
+                                <div className="text-2xl mb-2">🚗</div>
+                                <div className="text-sm font-semibold text-gray-900">Sedan</div>
+                                <div className="text-xs text-gray-600 mb-2">Up to 3 passengers</div>
+                                <div className="text-xs text-gray-500">
+                                  Comfortable for city tours
                                 </div>
                               </div>
-                            </label>
+                            </div>
+                          </label>
 
-                            {/* SUV */}
-                            <label className="relative">
-                              <input
-                                type="radio"
-                                name="selectedVehicle"
-                                value="suv"
-                                checked={formData.selectedVehicle === "suv"}
-                                onChange={handleInputChange}
-                                className="sr-only"
-                              />
-                              <div
-                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                                  formData.selectedVehicle === "suv"
-                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
-                                }`}
-                              >
-                                <div className="text-center">
-                                  <div className="text-2xl mb-2">🚙</div>
-                                  <div className="text-sm font-semibold text-gray-900">SUV</div>
-                                  <div className="text-xs text-gray-600 mb-2">
-                                    Up to 6 passengers
-                                  </div>
-                                  <div className="text-xs text-gray-500">Perfect for families</div>
-                                </div>
+                          {/* SUV */}
+                          <label className="relative">
+                            <input
+                              type="radio"
+                              name="selectedVehicle"
+                              value="suv"
+                              checked={formData.selectedVehicle === "suv"}
+                              onChange={handleInputChange}
+                              className="sr-only"
+                            />
+                            <div
+                              className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                                formData.selectedVehicle === "suv"
+                                  ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                                  : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                              }`}
+                            >
+                              <div className="text-center">
+                                <div className="text-2xl mb-2">🚙</div>
+                                <div className="text-sm font-semibold text-gray-900">SUV</div>
+                                <div className="text-xs text-gray-600 mb-2">Up to 6 passengers</div>
+                                <div className="text-xs text-gray-500">Perfect for families</div>
                               </div>
-                            </label>
+                            </div>
+                          </label>
 
-                            {/* Van */}
-                            <label className="relative">
-                              <input
-                                type="radio"
-                                name="selectedVehicle"
-                                value="van"
-                                checked={formData.selectedVehicle === "van"}
-                                onChange={handleInputChange}
-                                className="sr-only"
-                              />
-                              <div
-                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                                  formData.selectedVehicle === "van"
-                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
-                                }`}
-                              >
-                                <div className="text-center">
-                                  <div className="text-2xl mb-2">🚐</div>
-                                  <div className="text-sm font-semibold text-gray-900">Van</div>
-                                  <div className="text-xs text-gray-600 mb-2">
-                                    Up to 12 passengers
-                                  </div>
-                                  <div className="text-xs text-gray-500">
-                                    Great for large groups
-                                  </div>
+                          {/* Van */}
+                          <label className="relative">
+                            <input
+                              type="radio"
+                              name="selectedVehicle"
+                              value="van"
+                              checked={formData.selectedVehicle === "van"}
+                              onChange={handleInputChange}
+                              className="sr-only"
+                            />
+                            <div
+                              className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                                formData.selectedVehicle === "van"
+                                  ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                                  : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                              }`}
+                            >
+                              <div className="text-center">
+                                <div className="text-2xl mb-2">🚐</div>
+                                <div className="text-sm font-semibold text-gray-900">Van</div>
+                                <div className="text-xs text-gray-600 mb-2">
+                                  Up to 12 passengers
                                 </div>
+                                <div className="text-xs text-gray-500">Great for large groups</div>
                               </div>
-                            </label>
+                            </div>
+                          </label>
 
-                            {/* Luxury Car */}
-                            <label className="relative">
-                              <input
-                                type="radio"
-                                name="selectedVehicle"
-                                value="luxury"
-                                checked={formData.selectedVehicle === "luxury"}
-                                onChange={handleInputChange}
-                                className="sr-only"
-                              />
-                              <div
-                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                                  formData.selectedVehicle === "luxury"
-                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
-                                }`}
-                              >
-                                <div className="text-center">
-                                  <div className="text-2xl mb-2">🚘</div>
-                                  <div className="text-sm font-semibold text-gray-900">
-                                    Luxury Car
-                                  </div>
-                                  <div className="text-xs text-gray-600 mb-2">
-                                    Up to 4 passengers
-                                  </div>
-                                  <div className="text-xs text-gray-500">Premium comfort</div>
+                          {/* Luxury Car */}
+                          <label className="relative">
+                            <input
+                              type="radio"
+                              name="selectedVehicle"
+                              value="luxury"
+                              checked={formData.selectedVehicle === "luxury"}
+                              onChange={handleInputChange}
+                              className="sr-only"
+                            />
+                            <div
+                              className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                                formData.selectedVehicle === "luxury"
+                                  ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                                  : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                              }`}
+                            >
+                              <div className="text-center">
+                                <div className="text-2xl mb-2">🚘</div>
+                                <div className="text-sm font-semibold text-gray-900">
+                                  Luxury Car
                                 </div>
+                                <div className="text-xs text-gray-600 mb-2">Up to 4 passengers</div>
+                                <div className="text-xs text-gray-500">Premium comfort</div>
                               </div>
-                            </label>
+                            </div>
+                          </label>
 
-                            {/* Mini Bus */}
-                            <label className="relative">
-                              <input
-                                type="radio"
-                                name="selectedVehicle"
-                                value="minibus"
-                                checked={formData.selectedVehicle === "minibus"}
-                                onChange={handleInputChange}
-                                className="sr-only"
-                              />
-                              <div
-                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                                  formData.selectedVehicle === "minibus"
-                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
-                                }`}
-                              >
-                                <div className="text-center">
-                                  <div className="text-2xl mb-2">🚌</div>
-                                  <div className="text-sm font-semibold text-gray-900">
-                                    Mini Bus
-                                  </div>
-                                  <div className="text-xs text-gray-600 mb-2">
-                                    Up to 20 passengers
-                                  </div>
-                                  <div className="text-xs text-gray-500">For large tour groups</div>
+                          {/* Mini Bus */}
+                          <label className="relative">
+                            <input
+                              type="radio"
+                              name="selectedVehicle"
+                              value="minibus"
+                              checked={formData.selectedVehicle === "minibus"}
+                              onChange={handleInputChange}
+                              className="sr-only"
+                            />
+                            <div
+                              className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                                formData.selectedVehicle === "minibus"
+                                  ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                                  : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                              }`}
+                            >
+                              <div className="text-center">
+                                <div className="text-2xl mb-2">🚌</div>
+                                <div className="text-sm font-semibold text-gray-900">Mini Bus</div>
+                                <div className="text-xs text-gray-600 mb-2">
+                                  Up to 20 passengers
                                 </div>
+                                <div className="text-xs text-gray-500">For large tour groups</div>
                               </div>
-                            </label>
-
-                            {/* Tuk Tuk */}
-                            <label className="relative">
-                              <input
-                                type="radio"
-                                name="selectedVehicle"
-                                value="tuktuk"
-                                checked={formData.selectedVehicle === "tuktuk"}
-                                onChange={handleInputChange}
-                                className="sr-only"
-                              />
-                              <div
-                                className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                                  formData.selectedVehicle === "tuktuk"
-                                    ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                                    : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
-                                }`}
-                              >
-                                <div className="text-center">
-                                  <div className="text-2xl mb-2">🛺</div>
-                                  <div className="text-sm font-semibold text-gray-900">Tuk Tuk</div>
-                                  <div className="text-xs text-gray-600 mb-2">
-                                    Up to 3 passengers
-                                  </div>
-                                  <div className="text-xs text-gray-500">
-                                    Authentic Sri Lankan experience
-                                  </div>
-                                </div>
-                              </div>
-                            </label>
-                          </div>
+                            </div>
+                          </label>
                         </div>
-                      )}
+                      </div>
                     </div>
                   </div>
 
@@ -794,31 +695,18 @@ const Booking = () => {
                               <p className="text-gray-500 text-sm">No activities selected</p>
                             )}
 
-                            {formData.transport.length > 0 && (
+                            {formData.selectedVehicle && (
                               <div>
-                                <span className="text-gray-600 block mb-2">Transportation:</span>
-                                <ul className="space-y-1">
-                                  {formData.transport.map((transport, index) => (
-                                    <li
-                                      key={index}
-                                      className="text-sm font-medium capitalize text-[#65b25f]"
-                                    >
-                                      • {transport} transport
-                                      {transport === "private" && formData.selectedVehicle && (
-                                        <span className="text-gray-600 ml-2">
-                                          (
-                                          {formData.selectedVehicle === "tuktuk"
-                                            ? "Tuk Tuk"
-                                            : formData.selectedVehicle === "minibus"
-                                            ? "Mini Bus"
-                                            : formData.selectedVehicle.charAt(0).toUpperCase() +
-                                              formData.selectedVehicle.slice(1)}
-                                          )
-                                        </span>
-                                      )}
-                                    </li>
-                                  ))}
-                                </ul>
+                                <span className="text-gray-600 block mb-2">Selected Vehicle:</span>
+                                <div className="text-sm font-medium text-[#65b25f]">
+                                  •{" "}
+                                  {formData.selectedVehicle === "tuktuk"
+                                    ? "Tuk Tuk"
+                                    : formData.selectedVehicle === "minibus"
+                                    ? "Mini Bus"
+                                    : formData.selectedVehicle.charAt(0).toUpperCase() +
+                                      formData.selectedVehicle.slice(1)}
+                                </div>
                               </div>
                             )}
                           </div>

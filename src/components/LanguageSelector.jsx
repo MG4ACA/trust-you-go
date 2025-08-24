@@ -39,12 +39,12 @@ const LanguageSelector = () => {
       {/* Language Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 px-3 py-2 bg-[#075b95] text-white rounded-full shadow-lg hover:bg-[#65b25f] transition-colors"
+        className="flex items-center gap-1 px-3 py-2 text-white rounded-full shadow-lg hover:border-[#646cff00] focus:outline-none transition-colors"
       >
         {/* Globe Icon */}
-        <span className="text-sm font-medium">{currentLanguage?.display}</span>
+        <img src="/globe-icon.png" alt="Language" className="w-[3rem]" />
+        {/* <span className="text-sm font-medium">{currentLanguage?.display}</span>
 
-        {/* Dropdown Arrow */}
         <svg
           className={`w-3 h-3 transition-transform ${isOpen ? "rotate-180" : ""}`}
           fill="none"
@@ -52,7 +52,7 @@ const LanguageSelector = () => {
           viewBox="0 0 24 24"
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        </svg> */}
       </button>
 
       {/* Simple Dropdown Menu */}
