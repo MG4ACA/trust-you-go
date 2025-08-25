@@ -108,9 +108,7 @@ const DiscoverTips = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             {t("discoverTips.title")}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t("discoverTips.description")}
-          </p>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">{t("discoverTips.description")}</p>
         </div>
 
         {/* Tips Grid */}
@@ -123,15 +121,21 @@ const DiscoverTips = () => {
               {/* Category Header */}
               <div className="text-center mb-6">
                 <div className="text-4xl mb-3">{category.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900">{t(`discoverTips.category.${index}.title`)}</h3>
+                <h3 className="text-xl font-bold text-gray-900">
+                  {t(`discoverTips.category.${index}.title`)}
+                </h3>
               </div>
 
               {/* Tips List */}
               <div className="space-y-4">
                 {category.tips.map((item, tipIndex) => (
                   <div key={tipIndex} className="border-l-4 border-[#65b25f] pl-4">
-                    <h4 className="font-semibold text-gray-900 mb-1">{t(`discoverTips.category.${index}.tip.${tipIndex}.title`)}</h4>
-                    <p className="text-sm text-gray-600 leading-relaxed">{t(`discoverTips.category.${index}.tip.${tipIndex}.desc`)}</p>
+                    <h4 className="font-semibold text-gray-900 mb-1">
+                      {t(`discoverTips.category.${index}.tip.${tipIndex}.title`)}
+                    </h4>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {t(`discoverTips.category.${index}.tip.${tipIndex}.desc`)}
+                    </p>
                   </div>
                 ))}
               </div>

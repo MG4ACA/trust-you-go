@@ -189,7 +189,7 @@ const Contact = () => {
               <p className="text-gray-600 mb-4 sm:mb-6">
                 We typically respond within 2 hours during business hours
               </p>
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+              <div className="flex sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <div className="text-center">
                   <div className="bg-[#65b25f]/10 rounded-full p-2 sm:p-3 inline-block mb-2">
                     <svg

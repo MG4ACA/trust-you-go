@@ -2,9 +2,11 @@ export const en = {
   gallery: {
     exploreTag: "Explore",
     title: "Travel Gallery",
-    description: "Explore Sri Lanka's diverse landscapes, from pristine beaches to ancient temples, tea plantations to wildlife sanctuaries.",
+    description:
+      "Explore Sri Lanka's diverse landscapes, from pristine beaches to ancient temples, tea plantations to wildlife sanctuaries.",
     experienceTitle: "Experience Sri Lanka's Diverse Beauty",
-    experienceDesc: "From pristine beaches to ancient temples, majestic mountains to wildlife sanctuaries - discover the pearl of the Indian Ocean.",
+    experienceDesc:
+      "From pristine beaches to ancient temples, majestic mountains to wildlife sanctuaries - discover the pearl of the Indian Ocean.",
     tags: {
       beaches: "Beaches",
       mountains: "Mountains",
@@ -23,40 +25,77 @@ export const en = {
   discoverTips: {
     proTips: "Pro Tips",
     title: "Discover Insider Tips",
-    description: "Expert advice and insider secrets to help you make the most of your Sri Lankan adventure while staying safe and culturally aware.",
+    description:
+      "Expert advice and insider secrets to help you make the most of your Sri Lankan adventure while staying safe and culturally aware.",
     category: {
       0: {
         title: "Budget Travel Tips",
         tip: {
-          0: { title: "Use public transport", desc: "Trains and buses are affordable and offer authentic experiences" },
-          1: { title: "Eat at local restaurants", desc: "Street food and local eateries offer delicious meals at great prices" },
-          2: { title: "Stay in guesthouses", desc: "Family-run accommodations provide personal service and local insights" },
-          3: { title: "Book attractions directly", desc: "Avoid middleman fees by purchasing tickets at entrance gates" },
+          0: {
+            title: "Use public transport",
+            desc: "Trains and buses are affordable and offer authentic experiences",
+          },
+          1: {
+            title: "Eat at local restaurants",
+            desc: "Street food and local eateries offer delicious meals at great prices",
+          },
+          2: {
+            title: "Stay in guesthouses",
+            desc: "Family-run accommodations provide personal service and local insights",
+          },
+          3: {
+            title: "Book attractions directly",
+            desc: "Avoid middleman fees by purchasing tickets at entrance gates",
+          },
         },
       },
       1: {
         title: "Photography Tips",
         tip: {
-          0: { title: "Golden hour magic", desc: "Capture stunning photos during sunrise and sunset" },
-          1: { title: "Respect local customs", desc: "Always ask permission before photographing people" },
+          0: {
+            title: "Golden hour magic",
+            desc: "Capture stunning photos during sunrise and sunset",
+          },
+          1: {
+            title: "Respect local customs",
+            desc: "Always ask permission before photographing people",
+          },
           2: { title: "Protect your gear", desc: "Use waterproof bags during monsoon seasons" },
-          3: { title: "Wildlife photography", desc: "Use telephoto lenses and maintain safe distances" },
+          3: {
+            title: "Wildlife photography",
+            desc: "Use telephoto lenses and maintain safe distances",
+          },
         },
       },
       2: {
         title: "Safety & Health",
         tip: {
-          0: { title: "Stay hydrated", desc: "Drink plenty of bottled water, especially in tropical heat" },
+          0: {
+            title: "Stay hydrated",
+            desc: "Drink plenty of bottled water, especially in tropical heat",
+          },
           1: { title: "Use sunscreen", desc: "Strong tropical sun requires SPF 30+ protection" },
-          2: { title: "Mosquito protection", desc: "Use repellent and wear long sleeves during dawn/dusk" },
-          3: { title: "Travel insurance", desc: "Ensure comprehensive coverage for activities and health" },
+          2: {
+            title: "Mosquito protection",
+            desc: "Use repellent and wear long sleeves during dawn/dusk",
+          },
+          3: {
+            title: "Travel insurance",
+            desc: "Ensure comprehensive coverage for activities and health",
+          },
         },
       },
       3: {
         title: "Cultural Immersion",
         tip: {
-          0: { title: "Learn basic phrases", desc: "Simple Japanese or Tamil greetings delight locals" },
-          1: { title: "Participate in festivals", desc: "Join local celebrations for authentic cultural experiences" },
+          0: {
+            title: "Learn basic phrases",
+            desc: "Simple Japanese or Tamil greetings delight locals",
+          },
+          1: {
+            title: "Participate in festivals",
+            desc: "Join local celebrations for authentic cultural experiences",
+          },
           2: { title: "Try home stays", desc: "Live with local families to understand daily life" },
           3: { title: "Support local crafts", desc: "Buy handmade items directly from artisans" },
         },
@@ -74,9 +113,11 @@ export const en = {
   learnSriLanka: {
     guideTag: "Comprehensive Guide",
     title: "Learn About Sri Lanka",
-    description: "Dive deep into the rich culture, fascinating history, and incredible natural wonders of the Pearl of the Indian Ocean. Our comprehensive guide will help you understand and appreciate every aspect of this beautiful island nation.",
+    description:
+      "Dive deep into the rich culture, fascinating history, and incredible natural wonders of the Pearl of the Indian Ocean. Our comprehensive guide will help you understand and appreciate every aspect of this beautiful island nation.",
     ctaTitle: "Ready to Plan Your Sri Lankan Adventure?",
-    ctaDescription: "Now that you've learned about Sri Lanka, let's start planning your perfect trip with our expert travel services.",
+    ctaDescription:
+      "Now that you've learned about Sri Lanka, let's start planning your perfect trip with our expert travel services.",
     backHome: "Back to Home & Book Your Trip",
   },
   nav: {
@@ -98,12 +139,12 @@ export const en = {
     title: "About Trust You Go",
     content:
       "At Trust You Go, we believe that travel is more than just visiting places—it's about creating memories that last a lifetime. Founded by passionate travel enthusiasts, we specialize in curating authentic Sri Lankan experiences that showcase the island's rich culture, stunning landscapes, and warm hospitality.",
-  trusted: "Trusted by 1000+ travelers",
+    trusted: "Trusted by 1000+ travelers",
   },
   // ...existing code...
   offers: {
     title: "Special Offers",
-  description: "Exclusive packages designed to give you the best Sri Lankan experience",
+    description: "Exclusive packages designed to give you the best Sri Lankan experience",
     summer: {
       title: "Summer Getaway",
       description: "20% off beach destinations",
@@ -158,7 +199,8 @@ export const en = {
   learnMore: {
     discoverMore: "Discover More",
     title: "Learn About Sri Lanka",
-    description: "Deepen your understanding of this incredible island nation through our comprehensive guides and cultural insights.",
+    description:
+      "Deepen your understanding of this incredible island nation through our comprehensive guides and cultural insights.",
     category: {
       0: "History & Culture",
       1: "Natural Wonders",
@@ -186,7 +228,8 @@ export const en = {
     },
     explore: "Explore {{category}}",
     ctaTitle: "Ready to Become a Sri Lanka Expert?",
-    ctaDescription: "Download our comprehensive travel guide with detailed information about history, culture, nature, and local experiences.",
+    ctaDescription:
+      "Download our comprehensive travel guide with detailed information about history, culture, nature, and local experiences.",
     downloadGuide: "Download Travel Guide",
     watchVideo: "Watch Video Guide",
   },

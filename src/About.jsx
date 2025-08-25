@@ -9,8 +9,8 @@ const About = () => {
         <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
           <div className="grid md:grid-cols-2 gap-0">
             {/* Content Side */}
-            <div className="p-12 flex flex-col justify-center">
-              <div className="mb-6">
+            <div className="lg:p-12 max-sm:p-2 flex flex-col justify-center">
+              <div className="mb-6 max-sm:mb-1">
                 <span className="inline-block px-4 py-2 bg-[#075b95]/10 text-[#075b95] font-semibold rounded-full text-sm tracking-wide uppercase mb-4">
                   About Us
                 </span>

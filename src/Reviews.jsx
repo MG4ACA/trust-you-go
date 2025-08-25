@@ -99,12 +99,10 @@ const Reviews = () => {
               <div className="text-2xl font-bold text-[#075b95]">1000+</div>
               <div className="text-sm text-gray-600">{t("reviews.happyTravelers")}</div>
             </div>
-            <div className="w-px h-8 bg-gray-200"></div>
             <div className="text-center">
               <div className="text-2xl font-bold text-[#65b25f]">4.9</div>
               <div className="text-sm text-gray-600">{t("reviews.averageRating")}</div>
             </div>
-            <div className="w-px h-8 bg-gray-200"></div>
             <div className="text-center">
               <div className="text-2xl font-bold text-[#075b95]">50+</div>
               <div className="text-sm text-gray-600">{t("reviews.destinations")}</div>

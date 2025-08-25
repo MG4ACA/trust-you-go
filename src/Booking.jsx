@@ -246,7 +246,7 @@ const Booking = () => {
               </div>
 
               {/* Customize Your Package */}
-              <div className="bg-gray-50 rounded-2xl p-6">
+              <div className="bg-gray-50 rounded-2xl p-6 max-sm:p-1">
                 <h4 className="text-lg font-bold text-gray-900 mb-4">Customize Your Experience</h4>
                 <p className="text-gray-600 mb-6">
                   Select the activities and experiences you'd like to include in your Sri Lankan
@@ -435,7 +435,7 @@ const Booking = () => {
                   <p className="text-sm text-gray-600 mb-4">
                     Choose the vehicle that best suits your group size and comfort preferences
                   </p>
-                  <div className="p-4 bg-white rounded-xl border border-gray-200">
+                  <div className="p-4 bg-white rounded-xl border border-gray-200 max-sm:h-[40vh] max-sm:overflow-y-scroll">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {/* Sedan */}
                       <label className="relative">

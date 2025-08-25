@@ -24,13 +24,13 @@ const Gallery = () => {
           <ImageCarousel overlay={false} />
 
           {/* Gallery Info Overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-8 z-20">
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-8 z-20 max-sm:p-1">
             <div className="max-w-4xl mx-auto text-center">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
                 {t("gallery.experienceTitle")}
               </h3>
               <p className="text-lg text-gray-200 mb-6">{t("gallery.experienceDesc")}</p>
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="flex flex-wrap justify-center gap-3 max-sm:hidden">
                 {[
                   { icon: "🏖️", label: t("gallery.tags.beaches") },
                   { icon: "🏔️", label: t("gallery.tags.mountains") },
