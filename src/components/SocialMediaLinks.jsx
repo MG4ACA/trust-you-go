@@ -26,7 +26,7 @@ const SocialMediaLinks = () => {
   }, []);
 
   return (
-    <div className="fixed z-[110] top-1/2 transform -translate-y-1/2 flex flex-col gap-4 glass-social-container-social-bar">
+    <div className="fixed z-[110] max-sm:top-4/5 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 glass-social-container-social-bar">
       {/* Facebook */}
       <motion.a
         href="https://facebook.com"
