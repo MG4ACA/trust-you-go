@@ -461,7 +461,6 @@ const Booking = () => {
                               className="mx-auto mb-2 w-10 h-10 object-contain"
                             />
                             <div className="text-sm font-semibold text-gray-900">Sedan</div>
-                            <div className="text-xs text-gray-600 mb-2">Up to 3 passengers</div>
                             <div className="text-xs text-gray-500">Comfortable for city tours</div>
                           </div>
                         </div>
@@ -491,7 +490,6 @@ const Booking = () => {
                               className="mx-auto mb-2 w-10 h-10 object-contain"
                             />
                             <div className="text-sm font-semibold text-gray-900">SUV</div>
-                            <div className="text-xs text-gray-600 mb-2">Up to 6 passengers</div>
                             <div className="text-xs text-gray-500">Perfect for families</div>
                           </div>
                         </div>
@@ -521,7 +519,6 @@ const Booking = () => {
                               className="mx-auto mb-2 w-10 h-10 object-contain"
                             />
                             <div className="text-sm font-semibold text-gray-900">Van</div>
-                            <div className="text-xs text-gray-600 mb-2">Up to 12 passengers</div>
                             <div className="text-xs text-gray-500">Great for large groups</div>
                           </div>
                         </div>
@@ -551,7 +548,6 @@ const Booking = () => {
                               className="mx-auto mb-2 w-10 h-10 object-contain"
                             />
                             <div className="text-sm font-semibold text-gray-900">Luxury Car</div>
-                            <div className="text-xs text-gray-600 mb-2">Up to 4 passengers</div>
                             <div className="text-xs text-gray-500">Premium comfort</div>
                           </div>
                         </div>
@@ -581,7 +577,37 @@ const Booking = () => {
                               className="mx-auto mb-2 w-10 h-10 object-contain"
                             />
                             <div className="text-sm font-semibold text-gray-900">Mini Bus</div>
-                            <div className="text-xs text-gray-600 mb-2">Up to 20 passengers</div>
+                            <div className="text-xs text-gray-500">For large tour groups</div>
+                          </div>
+                        </div>
+                      </label>
+
+                      {/* Under luggage Bus */}
+                      <label className="relative">
+                        <input
+                          type="radio"
+                          name="selectedVehicle"
+                          value="under-luggage-bus"
+                          checked={formData.selectedVehicle === "under-luggage-bus"}
+                          onChange={handleInputChange}
+                          className="sr-only"
+                        />
+                        <div
+                          className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                            formData.selectedVehicle === "under-luggage-bus"
+                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
+                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                          }`}
+                        >
+                          <div className="text-center">
+                            <img
+                              src="/bus-icon.png"
+                              alt="Mini Bus"
+                              className="mx-auto mb-2 w-10 h-10 object-contain"
+                            />
+                            <div className="text-sm font-semibold text-gray-900">
+                              Under Luggage Bus
+                            </div>
                             <div className="text-xs text-gray-500">For large tour groups</div>
                           </div>
                         </div>
