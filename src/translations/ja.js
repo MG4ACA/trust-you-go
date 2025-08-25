@@ -77,12 +77,32 @@ export const ja = {
     title: "Trust You Goについて",
     content:
       "Trust You Goでは、旅行は単に場所を訪れること以上のものだと信じています。それは一生続く思い出を作ることです。情熱的な旅行愛好家によって設立された私たちは、島の豊かな文化、素晴らしい景観、そして温かいおもてなしを紹介する本格的なスリランカ体験をキュレーションすることを専門としています。",
+  trusted: "1000人以上の旅行者に信頼されています",
   },
   gallery: {
+    exploreTag: "探検する",
     title: "旅行ギャラリー",
+    description: "スリランカの多様な風景を探検しましょう。美しいビーチから古代寺院、紅茶畑から野生動物保護区まで。",
+    experienceTitle: "スリランカの多様な美しさを体験",
+    experienceDesc: "美しいビーチから古代寺院、雄大な山々から野生動物保護区まで—インド洋の真珠を発見しましょう。",
+    tags: {
+      beaches: "ビーチ",
+      mountains: "山々",
+      wildlife: "野生動物",
+      heritage: "遺産",
+      nature: "自然",
+      spiceGarden: "スパイスガーデン",
+      gemMuseum: "宝石博物館",
+      teaPlantations: "紅茶畑",
+      surfing: "サーフィン",
+      rainforests: "熱帯雨林",
+      ancientCities: "古代都市",
+      coconutGroves: "ココナッツ林",
+    },
   },
   offers: {
     title: "特別オファー",
+  description: "最高のスリランカ体験を提供するために設計された限定パッケージ",
     summer: {
       title: "夏の休暇",
       description: "ビーチリゾートが20%オフ",
@@ -105,6 +125,10 @@ export const ja = {
   },
   reviews: {
     title: "旅行者の声",
+    description: "スリランカ旅行を私たちに託した旅行者の本当の体験談",
+    happyTravelers: "満足した旅行者",
+    averageRating: "平均評価",
+    destinations: "目的地",
     review1:
       "素晴らしい体験でした！Trust You Goが私たちのスリランカの冒険を忘れられないものにしてくれました。",
     review2: "プロフェッショナルなサービスと本格的な地元体験。強くお勧めします！",
@@ -119,6 +143,7 @@ export const ja = {
   },
   booking: {
     title: "旅行を予約",
+    description: "忘れられないスリランカ体験への第一歩を踏み出しましょう",
     name: "お名前：",
     email: "メールアドレス：",
     checkin: "チェックイン日：",

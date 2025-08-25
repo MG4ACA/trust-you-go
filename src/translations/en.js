@@ -1,4 +1,25 @@
 export const en = {
+  gallery: {
+    exploreTag: "Explore",
+    title: "Travel Gallery",
+    description: "Explore Sri Lanka's diverse landscapes, from pristine beaches to ancient temples, tea plantations to wildlife sanctuaries.",
+    experienceTitle: "Experience Sri Lanka's Diverse Beauty",
+    experienceDesc: "From pristine beaches to ancient temples, majestic mountains to wildlife sanctuaries - discover the pearl of the Indian Ocean.",
+    tags: {
+      beaches: "Beaches",
+      mountains: "Mountains",
+      wildlife: "Wildlife",
+      heritage: "Heritage",
+      nature: "Nature",
+      spiceGarden: "Spice Garden",
+      gemMuseum: "Gem Museum",
+      teaPlantations: "Tea Plantations",
+      surfing: "Surfing",
+      rainforests: "Rainforests",
+      ancientCities: "Ancient Cities",
+      coconutGroves: "Coconut Groves",
+    },
+  },
   discoverTips: {
     proTips: "Pro Tips",
     title: "Discover Insider Tips",
@@ -77,12 +98,12 @@ export const en = {
     title: "About Trust You Go",
     content:
       "At Trust You Go, we believe that travel is more than just visiting places—it's about creating memories that last a lifetime. Founded by passionate travel enthusiasts, we specialize in curating authentic Sri Lankan experiences that showcase the island's rich culture, stunning landscapes, and warm hospitality.",
+  trusted: "Trusted by 1000+ travelers",
   },
-  gallery: {
-    title: "Travel Gallery",
-  },
+  // ...existing code...
   offers: {
     title: "Special Offers",
+  description: "Exclusive packages designed to give you the best Sri Lankan experience",
     summer: {
       title: "Summer Getaway",
       description: "20% off beach destinations",
@@ -105,6 +126,10 @@ export const en = {
   },
   reviews: {
     title: "What Our Travelers Say",
+    description: "Real experiences from travelers who trusted us with their Sri Lankan adventure",
+    happyTravelers: "Happy Travelers",
+    averageRating: "Average Rating",
+    destinations: "Destinations",
     review1: "Amazing experience! Trust You Go made our Sri Lankan adventure unforgettable.",
     review2: "Professional service and authentic local experiences. Highly recommended!",
     review3: "Best travel agency in Sri Lanka. They really know how to show you the real island.",
@@ -118,6 +143,7 @@ export const en = {
   },
   booking: {
     title: "Book Your Trip",
+    description: "Take the first step towards your unforgettable Sri Lankan experience",
     name: "Name:",
     email: "Email:",
     checkin: "Check-in Date:",

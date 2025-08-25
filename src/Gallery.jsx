@@ -11,14 +11,13 @@ const Gallery = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-[#65b25f]/10 text-[#65b25f] font-semibold rounded-full text-sm tracking-wide uppercase mb-4">
-            Explore
+            {t("gallery.exploreTag")}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             {t("gallery.title")}
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Explore Sri Lanka's diverse landscapes, from pristine beaches to ancient temples, tea
-            plantations to wildlife sanctuaries
+            {t("gallery.description")}
           </p>
         </div>
 
@@ -30,26 +29,25 @@ const Gallery = () => {
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-8 z-20">
             <div className="max-w-4xl mx-auto text-center">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Experience Sri Lanka's Diverse Beauty
+                {t("gallery.experienceTitle")}
               </h3>
               <p className="text-lg text-gray-200 mb-6">
-                From pristine beaches to ancient temples, majestic mountains to wildlife sanctuaries
-                - discover the pearl of the Indian Ocean
+                {t("gallery.experienceDesc")}
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 {[
-                  { icon: "🏖️", label: "Beaches" },
-                  { icon: "🏔️", label: "Mountains" },
-                  { icon: "🐘", label: "Wildlife" },
-                  { icon: "🏛️", label: "Heritage" },
-                  { icon: "🌿", label: "Nature" },
-                  { icon: "�️", label: "Spice Garden" },
-                  { icon: "💎", label: "Gem Museum" },
-                  { icon: "�", label: "Tea Plantations" },
-                  { icon: "🏄‍♂️", label: "Surfing" },
-                  { icon: "🦋", label: "Rainforests" },
-                  { icon: "🏯", label: "Ancient Cities" },
-                  { icon: "🥥", label: "Coconut Groves" },
+                  { icon: "🏖️", label: t("gallery.tags.beaches") },
+                  { icon: "🏔️", label: t("gallery.tags.mountains") },
+                  { icon: "🐘", label: t("gallery.tags.wildlife") },
+                  { icon: "🏛️", label: t("gallery.tags.heritage") },
+                  { icon: "🌿", label: t("gallery.tags.nature") },
+                  { icon: "�️", label: t("gallery.tags.spiceGarden") },
+                  { icon: "💎", label: t("gallery.tags.gemMuseum") },
+                  { icon: "�", label: t("gallery.tags.teaPlantations") },
+                  { icon: "🏄‍♂️", label: t("gallery.tags.surfing") },
+                  { icon: "🦋", label: t("gallery.tags.rainforests") },
+                  { icon: "🏯", label: t("gallery.tags.ancientCities") },
+                  { icon: "🥥", label: t("gallery.tags.coconutGroves") },
                 ].map((item, idx) => (
                   <motion.span
                     key={item.label}

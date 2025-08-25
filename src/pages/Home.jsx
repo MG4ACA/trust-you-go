@@ -97,7 +97,7 @@ const Home = () => {
               </div>
 
               <div className="text-center p-4">
-                <div className="bg-[#65b25f]/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                <div className="bg-[#075b95]/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
                   <span className="text-2xl">🌿</span>
                 </div>
                 <h4 className="font-semibold text-gray-900 mb-2">Natural Wonders</h4>
@@ -107,7 +107,7 @@ const Home = () => {
               </div>
 
               <div className="text-center p-4">
-                <div className="bg-[#e67e22]/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                <div className="bg-[#075b95]/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
                   <span className="text-2xl">💡</span>
                 </div>
                 <h4 className="font-semibold text-gray-900 mb-2">Insider Tips</h4>

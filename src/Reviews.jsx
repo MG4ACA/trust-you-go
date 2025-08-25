@@ -36,7 +36,7 @@ const Reviews = () => {
             {t("reviews.title")}
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Real experiences from travelers who trusted us with their Sri Lankan adventure
+            {t("reviews.description")}
           </p>
         </div>
 
@@ -88,17 +88,17 @@ const Reviews = () => {
           <div className="inline-flex items-center space-x-8 bg-white rounded-2xl shadow-lg px-8 py-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-[#075b95]">1000+</div>
-              <div className="text-sm text-gray-600">Happy Travelers</div>
+              <div className="text-sm text-gray-600">{t("reviews.happyTravelers")}</div>
             </div>
             <div className="w-px h-8 bg-gray-200"></div>
             <div className="text-center">
               <div className="text-2xl font-bold text-[#65b25f]">4.9</div>
-              <div className="text-sm text-gray-600">Average Rating</div>
+              <div className="text-sm text-gray-600">{t("reviews.averageRating")}</div>
             </div>
             <div className="w-px h-8 bg-gray-200"></div>
             <div className="text-center">
               <div className="text-2xl font-bold text-[#075b95]">50+</div>
-              <div className="text-sm text-gray-600">Destinations</div>
+              <div className="text-sm text-gray-600">{t("reviews.destinations")}</div>
             </div>
           </div>
         </div>

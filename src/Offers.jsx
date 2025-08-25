@@ -15,7 +15,7 @@ const Offers = () => {
             {t("offers.title")}
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Exclusive packages designed to give you the best Sri Lankan experience
+            {t("offers.description")}
           </p>
         </div>
 

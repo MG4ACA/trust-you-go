@@ -93,7 +93,7 @@ const Booking = () => {
             {t("booking.title")}
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Take the first step towards your unforgettable Sri Lankan experience
+            {t("booking.description")}
           </p>
         </div>
 

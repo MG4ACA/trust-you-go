@@ -35,7 +35,7 @@ const About = () => {
                     />
                   </svg>
                 </div>
-                <span className="text-gray-600 font-medium">Trusted by 1000+ travelers</span>
+                <span className="text-gray-600 font-medium">{t("about.trusted")}</span>
               </div>
             </div>
 
