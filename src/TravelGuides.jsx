@@ -47,10 +47,7 @@ const TravelGuides = () => {
   ];
 
   return (
-    <section
-      id="travel-guides"
-      className="py-20 px-6 bg-gradient-to-br from-[#075b95]/5 via-white to-[#65b25f]/5"
-    >
+    <section id="travel-guides" className="py-20 px-6 bg-gradient-to-br ">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

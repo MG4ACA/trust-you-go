@@ -79,10 +79,7 @@ const Booking = () => {
   };
 
   return (
-    <section
-      id="booking"
-      className="py-20 px-6 bg-gradient-to-br from-[#075b95]/10 via-white to-[#65b25f]/10"
-    >
+    <section id="booking" className="py-20 px-6 bg-gradient-to-br from-[#075b95]/10 ">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -92,9 +89,7 @@ const Booking = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             {t("booking.title")}
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {t("booking.description")}
-          </p>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t("booking.description")}</p>
         </div>
 
         {/* Booking Form */}

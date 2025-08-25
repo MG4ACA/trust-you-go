@@ -68,7 +68,7 @@ const Home = () => {
       <TravelGuides />
 
       {/* Learn About Sri Lanka CTA */}
-      <section className="py-16 px-6 bg-gradient-to-br from-[#075b95]/10 via-white to-[#65b25f]/10">
+      <section className="py-16 px-6 bg-gradient-to-br from-[#075b95]/10">
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
             <div className="mb-8">

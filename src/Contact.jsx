@@ -4,10 +4,7 @@ const Contact = () => {
   const { t } = useLanguage();
 
   return (
-    <section
-      id="contact"
-      className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-b from-white to-gray-50"
-    >
+    <section id="contact" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-b">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16">

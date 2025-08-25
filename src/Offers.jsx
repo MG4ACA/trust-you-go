@@ -4,19 +4,15 @@ const Offers = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="offers" className="py-20 px-6 bg-gradient-to-br from-[#075b95]/5 via-white to-[#65b25f]/5">
+    <section id="offers" className="py-20 px-6 bg-gradient-to-br from-[#075b95]/5">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-[#075b95]/10 text-[#075b95] font-semibold rounded-full text-sm tracking-wide uppercase mb-4">
             Special Deals
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t("offers.title")}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {t("offers.description")}
-          </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{t("offers.title")}</h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t("offers.description")}</p>
         </div>
 
         {/* Offers Grid */}
@@ -37,21 +33,29 @@ const Offers = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="p-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#65b25f] transition-colors">
                 {t("offers.summer.title")}
               </h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                {t("offers.summer.description")}
-              </p>
+              <p className="text-gray-600 mb-6 leading-relaxed">{t("offers.summer.description")}</p>
               <a
                 href="#booking"
                 className="inline-flex items-center px-6 py-3 bg-[#65b25f] hover:bg-[#4a9043] text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 {t("hero.bookNow")}
-                <svg className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <svg
+                  className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
                 </svg>
               </a>
             </div>
@@ -73,7 +77,7 @@ const Offers = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="p-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#075b95] transition-colors">
                 {t("offers.earlyBird.title")}
@@ -86,8 +90,18 @@ const Offers = () => {
                 className="inline-flex items-center px-6 py-3 bg-[#075b95] hover:bg-[#054d7a] text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 {t("hero.bookNow")}
-                <svg className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <svg
+                  className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
                 </svg>
               </a>
             </div>

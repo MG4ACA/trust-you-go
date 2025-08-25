@@ -4,7 +4,7 @@ const About = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="about" className="py-20 px-6 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <section id="about" className="py-20 px-6 bg-gradient-to-br ">
       <div className="max-w-6xl mx-auto">
         <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
           <div className="grid md:grid-cols-2 gap-0">
