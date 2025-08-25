@@ -661,19 +661,19 @@ const Booking = () => {
                 <h4 className="text-xl font-bold text-gray-900 mb-4">What Happens Next?</h4>
                 <div className="max-w-md mx-auto space-y-3 text-gray-600">
                   <div className="flex items-center space-x-3">
-                    <div className="bg-[#075b95]/10 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+                    <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       1
                     </div>
                     <span>We'll review your requirements</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="bg-[#075b95]/10 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+                    <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       2
                     </div>
                     <span>Contact you within 24 hours</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="bg-[#075b95]/10 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+                    <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       3
                     </div>
                     <span>Discuss pricing & customize details</span>
