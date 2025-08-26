@@ -189,7 +189,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold">Phone</h4>
-                    <p className="text-white/80">+94 77 123 4567</p>
+                    <p className="text-white/80">+44 7 444 879 173</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3 sm:space-x-4">
@@ -210,7 +210,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold">Email</h4>
-                    <p className="text-white/80">hello@trustyougo.com</p>
+                    <p className="text-white/80">hello@trustyou-go.com</p>
                   </div>
                 </div>
               </div>
