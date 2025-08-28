@@ -22,7 +22,11 @@ const Home = () => {
 
       {/* Logo Border Overlay */}
       <div className="fixed inset-0 w-screen h-screen z-50 pointer-events-none flex items-center justify-center">
-        <img src="/logo-border.png" alt="Logo Border" className="w-[70vw] object-cover p-[8rem]" />
+        <img
+          src="/g-outline.png"
+          alt="Logo Border"
+          className="w-[85vw] object-cover p-[8rem] opacity-[0.4]"
+        />
       </div>
 
       {/* Hero Section with Video Background */}
