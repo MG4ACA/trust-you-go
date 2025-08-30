@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useLanguage } from "./hooks/useLanguage";
+import useSEO from "./utils/useSEO";
 
 const Booking = () => {
   const { t } = useLanguage();
+  useSEO({ title: t("booking.seo.title"), description: t("booking.seo.description") });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -84,7 +86,7 @@ const Booking = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-[#075b95]/10 text-[#075b95] font-semibold rounded-full text-sm tracking-wide uppercase mb-4">
-            Book Your Adventure
+            {t("booking.tag")}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             {t("booking.title")}
@@ -97,9 +99,9 @@ const Booking = () => {
           {/* Form Header */}
           <div className="bg-gradient-to-r from-[#075b95] to-[#065a87] px-8 py-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-bold text-white">Customize Your Trip</h3>
+              <h3 className="text-xl font-bold text-white">{t("booking.customize.title")}</h3>
               <div className="flex items-center space-x-4">
-                <button
+                {/* <button
                   type="button"
                   onClick={populateFormWithSampleData}
                   className="bg-white/20 hover:bg-white/30 text-white text-sm font-medium px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2"
@@ -113,8 +115,8 @@ const Booking = () => {
                       d="M13 10V3L4 14h7v7l9-11h-7z"
                     />
                   </svg>
-                  <span>Demo Data</span>
-                </button>
+                  <span>{t("booking.demoData")}</span>
+                </button> */}
               </div>
             </div>
           </div>
@@ -247,7 +249,9 @@ const Booking = () => {
 
               {/* Customize Your Package */}
               <div className="bg-gray-50 rounded-2xl p-6 max-sm:p-1">
-                <h4 className="text-lg font-bold text-gray-900 mb-4">Customize Your Experience</h4>
+                <h4 className="text-lg font-bold text-gray-900 mb-4">
+                  {t("booking.customize.experienceTitle")}
+                </h4>
                 <p className="text-gray-600 mb-6">
                   Select the activities and experiences you'd like to include in your Sri Lankan
                   adventure
@@ -636,7 +640,7 @@ const Booking = () => {
                       d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                     />
                   </svg>
-                  Send My Inquiry
+                  {t("booking.send")}
                 </button>
               </div>
             </form>
@@ -658,25 +662,25 @@ const Booking = () => {
                     />
                   </svg>
                 </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">What Happens Next?</h4>
+                <h4 className="text-xl font-bold text-gray-900 mb-4">{t("booking.next.title")}</h4>
                 <div className="max-w-md mx-auto space-y-3 text-gray-600">
                   <div className="flex items-center space-x-3">
                     <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       1
                     </div>
-                    <span>We'll review your requirements</span>
+                    <span>{t("booking.next.step1")}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       2
                     </div>
-                    <span>Contact you within 24 hours</span>
+                    <span>{t("booking.next.step2")}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       3
                     </div>
-                    <span>Discuss pricing & customize details</span>
+                    <span>{t("booking.next.step3")}</span>
                   </div>
                 </div>
               </div>
@@ -689,19 +693,19 @@ const Booking = () => {
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
-              <span className="text-sm text-gray-600">Secure Booking</span>
+              <span className="text-sm text-gray-600">{t("booking.badges.secure")}</span>
             </div>
             <div className="flex items-center space-x-2">
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
-              <span className="text-sm text-gray-600">Free Cancellation</span>
+              <span className="text-sm text-gray-600">{t("booking.badges.freeCancel")}</span>
             </div>
             <div className="flex items-center space-x-2">
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
-              <span className="text-sm text-gray-600">24/7 Support</span>
+              <span className="text-sm text-gray-600">{t("booking.badges.support")}</span>
             </div>
           </div>
         </div>

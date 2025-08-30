@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import ImageCarousel from "./components/ImageCarousel";
 import { useLanguage } from "./hooks/useLanguage";
+import useSEO from "./utils/useSEO";
 
 const Gallery = () => {
   const { t } = useLanguage();
+  useSEO({ title: t("gallery.seo.title"), description: t("gallery.seo.description") });
 
   return (
     <section id="gallery" className="py-20 px-6 bg-gradient-to-b">

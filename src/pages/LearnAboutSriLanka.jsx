@@ -3,9 +3,11 @@ import LanguageSelector from "../components/LanguageSelector";
 import DiscoverTips from "../DiscoverTips";
 import { useLanguage } from "../hooks/useLanguage";
 import LearnMore from "../LearnMore";
+import useSEO from "../utils/useSEO";
 
 const LearnAboutSriLanka = () => {
   const { t } = useLanguage();
+  useSEO({ title: t("learnSriLanka.title"), description: t("learnSriLanka.description") });
 
   return (
     <div className="w-full bg-white text-gray-900 font-sans">

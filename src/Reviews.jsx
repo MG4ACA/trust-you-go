@@ -1,7 +1,9 @@
 import { useLanguage } from "./hooks/useLanguage";
+import useSEO from "./utils/useSEO";
 
 const Reviews = () => {
   const { t } = useLanguage();
+  useSEO({ title: t("reviews.seo.title"), description: t("reviews.seo.description") });
 
   const reviews = [
     {
@@ -33,7 +35,7 @@ const Reviews = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-[#075b95]/10 text-[#075b95] font-semibold rounded-full text-sm tracking-wide uppercase mb-4">
-            Testimonials
+            {t("reviews.tag")}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             {t("reviews.title")}

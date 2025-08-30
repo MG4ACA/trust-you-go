@@ -35,7 +35,7 @@ const VideoBackground = ({ videoSrc, children, overlay = true, fallbackImage = n
       )}
 
       {/* Overlay */}
-      {overlay && <div className="absolute top-0 left-0 w-full h-full bg-black/40 z-10"></div>}
+      {overlay && <div className="absolute top-0 left-0 w-full h-full z-10"></div>}
 
       {/* Content */}
       <div className="relative z-20 w-full h-full flex flex-col justify-center items-center text-white">

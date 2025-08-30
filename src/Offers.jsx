@@ -1,7 +1,9 @@
 import { useLanguage } from "./hooks/useLanguage";
+import useSEO from "./utils/useSEO";
 
 const Offers = () => {
   const { t } = useLanguage();
+  useSEO({ title: t("offers.seo.title"), description: t("offers.seo.description") });
 
   return (
     <section id="offers" className="py-20 px-6 bg-gradient-to-br from-[#075b95]/5">
@@ -9,7 +11,7 @@ const Offers = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-[#075b95]/10 text-[#075b95] font-semibold rounded-full text-sm tracking-wide uppercase mb-4">
-            Special Deals
+            {t("offers.tag")}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{t("offers.title")}</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t("offers.description")}</p>
@@ -23,7 +25,7 @@ const Offers = () => {
               <div className="absolute inset-0 bg-black/10"></div>
               <div className="absolute top-6 left-6">
                 <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
-                  <span className="text-white font-bold text-sm">LIMITED TIME</span>
+                  <span className="text-white font-bold text-sm">{t("offers.labels.limitedTime")}</span>
                 </div>
               </div>
               <div className="absolute bottom-6 right-6">
@@ -67,7 +69,7 @@ const Offers = () => {
               <div className="absolute inset-0 bg-black/10"></div>
               <div className="absolute top-6 left-6">
                 <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
-                  <span className="text-white font-bold text-sm">EARLY BIRD</span>
+                  <span className="text-white font-bold text-sm">{t("offers.labels.earlyBird")}</span>
                 </div>
               </div>
               <div className="absolute bottom-6 right-6">

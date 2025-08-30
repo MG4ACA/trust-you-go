@@ -1,4 +1,9 @@
 export const en = {
+  site: {
+    title: "Trust You Go - Sri Lankan Travel Experience",
+    description:
+      "Trust You Go — personalized Sri Lanka travel experiences, authentic tours, curated itineraries, and trusted local guides.",
+  },
   gallery: {
     exploreTag: "Explore",
     title: "Travel Gallery",
@@ -7,6 +12,10 @@ export const en = {
     experienceTitle: "Experience Sri Lanka's Diverse Beauty",
     experienceDesc:
       "From pristine beaches to ancient temples, majestic mountains to wildlife sanctuaries - discover the pearl of the Indian Ocean.",
+    seo: {
+      title: "Gallery - Trust You Go",
+      description: "Photo gallery showcasing Sri Lanka's beaches, wildlife, heritage and natural beauty.",
+    },
     tags: {
       beaches: "Beaches",
       mountains: "Mountains",
@@ -135,6 +144,21 @@ export const en = {
     subtitle: "Your gateway to unforgettable Sri Lankan travel experiences.",
     bookNow: "Book Now",
   },
+  home: {
+    scroll: "Scroll",
+    cta: {
+      tag: "Comprehensive Guide",
+      title: "Want to Learn More About Sri Lanka?",
+      description:
+        "Discover the rich history, fascinating culture, diverse wildlife, and incredible natural wonders of the Pearl of the Indian Ocean. Our comprehensive guide covers everything you need to know.",
+      button: "Learn About Sri Lanka",
+    },
+    cards: {
+      0: { title: "Rich History", desc: "Ancient kingdoms, colonial heritage, and cultural traditions" },
+      1: { title: "Natural Wonders", desc: "Biodiversity hotspots, endemic species, and conservation" },
+      2: { title: "Insider Tips", desc: "Expert advice for budget travel, photography, and safety" },
+    },
+  },
   about: {
     title: "About Trust You Go",
     content:
@@ -145,6 +169,15 @@ export const en = {
   offers: {
     title: "Special Offers",
     description: "Exclusive packages designed to give you the best Sri Lankan experience",
+    tag: "Special Deals",
+    labels: {
+      limitedTime: "LIMITED TIME",
+      earlyBird: "EARLY BIRD",
+    },
+    seo: {
+      title: "Special Offers - Trust You Go",
+      description: "Limited time offers and early bird discounts for curated Sri Lanka tours.",
+    },
     summer: {
       title: "Summer Getaway",
       description: "20% off beach destinations",
@@ -168,6 +201,11 @@ export const en = {
   reviews: {
     title: "What Our Travelers Say",
     description: "Real experiences from travelers who trusted us with their Sri Lankan adventure",
+    tag: "Testimonials",
+    seo: {
+      title: "Traveler Reviews - Trust You Go",
+      description: "Read real traveler reviews and testimonials about their Sri Lanka experiences with Trust You Go.",
+    },
     happyTravelers: "Happy Travelers",
     averageRating: "Average Rating",
     destinations: "Destinations",
@@ -185,6 +223,27 @@ export const en = {
   booking: {
     title: "Book Your Trip",
     description: "Take the first step towards your unforgettable Sri Lankan experience",
+    tag: "Book Your Adventure",
+    demoData: "Demo Data",
+    customize: {
+      title: "Customize Your Trip",
+      experienceTitle: "Customize Your Experience",
+    },
+    next: {
+      title: "What Happens Next?",
+      step1: "We'll review your requirements",
+      step2: "Contact you within 24 hours",
+      step3: "Discuss pricing & customize details",
+    },
+    badges: {
+      secure: "Secure Booking",
+      freeCancel: "Free Cancellation",
+      support: "24/7 Support",
+    },
+    seo: {
+      title: "Booking - Trust You Go",
+      description: "Customize and request your Sri Lanka trip. We'll reply within 24 hours.",
+    },
     name: "Name:",
     email: "Email:",
     checkin: "Check-in Date:",

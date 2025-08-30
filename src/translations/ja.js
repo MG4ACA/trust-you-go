@@ -1,4 +1,9 @@
 export const ja = {
+  site: {
+    title: "Trust You Go - スリランカ旅行体験",
+    description:
+      "Trust You Go — パーソナライズされたスリランカ旅行体験。専門のガイドとキュレーションされた旅程で安心して旅を。",
+  },
   discoverTips: {
     proTips: "プロのコツ",
     title: "インサイダーティップを発見",
@@ -90,6 +95,21 @@ export const ja = {
     subtitle: "忘れられないスリランカの旅行体験への入り口。",
     bookNow: "今すぐ予約",
   },
+  home: {
+    scroll: "スクロール",
+    cta: {
+      tag: "包括的ガイド",
+      title: "スリランカについてもっと知りたいですか？",
+      description:
+        "インド洋の真珠の豊かな文化、歴史、自然の驚異を発見してください。包括的なガイドで必要な情報をすべて提供します。",
+      button: "スリランカについて学ぶ",
+    },
+    cards: {
+      0: { title: "豊かな歴史", desc: "古代王国、植民地時代の遺産" },
+      1: { title: "自然の驚異", desc: "生物多様性のホットスポットと保全" },
+      2: { title: "インサイダーティップ", desc: "旅行のヒントと安全対策" },
+    },
+  },
   about: {
     title: "Trust You Goについて",
     content:
@@ -104,6 +124,10 @@ export const ja = {
     experienceTitle: "スリランカの多様な美しさを体験",
     experienceDesc:
       "美しいビーチから古代寺院、雄大な山々から野生動物保護区まで—インド洋の真珠を発見しましょう。",
+    seo: {
+      title: "ギャラリー - Trust You Go",
+      description: "スリランカのビーチ、自然、文化を紹介する写真ギャラリー。",
+    },
     tags: {
       beaches: "ビーチ",
       mountains: "山々",
@@ -122,6 +146,9 @@ export const ja = {
   offers: {
     title: "特別オファー",
     description: "最高のスリランカ体験を提供するために設計された限定パッケージ",
+  tag: "特別オファー",
+  labels: { limitedTime: "期間限定", earlyBird: "早期割引" },
+  seo: { title: "特別オファー - Trust You Go", description: "早割や期間限定のスリランカツアーの特別オファー。" },
     summer: {
       title: "夏の休暇",
       description: "ビーチリゾートが20%オフ",
@@ -143,8 +170,10 @@ export const ja = {
     },
   },
   reviews: {
-    title: "旅行者の声",
-    description: "スリランカ旅行を私たちに託した旅行者の本当の体験談",
+  title: "旅行者の声",
+  description: "スリランカ旅行を私たちに託した旅行者の本当の体験談",
+  tag: "推薦の声",
+  seo: { title: "旅行者レビュー - Trust You Go", description: "実際のお客様のレビューと体験談をご覧ください。" },
     happyTravelers: "満足した旅行者",
     averageRating: "平均評価",
     destinations: "目的地",
@@ -161,8 +190,14 @@ export const ja = {
     send: "メッセージを送信",
   },
   booking: {
-    title: "旅行を予約",
-    description: "忘れられないスリランカ体験への第一歩を踏み出しましょう",
+  title: "旅行を予約",
+  description: "忘れられないスリランカ体験への第一歩を踏み出しましょう",
+  tag: "予約する",
+  demoData: "サンプルデータ",
+  customize: { title: "旅をカスタマイズ", experienceTitle: "体験をカスタマイズ" },
+  next: { title: "次に何が起きるか？", step1: "要件を確認します", step2: "24時間以内にご連絡します", step3: "価格と詳細を調整します" },
+  badges: { secure: "安全な予約", freeCancel: "無料キャンセル", support: "24/7 サポート" },
+  seo: { title: "予約 - Trust You Go", description: "スリランカ旅行をカスタマイズしてリクエスト送信。24時間以内に返答します。" },
     name: "お名前：",
     email: "メールアドレス：",
     checkin: "チェックイン日：",
