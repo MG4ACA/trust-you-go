@@ -107,7 +107,7 @@ const Contact = () => {
               <div className="space-y-4 sm:space-y-6">
                 <div className="flex items-start space-x-3 sm:space-x-4">
                   <a
-                    href="https://maps.app.goo.gl/uwHyhPFsjuLCmk8i6"
+                    href="https://maps.app.goo.gl/voKzbxFg41kufQeo9"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-white/20 rounded-lg p-2 sm:p-3 hover:bg-white/30 transition-colors"
@@ -139,7 +139,7 @@ const Contact = () => {
                 </div>
                 <div className="flex items-start space-x-3 sm:space-x-4">
                   <a
-                    href="https://maps.app.goo.gl/uwHyhPFsjuLCmk8i6"
+                    href="https://maps.app.goo.gl/czM8JRYLqJGNgWaH9"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-white/20 rounded-lg p-2 sm:p-3 hover:bg-white/30 transition-colors"

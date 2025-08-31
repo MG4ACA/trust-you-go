@@ -8,7 +8,6 @@ import Contact from "../Contact";
 import Gallery from "../Gallery";
 import { useLanguage } from "../hooks/useLanguage";
 import Offers from "../Offers";
-import Reviews from "../Reviews";
 import TravelGuides from "../TravelGuides";
 import useSEO from "../utils/useSEO";
 
@@ -62,7 +61,7 @@ const Home = () => {
       <Offers />
 
       {/* Reviews Section */}
-      <Reviews />
+      {/* <Reviews /> */}
 
       {/* Contact Section */}
       <Contact />
