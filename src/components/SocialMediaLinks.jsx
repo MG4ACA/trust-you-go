@@ -1,12 +1,12 @@
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const SocialMediaLinks = () => {
   const [isWhite, setIsWhite] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      const aboutSection = document.getElementById("about");
+      const aboutSection = document.getElementById('about');
       if (aboutSection) {
         const aboutTop = aboutSection.offsetTop;
         const scrollPosition = window.scrollY + window.innerHeight * 0.3; // Trigger when about section is 30% visible
@@ -19,33 +19,33 @@ const SocialMediaLinks = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     handleScroll(); // Check initial position
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <div className="fixed z-[110] max-sm:top-4/5 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 glass-social-container-social-bar">
       {/* Facebook */}
       <motion.a
-        href="https://facebook.com"
+        href="https://www.facebook.com/share/17LR8dRUBf/?mibextid=wwXIfr"
         target="_blank"
         rel="noopener noreferrer"
         className="transition-all duration-500 transform hover:scale-110 hover:rotate-12 social-icon-bounce"
         animate={{
-          color: isWhite ? "#ffffff" : "#1877F2",
+          color: isWhite ? '#ffffff' : '#1877F2',
           y: isWhite ? 0 : -10,
           opacity: isWhite ? 1 : [0, 1],
         }}
         whileHover={{
-          color: isWhite ? "#e5e7eb" : "#166FE5",
+          color: isWhite ? '#e5e7eb' : '#166FE5',
           scale: 1.1,
           rotate: 12,
         }}
         transition={{
           duration: 0.6,
-          ease: "easeInOut",
+          ease: 'easeInOut',
           opacity: { times: [0, 1], duration: 0.8 },
         }}
       >
@@ -61,23 +61,23 @@ const SocialMediaLinks = () => {
 
       {/* Instagram */}
       <motion.a
-        href="https://instagram.com"
+        href="https://www.instagram.com/trust_you_go/"
         target="_blank"
         rel="noopener noreferrer"
         className="transition-all duration-500 transform hover:scale-110 hover:-rotate-12 social-icon-pulse"
         animate={{
-          color: isWhite ? "#ffffff" : "#E4405F",
+          color: isWhite ? '#ffffff' : '#E4405F',
           y: isWhite ? 0 : -10,
           opacity: isWhite ? 1 : [0, 1],
         }}
         whileHover={{
-          color: isWhite ? "#e5e7eb" : "#C13584",
+          color: isWhite ? '#e5e7eb' : '#C13584',
           scale: 1.1,
           rotate: -12,
         }}
         transition={{
           duration: 0.6,
-          ease: "easeInOut",
+          ease: 'easeInOut',
           opacity: { times: [0, 1], duration: 0.8 },
         }}
       >
@@ -98,18 +98,18 @@ const SocialMediaLinks = () => {
         rel="noopener noreferrer"
         className="transition-all duration-500 transform hover:scale-110 hover:rotate-6 social-icon-wiggle"
         animate={{
-          color: isWhite ? "#ffffff" : "#1DA1F2",
+          color: isWhite ? '#ffffff' : '#1DA1F2',
           y: isWhite ? 0 : -10,
           opacity: isWhite ? 1 : [0, 1],
         }}
         whileHover={{
-          color: isWhite ? "#e5e7eb" : "#0C8BD9",
+          color: isWhite ? '#e5e7eb' : '#0C8BD9',
           scale: 1.1,
           rotate: 6,
         }}
         transition={{
           duration: 0.6,
-          ease: "easeInOut",
+          ease: 'easeInOut',
           opacity: { times: [0, 1], duration: 0.8 },
         }}
       >
@@ -130,18 +130,18 @@ const SocialMediaLinks = () => {
         rel="noopener noreferrer"
         className="transition-all duration-500 transform hover:scale-110 hover:-rotate-6 social-icon-float"
         animate={{
-          color: isWhite ? "#ffffff" : "#FF0000",
+          color: isWhite ? '#ffffff' : '#FF0000',
           y: isWhite ? 0 : -10,
           opacity: isWhite ? 1 : [0, 1],
         }}
         whileHover={{
-          color: isWhite ? "#e5e7eb" : "#CC0000",
+          color: isWhite ? '#e5e7eb' : '#CC0000',
           scale: 1.1,
           rotate: -6,
         }}
         transition={{
           duration: 0.6,
-          ease: "easeInOut",
+          ease: 'easeInOut',
           opacity: { times: [0, 1], duration: 0.8 },
         }}
       >
@@ -162,18 +162,18 @@ const SocialMediaLinks = () => {
         rel="noopener noreferrer"
         className="transition-all duration-500 transform hover:scale-110 hover:rotate-12 social-icon-shake"
         animate={{
-          color: isWhite ? "#ffffff" : "#25D366",
+          color: isWhite ? '#ffffff' : '#25D366',
           y: isWhite ? 0 : -10,
           opacity: isWhite ? 1 : [0, 1],
         }}
         whileHover={{
-          color: isWhite ? "#e5e7eb" : "#1DA851",
+          color: isWhite ? '#e5e7eb' : '#1DA851',
           scale: 1.1,
           rotate: 12,
         }}
         transition={{
           duration: 0.6,
-          ease: "easeInOut",
+          ease: 'easeInOut',
           opacity: { times: [0, 1], duration: 0.8 },
         }}
       >
