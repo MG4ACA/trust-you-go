@@ -1,7 +1,49 @@
-import { useEffect, useState } from "react";
-import { useLanguage } from "../hooks/useLanguage";
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useLanguage } from '../hooks/useLanguage';
 
 const Header = () => {
+  const [activeSection, setActiveSection] = useState('home');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigation = (sectionId) => {
+    if (location.pathname === '/') {
+      // If we're already on home page, just scroll
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        setActiveSection(sectionId);
+      }
+    } else {
+      // If we're on another page, navigate to home with the section
+      navigate(`/${sectionId}`);
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+            if (location.pathname === '/') {
+              // Only update URL if we're on the home page
+              window.history.replaceState(null, '', `/${entry.target.id}`);
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const sections = document.querySelectorAll('section[id]');
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, [location.pathname]);
   const { t } = useLanguage();
   const [showOtherNav, setShowOtherNav] = useState(false);
   const [showDesktopNavIcon, setShowDesktopNavIcon] = useState(false);
@@ -15,8 +57,8 @@ const Header = () => {
         setShowDesktopNavIcon(false);
       }
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleDesktopNavIconClick = () => {
@@ -28,9 +70,9 @@ const Header = () => {
     <header className="w-full bg-transparent absolute z-50">
       <div className="logo-container-fixed">
         <button
+          onClick={() => handleNavigation('home')}
           className="logo-btn"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+          style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
           aria-label="Scroll to top"
         >
           <img
@@ -44,62 +86,134 @@ const Header = () => {
       <nav
         className={`hidden lg:flex flex-wrap justify-center gap-8 items-center glass-social-container h-[5rem]`}
       >
-        <a href="#home" className="header-nav-link">
-          {t("nav.home")}
-        </a>
-        <a href="#about" className="header-nav-link">
-          {t("nav.about")}
-        </a>
-        <a href="#gallery" className="header-nav-link">
-          {t("nav.gallery")}
-        </a>
-        <a href="#offers" className="header-nav-link">
-          {t("nav.offers")}
-        </a>
-        <a href="#guides" className="header-nav-link">
-          {t("nav.guides")}
-        </a>
-        <a href="#reviews" className="header-nav-link">
-          {t("nav.reviews")}
-        </a>
-        <a href="#contact" className="header-nav-link">
-          {t("nav.contact")}
-        </a>
-        <a href="#booking" className="header-nav-link">
-          {t("nav.booking")}
-        </a>
+        <button
+          onClick={() => handleNavigation('home')}
+          className={`header-nav-link ${activeSection === 'home' ? 'active' : ''}`}
+        >
+          {t('nav.home')}
+        </button>
+        <button
+          onClick={() => handleNavigation('about')}
+          className={`header-nav-link ${activeSection === 'about' ? 'active' : ''}`}
+        >
+          {t('nav.about')}
+        </button>
+        <button
+          onClick={() => handleNavigation('gallery')}
+          className={`header-nav-link ${activeSection === 'gallery' ? 'active' : ''}`}
+        >
+          {t('nav.gallery')}
+        </button>
+        <button
+          onClick={() => handleNavigation('offers')}
+          className={`header-nav-link ${activeSection === 'offers' ? 'active' : ''}`}
+        >
+          {t('nav.offers')}
+        </button>
+        <button
+          onClick={() => handleNavigation('guides')}
+          className={`header-nav-link ${activeSection === 'guides' ? 'active' : ''}`}
+        >
+          {t('nav.guides')}
+        </button>
+        <button
+          onClick={() => handleNavigation('reviews')}
+          className={`header-nav-link ${activeSection === 'reviews' ? 'active' : ''}`}
+        >
+          {t('nav.reviews')}
+        </button>
+        <button
+          onClick={() => handleNavigation('contact')}
+          className={`header-nav-link ${activeSection === 'contact' ? 'active' : ''}`}
+        >
+          {t('nav.contact')}
+        </button>
+        <button
+          onClick={() => handleNavigation('booking')}
+          className={`header-nav-link ${activeSection === 'booking' ? 'active' : ''}`}
+        >
+          {t('nav.booking')}
+        </button>
       </nav>
 
       {/* Other Navigation */}
       <nav
         className={`secondary-nav-panel ${
-          showOtherNav ? "flex" : "hidden"
-        } bg-[#075b95] text-white  max-sm:mt-[4rem]`}
+          showOtherNav ? 'flex' : 'hidden'
+        } bg-[#075b95] text-white max-sm:mt-[4rem]`}
       >
-        <a href="#home" className="p-[5px]">
-          {t("nav.home")}
-        </a>
-        <a href="#about" className="p-[5px]">
-          {t("nav.about")}
-        </a>
-        <a href="#gallery" className="p-[5px]">
-          {t("nav.gallery")}
-        </a>
-        <a href="#offers" className="p-[5px]">
-          {t("nav.offers")}
-        </a>
-        <a href="#guides" className="p-[5px]">
-          {t("nav.guides")}
-        </a>
-        <a href="#reviews" className="p-[5px]">
-          {t("nav.reviews")}
-        </a>
-        <a href="#contact" className="p-[5px]">
-          {t("nav.contact")}
-        </a>
-        <a href="#booking" className="p-[5px]">
-          {t("nav.booking")}
-        </a>
+        <button
+          onClick={() => {
+            handleNavigation('home');
+            setShowOtherNav(false);
+          }}
+          className={`p-[5px] ${activeSection === 'home' ? 'active' : ''}`}
+        >
+          {t('nav.home')}
+        </button>
+        <button
+          onClick={() => {
+            handleNavigation('about');
+            setShowOtherNav(false);
+          }}
+          className={`p-[5px] ${activeSection === 'about' ? 'active' : ''}`}
+        >
+          {t('nav.about')}
+        </button>
+        <button
+          onClick={() => {
+            handleNavigation('gallery');
+            setShowOtherNav(false);
+          }}
+          className={`p-[5px] ${activeSection === 'gallery' ? 'active' : ''}`}
+        >
+          {t('nav.gallery')}
+        </button>
+        <button
+          onClick={() => {
+            handleNavigation('offers');
+            setShowOtherNav(false);
+          }}
+          className={`p-[5px] ${activeSection === 'offers' ? 'active' : ''}`}
+        >
+          {t('nav.offers')}
+        </button>
+        <button
+          onClick={() => {
+            handleNavigation('guides');
+            setShowOtherNav(false);
+          }}
+          className={`p-[5px] ${activeSection === 'guides' ? 'active' : ''}`}
+        >
+          {t('nav.guides')}
+        </button>
+        <button
+          onClick={() => {
+            handleNavigation('reviews');
+            setShowOtherNav(false);
+          }}
+          className={`p-[5px] ${activeSection === 'reviews' ? 'active' : ''}`}
+        >
+          {t('nav.reviews')}
+        </button>
+        <button
+          onClick={() => {
+            handleNavigation('contact');
+            setShowOtherNav(false);
+          }}
+          className={`p-[5px] ${activeSection === 'contact' ? 'active' : ''}`}
+        >
+          {t('nav.contact')}
+        </button>
+        <button
+          onClick={() => {
+            handleNavigation('booking');
+            setShowOtherNav(false);
+          }}
+          className={`p-[5px] ${activeSection === 'booking' ? 'active' : ''}`}
+        >
+          {t('nav.booking')}
+        </button>
       </nav>
       {/* Desktop Top-right icon to show nav when hidden */}
       {showDesktopNavIcon && (
