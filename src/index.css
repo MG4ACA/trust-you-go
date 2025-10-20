@@ -1,0 +1,334 @@
+@import 'tailwindcss';
+
+/* Transparent Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main-container {
+  background-image: url('/trust-you-go-patten.png');
+  background-repeat: repeat;
+}
+
+.secondary-nav-panel {
+  position: fixed;
+  right: 0;
+  flex-direction: column;
+  padding: 1rem;
+  align-items: center;
+  border-radius: 10px;
+}
+
+a {
+  font-weight: 500;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* Hero Section Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-fade-in-delay {
+  animation: fadeIn 1s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeIn 1s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+/* Responsive video background */
+@media (max-width: 768px) {
+  .video-background video {
+    object-position: center;
+  }
+}
+
+/* Glassmorphism Styles */
+.glass-social-container {
+  border-radius: 0.75rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.glass-gallery-toggle {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.glass-gallery-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Social Media Icon Animations */
+@keyframes bounce {
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%,
+  43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-15deg);
+  }
+  20% {
+    transform: rotateZ(10deg);
+  }
+  25% {
+    transform: rotateZ(-10deg);
+  }
+  30% {
+    transform: rotateZ(6deg);
+  }
+  35% {
+    transform: rotateZ(-4deg);
+  }
+  40%,
+  100% {
+    transform: rotateZ(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-3px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+.social-icon-bounce:hover {
+  animation: bounce 1s ease-in-out;
+}
+
+.social-icon-pulse:hover {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.social-icon-wiggle:hover {
+  animation: wiggle 1s ease-in-out;
+}
+
+.social-icon-float:hover {
+  animation: float 2s ease-in-out infinite;
+}
+
+.social-icon-shake:hover {
+  animation: shake 0.8s ease-in-out;
+}
+
+/* Enhanced social media container with subtle glow */
+.glass-social-container-social-bar {
+  padding: 10px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 0 20px rgba(59, 130, 246, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  border-radius: 0 20px 20px 0;
+}
+
+.glass-social-container-social-bar:hover {
+  box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15), 0 0 30px rgba(59, 130, 246, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Enhanced brand color effects for better visibility */
+.social-icon-bounce:hover,
+.social-icon-pulse:hover,
+.social-icon-wiggle:hover,
+.social-icon-float:hover,
+.social-icon-shake:hover {
+  filter: brightness(1.1) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Header Navigation Styles */
+.header-nav-link {
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.header-nav-link:hover {
+  color: #65b25f;
+  transform: translateY(-1px);
+}
+
+.header-nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: #65b25f;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.header-nav-link:hover::after {
+  width: 100%;
+}
+
+/* Logo Container Styles */
+.logo-container {
+  border-radius: 0 0 30px 0;
+}
+
+.logo-container-fixed {
+  position: fixed;
+  z-index: 100;
+}
+
+.logo-container:hover {
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
