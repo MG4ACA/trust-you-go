@@ -1,10 +1,16 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
-import { LanguageProvider } from "./contexts/LanguageContext.jsx";
-import "./index.css";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
+import { LanguageProvider } from './contexts/LanguageContext.jsx';
 
-createRoot(document.getElementById("root")).render(
+// PrimeReact styles (for admin portal only)
+import 'primeicons/primeicons.css';
+import 'primereact/resources/primereact.min.css';
+import 'primereact/resources/themes/lara-light-blue/theme.css';
+
+import './index.css';
+
+createRoot(document.getElementById('root')).render(
   <StrictMode>
     <LanguageProvider>
       <App />
