@@ -1,0 +1,22 @@
+/* AdminLayout specific styles */
+
+/* Optional: Add any custom styling for the admin layout here */
+/* PrimeReact handles most styling, but you can override if needed */
+
+/* Example: Custom scrollbar for sidebar */
+.admin-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

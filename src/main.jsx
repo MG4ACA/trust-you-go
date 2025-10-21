@@ -1,5 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import store from './admin/store/store.js';
 import App from './App.jsx';
 import { LanguageProvider } from './contexts/LanguageContext.jsx';
 
@@ -12,8 +14,10 @@ import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <LanguageProvider>
-      <App />
-    </LanguageProvider>
+    <Provider store={store}>
+      <LanguageProvider>
+        <App />
+      </LanguageProvider>
+    </Provider>
   </StrictMode>
 );
