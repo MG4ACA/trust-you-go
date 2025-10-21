@@ -1,13 +1,13 @@
-import Header from "../components/Header";
-import LanguageSelector from "../components/LanguageSelector";
-import DiscoverTips from "../DiscoverTips";
-import { useLanguage } from "../hooks/useLanguage";
-import LearnMore from "../LearnMore";
-import useSEO from "../utils/useSEO";
+import Header from '../components/Header';
+import LanguageSelector from '../components/LanguageSelector';
+import { useLanguage } from '../hooks/useLanguage';
+import DiscoverTips from '../sections/DiscoverTips';
+import LearnMore from '../sections/LearnMore';
+import useSEO from '../utils/useSEO';
 
 const LearnAboutSriLanka = () => {
   const { t } = useLanguage();
-  useSEO({ title: t("learnSriLanka.title"), description: t("learnSriLanka.description") });
+  useSEO({ title: t('learnSriLanka.title'), description: t('learnSriLanka.description') });
 
   return (
     <div className="w-full bg-white text-gray-900 font-sans">
@@ -18,22 +18,22 @@ const LearnAboutSriLanka = () => {
       <section className="py-20 px-6 bg-gradient-to-br from-[#075b95]/10">
         <div className="max-w-4xl mx-auto text-center">
           <span className="inline-block px-4 py-2 bg-[#075b95]/10 text-[#075b95] font-semibold rounded-full text-sm tracking-wide uppercase mb-4">
-            {t("learnSriLanka.guideTag")}
+            {t('learnSriLanka.guideTag')}
           </span>
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            {t("learnSriLanka.title")}
+            {t('learnSriLanka.title')}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            {t("learnSriLanka.description")}
+            {t('learnSriLanka.description')}
           </p>
 
           {/* Navigation breadcrumb */}
           <div className="mt-8 flex items-center justify-center space-x-2 text-sm text-gray-500">
             <a href="/" className="hover:text-[#075b95] transition-colors">
-              {t("nav.home")}
+              {t('nav.home')}
             </a>
             <span>›</span>
-            <span className="text-[#075b95] font-medium">{t("learnSriLanka.title")}</span>
+            <span className="text-[#075b95] font-medium">{t('learnSriLanka.title')}</span>
           </div>
         </div>
       </section>
@@ -48,10 +48,10 @@ const LearnAboutSriLanka = () => {
       <section className="py-16 px-6 bg-gradient-to-r from-[#075b95] to-[#065a87]">
         <div className="max-w-4xl mx-auto text-center">
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            {t("learnSriLanka.ctaTitle")}
+            {t('learnSriLanka.ctaTitle')}
           </h3>
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-            {t("learnSriLanka.ctaDescription")}
+            {t('learnSriLanka.ctaDescription')}
           </p>
           <a
             href="/"
@@ -65,13 +65,13 @@ const LearnAboutSriLanka = () => {
                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
               />
             </svg>
-            <span>{t("learnSriLanka.backHome")}</span>
+            <span>{t('learnSriLanka.backHome')}</span>
           </a>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#075b95] text-white text-center py-4">{t("footer.copyright")}</footer>
+      <footer className="bg-[#075b95] text-white text-center py-4">{t('footer.copyright')}</footer>
     </div>
   );
 };

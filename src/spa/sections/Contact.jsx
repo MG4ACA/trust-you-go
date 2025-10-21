@@ -1,4 +1,4 @@
-import { useLanguage } from "./hooks/useLanguage";
+import { useLanguage } from '../hooks/useLanguage';
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -12,7 +12,7 @@ const Contact = () => {
             Get In Touch
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 px-2">
-            {t("contact.title")}
+            {t('contact.title')}
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Ready to start your Sri Lankan adventure? We're here to help you plan the perfect
@@ -29,7 +29,7 @@ const Contact = () => {
                   htmlFor="contact-name"
                   className="block text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wide"
                 >
-                  {t("contact.name")}
+                  {t('contact.name')}
                 </label>
                 <input
                   type="text"
@@ -46,7 +46,7 @@ const Contact = () => {
                   htmlFor="contact-email"
                   className="block text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wide"
                 >
-                  {t("contact.email")}
+                  {t('contact.email')}
                 </label>
                 <input
                   type="email"
@@ -63,7 +63,7 @@ const Contact = () => {
                   htmlFor="contact-message"
                   className="block text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wide"
                 >
-                  {t("contact.message")}
+                  {t('contact.message')}
                 </label>
                 <textarea
                   id="contact-message"
@@ -80,7 +80,7 @@ const Contact = () => {
                 className="w-full bg-gradient-to-r from-[#65b25f] to-[#4a9043] hover:from-[#4a9043] hover:to-[#65b25f] text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 <span className="flex items-center justify-center">
-                  {t("contact.send")}
+                  {t('contact.send')}
                   <svg
                     className="w-5 h-5 ml-2"
                     fill="none"

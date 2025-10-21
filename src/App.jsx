@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
-import Home from './pages/Home';
-import LearnAboutSriLanka from './pages/LearnAboutSriLanka';
+import Home from './spa/pages/Home';
+import LearnAboutSriLanka from './spa/pages/LearnAboutSriLanka';
 
 // Admin Portal Imports
 import ProtectedRoute from './admin/components/ProtectedRoute';

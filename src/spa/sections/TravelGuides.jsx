@@ -1,47 +1,47 @@
-import { useLanguage } from "./hooks/useLanguage";
+import { useLanguage } from '../hooks/useLanguage';
 
 const TravelGuides = () => {
   const { t } = useLanguage();
 
   const guides = [
     {
-      title: "Best Time to Visit",
-      description: "Discover the perfect seasons for your Sri Lankan adventure",
-      image: "/locations/beach-01.jpg",
+      title: 'Best Time to Visit',
+      description: 'Discover the perfect seasons for your Sri Lankan adventure',
+      image: '/locations/beach-01.jpg',
       tips: [
-        "December to March: Perfect for beaches and cultural sites",
-        "April to September: Ideal for hill country and tea plantations",
-        "Avoid monsoon seasons for outdoor activities",
+        'December to March: Perfect for beaches and cultural sites',
+        'April to September: Ideal for hill country and tea plantations',
+        'Avoid monsoon seasons for outdoor activities',
       ],
     },
     {
-      title: "Cultural Etiquette",
-      description: "Respect local customs and traditions",
-      image: "/locations/sthoopa.jpg",
+      title: 'Cultural Etiquette',
+      description: 'Respect local customs and traditions',
+      image: '/locations/sthoopa.jpg',
       tips: [
-        "Remove shoes before entering temples",
-        "Dress modestly when visiting religious sites",
-        "Always ask permission before photographing people",
+        'Remove shoes before entering temples',
+        'Dress modestly when visiting religious sites',
+        'Always ask permission before photographing people',
       ],
     },
     {
-      title: "Transportation Guide",
-      description: "Navigate Sri Lanka like a local",
-      image: "/locations/nine-arch.jpg",
+      title: 'Transportation Guide',
+      description: 'Navigate Sri Lanka like a local',
+      image: '/locations/nine-arch.jpg',
       tips: [
-        "Train journeys offer scenic mountain views",
-        "Tuk-tuks are perfect for short city trips",
-        "Private drivers provide flexibility for sightseeing",
+        'Train journeys offer scenic mountain views',
+        'Tuk-tuks are perfect for short city trips',
+        'Private drivers provide flexibility for sightseeing',
       ],
     },
     {
-      title: "Food & Dining",
-      description: "Savor authentic Sri Lankan cuisine",
-      image: "/locations/coconut-hill.jpg",
+      title: 'Food & Dining',
+      description: 'Savor authentic Sri Lankan cuisine',
+      image: '/locations/coconut-hill.jpg',
       tips: [
-        "Try rice and curry - the national dish",
-        "Street food is safe and delicious",
-        "Always drink bottled or filtered water",
+        'Try rice and curry - the national dish',
+        'Street food is safe and delicious',
+        'Always drink bottled or filtered water',
       ],
     },
   ];

@@ -1,31 +1,31 @@
-import { useLanguage } from "./hooks/useLanguage";
-import useSEO from "./utils/useSEO";
+import { useLanguage } from '../hooks/useLanguage';
+import useSEO from '../utils/useSEO';
 
 const Reviews = () => {
   const { t } = useLanguage();
-  useSEO({ title: t("reviews.seo.title"), description: t("reviews.seo.description") });
+  useSEO({ title: t('reviews.seo.title'), description: t('reviews.seo.description') });
 
   const reviews = [
     {
-      text: t("reviews.review1"),
-      author: "Priya S.",
+      text: t('reviews.review1'),
+      author: 'Priya S.',
       rating: 5,
       avatar:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face",
+        'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face',
     },
     {
-      text: t("reviews.review2"),
-      author: "John D.",
+      text: t('reviews.review2'),
+      author: 'John D.',
       rating: 5,
       avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
     },
     {
-      text: t("reviews.review3"),
-      author: "Ayesha R.",
+      text: t('reviews.review3'),
+      author: 'Ayesha R.',
       rating: 5,
       avatar:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
     },
   ];
 
@@ -35,12 +35,12 @@ const Reviews = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-[#075b95]/10 text-[#075b95] font-semibold rounded-full text-sm tracking-wide uppercase mb-4">
-            {t("reviews.tag")}
+            {t('reviews.tag')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t("reviews.title")}
+            {t('reviews.title')}
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t("reviews.description")}</p>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t('reviews.description')}</p>
         </div>
 
         {/* Reviews Grid */}
@@ -99,15 +99,15 @@ const Reviews = () => {
           <div className="inline-flex items-center space-x-8 bg-white rounded-2xl shadow-lg px-8 py-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-[#075b95]">1000+</div>
-              <div className="text-sm text-gray-600">{t("reviews.happyTravelers")}</div>
+              <div className="text-sm text-gray-600">{t('reviews.happyTravelers')}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-[#65b25f]">4.9</div>
-              <div className="text-sm text-gray-600">{t("reviews.averageRating")}</div>
+              <div className="text-sm text-gray-600">{t('reviews.averageRating')}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-[#075b95]">50+</div>
-              <div className="text-sm text-gray-600">{t("reviews.destinations")}</div>
+              <div className="text-sm text-gray-600">{t('reviews.destinations')}</div>
             </div>
           </div>
         </div>

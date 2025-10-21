@@ -1,27 +1,27 @@
-import { useState } from "react";
-import { useLanguage } from "./hooks/useLanguage";
-import useSEO from "./utils/useSEO";
+import { useState } from 'react';
+import { useLanguage } from '../hooks/useLanguage';
+import useSEO from '../utils/useSEO';
 
 const Booking = () => {
   const { t } = useLanguage();
-  useSEO({ title: t("booking.seo.title"), description: t("booking.seo.description") });
+  useSEO({ title: t('booking.seo.title'), description: t('booking.seo.description') });
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    checkin: "",
-    checkout: "",
-    guests: "",
-    message: "",
+    name: '',
+    email: '',
+    checkin: '',
+    checkout: '',
+    guests: '',
+    message: '',
     activities: [],
-    accommodation: "",
-    selectedVehicle: "",
+    accommodation: '',
+    selectedVehicle: '',
   });
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    if (type === "checkbox") {
-      if (name === "activities") {
+    if (type === 'checkbox') {
+      if (name === 'activities') {
         setFormData((prev) => ({
           ...prev,
           [name]: checked ? [...prev[name], value] : prev[name].filter((item) => item !== value),
@@ -39,20 +39,20 @@ const Booking = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Here you would typically send the inquiry to your backend
-    console.log("Inquiry submitted:", formData);
-    alert("Thank you for your inquiry! We will contact you within 24 hours.");
+    console.log('Inquiry submitted:', formData);
+    alert('Thank you for your inquiry! We will contact you within 24 hours.');
 
     // Reset form
     setFormData({
-      name: "",
-      email: "",
-      checkin: "",
-      checkout: "",
-      guests: "",
-      message: "",
+      name: '',
+      email: '',
+      checkin: '',
+      checkout: '',
+      guests: '',
+      message: '',
       activities: [],
-      accommodation: "",
-      selectedVehicle: "",
+      accommodation: '',
+      selectedVehicle: '',
     });
   };
 
@@ -63,20 +63,20 @@ const Booking = () => {
     nextMonth.setMonth(today.getMonth() + 1);
 
     const formatDate = (date) => {
-      return date.toISOString().split("T")[0];
+      return date.toISOString().split('T')[0];
     };
 
     setFormData({
-      name: "John Doe",
-      email: "john.doe@example.com",
+      name: 'John Doe',
+      email: 'john.doe@example.com',
       checkin: formatDate(nextMonth),
       checkout: formatDate(new Date(nextMonth.getTime() + 7 * 24 * 60 * 60 * 1000)), // 7 days later
-      guests: "2",
+      guests: '2',
       message:
-        "We are interested in experiencing authentic Sri Lankan culture and would love to visit ancient temples and enjoy local cuisine. Please suggest the best time to visit tea plantations.",
-      activities: ["hiking", "temples", "tea", "wildlife"],
-      accommodation: "comfort",
-      selectedVehicle: "suv",
+        'We are interested in experiencing authentic Sri Lankan culture and would love to visit ancient temples and enjoy local cuisine. Please suggest the best time to visit tea plantations.',
+      activities: ['hiking', 'temples', 'tea', 'wildlife'],
+      accommodation: 'comfort',
+      selectedVehicle: 'suv',
     });
   };
 
@@ -86,12 +86,12 @@ const Booking = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-[#075b95]/10 text-[#075b95] font-semibold rounded-full text-sm tracking-wide uppercase mb-4">
-            {t("booking.tag")}
+            {t('booking.tag')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t("booking.title")}
+            {t('booking.title')}
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t("booking.description")}</p>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t('booking.description')}</p>
         </div>
 
         {/* Booking Form */}
@@ -99,7 +99,7 @@ const Booking = () => {
           {/* Form Header */}
           <div className="bg-gradient-to-r from-[#075b95] to-[#065a87] px-8 py-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-bold text-white">{t("booking.customize.title")}</h3>
+              <h3 className="text-xl font-bold text-white">{t('booking.customize.title')}</h3>
               <div className="flex items-center space-x-4">
                 {/* <button
                   type="button"
@@ -131,7 +131,7 @@ const Booking = () => {
                     htmlFor="booking-name"
                     className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                   >
-                    {t("booking.name")}
+                    {t('booking.name')}
                   </label>
                   <input
                     type="text"
@@ -150,7 +150,7 @@ const Booking = () => {
                     htmlFor="booking-email"
                     className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                   >
-                    {t("booking.email")}
+                    {t('booking.email')}
                   </label>
                   <input
                     type="email"
@@ -172,7 +172,7 @@ const Booking = () => {
                     htmlFor="checkin"
                     className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                   >
-                    {t("booking.checkin")}
+                    {t('booking.checkin')}
                   </label>
                   <input
                     type="date"
@@ -190,7 +190,7 @@ const Booking = () => {
                     htmlFor="checkout"
                     className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                   >
-                    {t("booking.checkout")}
+                    {t('booking.checkout')}
                   </label>
                   <input
                     type="date"
@@ -208,7 +208,7 @@ const Booking = () => {
                     htmlFor="guests"
                     className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                   >
-                    {t("booking.guests")}
+                    {t('booking.guests')}
                   </label>
                   <select
                     id="guests"
@@ -234,7 +234,7 @@ const Booking = () => {
                   htmlFor="booking-message"
                   className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                 >
-                  {t("booking.requests")}
+                  {t('booking.requests')}
                 </label>
                 <textarea
                   id="booking-message"
@@ -250,7 +250,7 @@ const Booking = () => {
               {/* Customize Your Package */}
               <div className="bg-gray-50 rounded-2xl p-6 max-sm:p-1">
                 <h4 className="text-lg font-bold text-gray-900 mb-4">
-                  {t("booking.customize.experienceTitle")}
+                  {t('booking.customize.experienceTitle')}
                 </h4>
                 <p className="text-gray-600 mb-6">
                   Select the activities and experiences you'd like to include in your Sri Lankan
@@ -267,7 +267,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="hiking"
-                          checked={formData.activities.includes("hiking")}
+                          checked={formData.activities.includes('hiking')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -278,7 +278,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="wildlife"
-                          checked={formData.activities.includes("wildlife")}
+                          checked={formData.activities.includes('wildlife')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -289,7 +289,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="watersports"
-                          checked={formData.activities.includes("watersports")}
+                          checked={formData.activities.includes('watersports')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -300,7 +300,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="cycling"
-                          checked={formData.activities.includes("cycling")}
+                          checked={formData.activities.includes('cycling')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -317,7 +317,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="temples"
-                          checked={formData.activities.includes("temples")}
+                          checked={formData.activities.includes('temples')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -328,7 +328,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="cooking"
-                          checked={formData.activities.includes("cooking")}
+                          checked={formData.activities.includes('cooking')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -339,7 +339,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="tea"
-                          checked={formData.activities.includes("tea")}
+                          checked={formData.activities.includes('tea')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -350,7 +350,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="festivals"
-                          checked={formData.activities.includes("festivals")}
+                          checked={formData.activities.includes('festivals')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -369,15 +369,15 @@ const Booking = () => {
                         type="radio"
                         name="accommodation"
                         value="budget"
-                        checked={formData.accommodation === "budget"}
+                        checked={formData.accommodation === 'budget'}
                         onChange={handleInputChange}
                         className="sr-only"
                       />
                       <div
                         className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                          formData.accommodation === "budget"
-                            ? "border-[#075b95] bg-[#075b95]/5"
-                            : "border-gray-200 hover:border-[#075b95]"
+                          formData.accommodation === 'budget'
+                            ? 'border-[#075b95] bg-[#075b95]/5'
+                            : 'border-gray-200 hover:border-[#075b95]'
                         }`}
                       >
                         <div className="text-center">
@@ -391,15 +391,15 @@ const Booking = () => {
                         type="radio"
                         name="accommodation"
                         value="comfort"
-                        checked={formData.accommodation === "comfort"}
+                        checked={formData.accommodation === 'comfort'}
                         onChange={handleInputChange}
                         className="sr-only"
                       />
                       <div
                         className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                          formData.accommodation === "comfort"
-                            ? "border-[#075b95] bg-[#075b95]/5"
-                            : "border-gray-200 hover:border-[#075b95]"
+                          formData.accommodation === 'comfort'
+                            ? 'border-[#075b95] bg-[#075b95]/5'
+                            : 'border-gray-200 hover:border-[#075b95]'
                         }`}
                       >
                         <div className="text-center">
@@ -413,15 +413,15 @@ const Booking = () => {
                         type="radio"
                         name="accommodation"
                         value="luxury"
-                        checked={formData.accommodation === "luxury"}
+                        checked={formData.accommodation === 'luxury'}
                         onChange={handleInputChange}
                         className="sr-only"
                       />
                       <div
                         className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                          formData.accommodation === "luxury"
-                            ? "border-[#075b95] bg-[#075b95]/5"
-                            : "border-gray-200 hover:border-[#075b95]"
+                          formData.accommodation === 'luxury'
+                            ? 'border-[#075b95] bg-[#075b95]/5'
+                            : 'border-gray-200 hover:border-[#075b95]'
                         }`}
                       >
                         <div className="text-center">
@@ -447,15 +447,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="sedan"
-                          checked={formData.selectedVehicle === "sedan"}
+                          checked={formData.selectedVehicle === 'sedan'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "sedan"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'sedan'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -476,15 +476,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="suv"
-                          checked={formData.selectedVehicle === "suv"}
+                          checked={formData.selectedVehicle === 'suv'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "suv"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'suv'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -505,15 +505,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="van"
-                          checked={formData.selectedVehicle === "van"}
+                          checked={formData.selectedVehicle === 'van'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "van"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'van'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -534,15 +534,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="luxury"
-                          checked={formData.selectedVehicle === "luxury"}
+                          checked={formData.selectedVehicle === 'luxury'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "luxury"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'luxury'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -563,15 +563,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="minibus"
-                          checked={formData.selectedVehicle === "minibus"}
+                          checked={formData.selectedVehicle === 'minibus'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "minibus"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'minibus'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -592,15 +592,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="under-luggage-bus"
-                          checked={formData.selectedVehicle === "under-luggage-bus"}
+                          checked={formData.selectedVehicle === 'under-luggage-bus'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "under-luggage-bus"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'under-luggage-bus'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -640,7 +640,7 @@ const Booking = () => {
                       d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                     />
                   </svg>
-                  {t("booking.send")}
+                  {t('booking.send')}
                 </button>
               </div>
             </form>
@@ -662,25 +662,25 @@ const Booking = () => {
                     />
                   </svg>
                 </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">{t("booking.next.title")}</h4>
+                <h4 className="text-xl font-bold text-gray-900 mb-4">{t('booking.next.title')}</h4>
                 <div className="max-w-md mx-auto space-y-3 text-gray-600">
                   <div className="flex items-center space-x-3">
                     <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       1
                     </div>
-                    <span>{t("booking.next.step1")}</span>
+                    <span>{t('booking.next.step1')}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       2
                     </div>
-                    <span>{t("booking.next.step2")}</span>
+                    <span>{t('booking.next.step2')}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       3
                     </div>
-                    <span>{t("booking.next.step3")}</span>
+                    <span>{t('booking.next.step3')}</span>
                   </div>
                 </div>
               </div>
@@ -693,19 +693,19 @@ const Booking = () => {
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
-              <span className="text-sm text-gray-600">{t("booking.badges.secure")}</span>
+              <span className="text-sm text-gray-600">{t('booking.badges.secure')}</span>
             </div>
             <div className="flex items-center space-x-2">
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
-              <span className="text-sm text-gray-600">{t("booking.badges.freeCancel")}</span>
+              <span className="text-sm text-gray-600">{t('booking.badges.freeCancel')}</span>
             </div>
             <div className="flex items-center space-x-2">
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
-              <span className="text-sm text-gray-600">{t("booking.badges.support")}</span>
+              <span className="text-sm text-gray-600">{t('booking.badges.support')}</span>
             </div>
           </div>
         </div>

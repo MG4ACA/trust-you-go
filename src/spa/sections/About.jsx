@@ -1,4 +1,4 @@
-import { useLanguage } from "./hooks/useLanguage";
+import { useLanguage } from '../hooks/useLanguage';
 
 const About = () => {
   const { t } = useLanguage();
@@ -15,10 +15,10 @@ const About = () => {
                   About Us
                 </span>
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                  {t("about.title")}
+                  {t('about.title')}
                 </h2>
               </div>
-              <p className="text-lg text-gray-700 leading-relaxed mb-8">{t("about.content")}</p>
+              <p className="text-lg text-gray-700 leading-relaxed mb-8">{t('about.content')}</p>
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-[#075b95]/10 rounded-full flex items-center justify-center">
                   <svg
@@ -35,7 +35,7 @@ const About = () => {
                     />
                   </svg>
                 </div>
-                <span className="text-gray-600 font-medium">{t("about.trusted")}</span>
+                <span className="text-gray-600 font-medium">{t('about.trusted')}</span>
               </div>
             </div>
 
