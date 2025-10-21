@@ -16,13 +16,13 @@ const authService = {
     try {
       // Query mock server for admin by email
       const response = await apiClient.get(`/admins?email=${email}`);
-      
+
       if (response.data.length === 0) {
         throw new Error('Invalid email or password');
       }
 
       const admin = response.data[0];
-      
+
       // Simple password check (in production, backend handles this)
       if (admin.password !== password) {
         throw new Error('Invalid email or password');
@@ -30,15 +30,18 @@ const authService = {
 
       // Generate mock JWT token
       const token = `mock_jwt_token_${admin.id}_${Date.now()}`;
-      
+
       // Store token and user in localStorage
       localStorage.setItem('adminToken', token);
-      localStorage.setItem('adminUser', JSON.stringify({
-        id: admin.id,
-        username: admin.username,
-        email: admin.email,
-        role: admin.role,
-      }));
+      localStorage.setItem(
+        'adminUser',
+        JSON.stringify({
+          id: admin.id,
+          username: admin.username,
+          email: admin.email,
+          role: admin.role,
+        })
+      );
 
       return {
         user: {
@@ -79,7 +82,7 @@ const authService = {
   getCurrentUser() {
     const userStr = localStorage.getItem('adminUser');
     if (!userStr) return null;
-    
+
     try {
       return JSON.parse(userStr);
     } catch (error) {
@@ -104,7 +107,7 @@ const authService = {
   async verifyToken() {
     const token = this.getToken();
     if (!token) return false;
-    
+
     // For mock server, just check if token exists
     // In production, you'd verify with backend
     return true;
