@@ -133,9 +133,9 @@ function CreateAdmin() {
     } catch (error) {
       const isUsernameTaken = error.message?.includes('username');
       const isEmailTaken = error.message?.includes('email');
-      
+
       let errorDetail = error.message || 'Failed to create admin user.';
-      
+
       if (isUsernameTaken) {
         errorDetail = 'Username already exists. Please choose a different username.';
         setErrors((prev) => ({ ...prev, username: 'Username already taken' }));
@@ -145,7 +145,7 @@ function CreateAdmin() {
       } else {
         errorDetail += ' Please check your connection and try again.';
       }
-      
+
       toast.current.show({
         severity: 'error',
         summary: 'Creation Failed',

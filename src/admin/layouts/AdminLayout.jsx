@@ -57,7 +57,9 @@ function AdminLayout() {
   ];
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#f8f9fa', position: 'relative' }}>
+    <div
+      style={{ display: 'flex', minHeight: '100vh', background: '#f8f9fa', position: 'relative' }}
+    >
       {/* Mobile Overlay */}
       {sidebarVisible && (
         <div

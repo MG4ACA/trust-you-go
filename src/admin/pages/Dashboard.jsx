@@ -27,7 +27,12 @@ function Dashboard() {
       <div className="flex justify-content-between align-items-start">
         <div>
           <div className="text-500 font-medium mb-2">{title}</div>
-          <div className="text-900 font-bold text-4xl mb-2" aria-label={`${value} ${title.toLowerCase()}`}>{value}</div>
+          <div
+            className="text-900 font-bold text-4xl mb-2"
+            aria-label={`${value} ${title.toLowerCase()}`}
+          >
+            {value}
+          </div>
           {subtitle && <div className="text-sm text-600">{subtitle}</div>}
         </div>
         <div

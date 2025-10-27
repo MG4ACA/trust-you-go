@@ -12,7 +12,7 @@ function Breadcrumb() {
 
   const getBreadcrumbItems = () => {
     const pathnames = location.pathname.split('/').filter((x) => x && x !== 'admin');
-    
+
     const items = pathnames.map((name, index) => {
       const routeTo = `/admin/${pathnames.slice(0, index + 1).join('/')}`;
       const isLast = index === pathnames.length - 1;
