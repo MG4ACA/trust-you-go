@@ -3,11 +3,11 @@ import { Card } from 'primereact/card';
 import { Divider } from 'primereact/divider';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
-import { ProgressSpinner } from 'primereact/progressspinner';
 import { Toast } from 'primereact/toast';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { FormSkeleton } from '../components/LoadingSkeleton';
 import {
   clearCurrentAgent,
   createAgent,
@@ -160,24 +160,23 @@ function Agents() {
 
       setTimeout(() => navigate('/admin/agents'), 1500);
     } catch (error) {
+      const errorDetail =
+        error.message ||
+        (isCreateMode
+          ? 'Failed to create agent. Please check your connection and try again.'
+          : 'Failed to update agent. Please check your connection and try again.');
+      
       toast.current.show({
         severity: 'error',
-        summary: 'Error',
-        detail: error.message || 'Operation failed',
-        life: 3000,
+        summary: isCreateMode ? 'Creation Failed' : 'Update Failed',
+        detail: errorDetail,
+        life: 5000,
       });
     }
   };
 
   if (loading && (isViewMode || isEditMode)) {
-    return (
-      <div
-        className="flex align-items-center justify-content-center"
-        style={{ minHeight: '400px' }}
-      >
-        <ProgressSpinner />
-      </div>
-    );
+    return <FormSkeleton />;
   }
 
   const getTitle = () => {

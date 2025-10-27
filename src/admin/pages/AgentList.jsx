@@ -9,6 +9,7 @@ import { Toast } from 'primereact/toast';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { TableSkeleton } from '../components/LoadingSkeleton';
 import { deleteAgent, fetchAgents } from '../store/slices/agentSlice';
 import '../styles/admin.css';
 
@@ -35,9 +36,21 @@ function AgentList() {
   const handleDelete = (agentId, firstName, lastName) => {
     const agentName = `${firstName || ''} ${lastName || ''}`.trim() || 'this agent';
     confirmDialog({
-      message: `Are you sure you want to delete ${agentName}?`,
-      header: 'Confirm Deletion',
+      message: (
+        <div>
+          <p className="m-0 mb-3">
+            Are you sure you want to delete <strong>{agentName}</strong>?
+          </p>
+          <p className="m-0 text-600 text-sm">
+            This action cannot be undone. All agent data will be permanently removed.
+          </p>
+        </div>
+      ),
+      header: 'Delete Agent',
       icon: 'pi pi-exclamation-triangle',
+      acceptClassName: 'p-button-danger',
+      acceptLabel: 'Delete',
+      rejectLabel: 'Cancel',
       accept: async () => {
         try {
           await dispatch(deleteAgent(agentId)).unwrap();
@@ -50,9 +63,11 @@ function AgentList() {
         } catch (error) {
           toast.current.show({
             severity: 'error',
-            summary: 'Error',
-            detail: error.message || 'Failed to delete agent',
-            life: 3000,
+            summary: 'Deletion Failed',
+            detail:
+              error.message ||
+              'Failed to delete agent. The agent may have active bookings or the server may be unavailable. Please try again.',
+            life: 5000,
           });
         }
       },
@@ -168,6 +183,10 @@ function AgentList() {
       </div>
     </div>
   );
+
+  if (loading && agents.length === 0) {
+    return <TableSkeleton rows={10} columns={7} />;
+  }
 
   return (
     <div className="p-4">

@@ -108,10 +108,10 @@ function CreateAdmin() {
 
     if (!validateForm()) {
       toast.current.show({
-        severity: 'error',
-        summary: 'Validation Error',
-        detail: 'Please fix the errors before submitting',
-        life: 3000,
+        severity: 'warn',
+        summary: 'Validation Required',
+        detail: 'Please review and fix the highlighted fields before submitting.',
+        life: 4000,
       });
       return;
     }
@@ -131,11 +131,26 @@ function CreateAdmin() {
 
       setTimeout(() => navigate('/admin/dashboard'), 1500);
     } catch (error) {
+      const isUsernameTaken = error.message?.includes('username');
+      const isEmailTaken = error.message?.includes('email');
+      
+      let errorDetail = error.message || 'Failed to create admin user.';
+      
+      if (isUsernameTaken) {
+        errorDetail = 'Username already exists. Please choose a different username.';
+        setErrors((prev) => ({ ...prev, username: 'Username already taken' }));
+      } else if (isEmailTaken) {
+        errorDetail = 'Email already in use. Please use a different email address.';
+        setErrors((prev) => ({ ...prev, email: 'Email already in use' }));
+      } else {
+        errorDetail += ' Please check your connection and try again.';
+      }
+      
       toast.current.show({
         severity: 'error',
-        summary: 'Error',
-        detail: error.message || 'Failed to create admin',
-        life: 3000,
+        summary: 'Creation Failed',
+        detail: errorDetail,
+        life: 5000,
       });
     }
   };

@@ -1,8 +1,8 @@
 import { Card } from 'primereact/card';
-import { ProgressSpinner } from 'primereact/progressspinner';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { DashboardSkeleton } from '../components/LoadingSkeleton';
 import { fetchAgents } from '../store/slices/agentSlice';
 import '../styles/admin.css';
 
@@ -23,11 +23,11 @@ function Dashboard() {
   };
 
   const StatCard = ({ title, value, icon, color, subtitle }) => (
-    <Card>
+    <Card role="region" aria-label={`${title} statistics`}>
       <div className="flex justify-content-between align-items-start">
         <div>
           <div className="text-500 font-medium mb-2">{title}</div>
-          <div className="text-900 font-bold text-4xl mb-2">{value}</div>
+          <div className="text-900 font-bold text-4xl mb-2" aria-label={`${value} ${title.toLowerCase()}`}>{value}</div>
           {subtitle && <div className="text-sm text-600">{subtitle}</div>}
         </div>
         <div
@@ -37,6 +37,7 @@ function Dashboard() {
             height: '3.5rem',
             background: `linear-gradient(135deg, ${color}20, ${color}40)`,
           }}
+          aria-hidden="true"
         >
           <i className={`${icon} text-2xl`} style={{ color }}></i>
         </div>
@@ -45,7 +46,18 @@ function Dashboard() {
   );
 
   const QuickActionCard = ({ title, description, icon, action, color }) => (
-    <Card className="hover:shadow-3 transition-all transition-duration-300 cursor-pointer">
+    <Card
+      className="hover:shadow-3 transition-all transition-duration-300 cursor-pointer"
+      role="button"
+      tabIndex={0}
+      aria-label={title}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          action();
+        }
+      }}
+    >
       <div className="flex flex-column align-items-center text-center" onClick={action}>
         <div
           className="border-circle mb-3 flex align-items-center justify-content-center"
@@ -64,14 +76,7 @@ function Dashboard() {
   );
 
   if (loading) {
-    return (
-      <div
-        className="flex align-items-center justify-content-center"
-        style={{ minHeight: '400px' }}
-      >
-        <ProgressSpinner />
-      </div>
-    );
+    return <DashboardSkeleton />;
   }
 
   return (

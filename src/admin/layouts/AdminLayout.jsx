@@ -3,6 +3,7 @@ import { Button } from 'primereact/button';
 import { Menu } from 'primereact/menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
+import Breadcrumb from '../components/Breadcrumb';
 import { logoutAdmin } from '../store/slices/authSlice';
 import { toggleSidebar } from '../store/slices/uiSlice';
 
@@ -56,7 +57,25 @@ function AdminLayout() {
   ];
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#f8f9fa' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: '#f8f9fa', position: 'relative' }}>
+      {/* Mobile Overlay */}
+      {sidebarVisible && (
+        <div
+          onClick={() => dispatch(toggleSidebar())}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 999,
+            display: 'none',
+          }}
+          className="mobile-sidebar-overlay"
+        />
+      )}
+
       {/* Sidebar */}
       {sidebarVisible && (
         <div
@@ -66,7 +85,9 @@ function AdminLayout() {
             boxShadow: '2px 0 8px rgba(0,0,0,0.1)',
             display: 'flex',
             flexDirection: 'column',
+            zIndex: 1000,
           }}
+          className="admin-sidebar"
         >
           {/* Logo/Header */}
           <div
@@ -158,6 +179,9 @@ function AdminLayout() {
 
         {/* Page Content */}
         <div style={{ flex: 1, overflow: 'auto' }}>
+          <div style={{ padding: '1rem 1.5rem 0' }}>
+            <Breadcrumb />
+          </div>
           <Outlet />
         </div>
 
