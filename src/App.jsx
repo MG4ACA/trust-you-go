@@ -6,6 +6,7 @@ import LearnAboutSriLanka from './spa/pages/LearnAboutSriLanka';
 // Admin Portal Imports
 import ProtectedRoute from './admin/components/ProtectedRoute';
 import AdminLayout from './admin/layouts/AdminLayout';
+import AgentList from './admin/pages/AgentList';
 import Agents from './admin/pages/Agents';
 import CreateAdmin from './admin/pages/CreateAdmin';
 import Dashboard from './admin/pages/Dashboard';
@@ -60,7 +61,10 @@ function App() {
           }
         >
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="agents" element={<Agents />} />
+          <Route path="agents" element={<AgentList />} />
+          <Route path="agents/create" element={<Agents />} />
+          <Route path="agents/edit/:id" element={<Agents />} />
+          <Route path="agents/:id" element={<Agents />} />
           <Route path="create-admin" element={<CreateAdmin />} />
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
         </Route>
