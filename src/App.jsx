@@ -10,6 +10,8 @@ import AgentList from './admin/pages/AgentList';
 import Agents from './admin/pages/Agents';
 import CreateAdmin from './admin/pages/CreateAdmin';
 import Dashboard from './admin/pages/Dashboard';
+import LocationList from './admin/pages/LocationList';
+import Locations from './admin/pages/Locations';
 import Login from './admin/pages/Login';
 
 function ScrollToSection({ section }) {
@@ -65,6 +67,10 @@ function App() {
           <Route path="agents/create" element={<Agents />} />
           <Route path="agents/edit/:id" element={<Agents />} />
           <Route path="agents/:id" element={<Agents />} />
+          <Route path="locations" element={<LocationList />} />
+          <Route path="locations/create" element={<Locations />} />
+          <Route path="locations/edit/:id" element={<Locations />} />
+          <Route path="locations/:id" element={<Locations />} />
           <Route path="create-admin" element={<CreateAdmin />} />
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
         </Route>

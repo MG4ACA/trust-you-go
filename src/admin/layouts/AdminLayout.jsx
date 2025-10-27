@@ -31,6 +31,11 @@ function AdminLayout() {
           command: () => navigate('/admin/agents'),
         },
         {
+          label: 'Locations',
+          icon: 'pi pi-map-marker',
+          command: () => navigate('/admin/locations'),
+        },
+        {
           label: 'Create Admin',
           icon: 'pi pi-user-plus',
           command: () => navigate('/admin/create-admin'),
