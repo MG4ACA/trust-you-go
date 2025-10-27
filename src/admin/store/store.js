@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import adminReducer from './slices/adminSlice';
 import agentReducer from './slices/agentSlice';
 import authReducer from './slices/authSlice';
 import uiReducer from './slices/uiSlice';
@@ -7,6 +8,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     agents: agentReducer,
+    admins: adminReducer,
     ui: uiReducer,
   },
   middleware: (getDefaultMiddleware) =>
