@@ -9,6 +9,7 @@ import Contact from '../sections/Contact';
 import Gallery from '../sections/Gallery';
 import Offers from '../sections/Offers';
 import TravelGuides from '../sections/TravelGuides';
+import '../styles/index.css';
 import useSEO from '../utils/useSEO';
 
 const Home = () => {

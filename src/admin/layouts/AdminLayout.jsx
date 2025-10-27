@@ -6,6 +6,9 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { logoutAdmin } from '../store/slices/authSlice';
 import { toggleSidebar } from '../store/slices/uiSlice';
 
+// Import admin styles (includes PrimeFlex)
+import '../styles/admin.css';
+
 function AdminLayout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

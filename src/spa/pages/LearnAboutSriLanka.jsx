@@ -3,6 +3,7 @@ import LanguageSelector from '../components/LanguageSelector';
 import { useLanguage } from '../hooks/useLanguage';
 import DiscoverTips from '../sections/DiscoverTips';
 import LearnMore from '../sections/LearnMore';
+import '../styles/index.css';
 import useSEO from '../utils/useSEO';
 
 const LearnAboutSriLanka = () => {
