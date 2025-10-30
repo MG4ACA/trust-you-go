@@ -282,7 +282,12 @@
         "English-speaking guide",
         "Entrance fees"
       ],
-      "excludes": ["International flights", "Lunch", "Personal expenses", "Travel insurance"],
+      "excludes": [
+        "International flights",
+        "Lunch",
+        "Personal expenses",
+        "Travel insurance"
+      ],
       "highlights": [
         "Sigiriya Rock Fortress",
         "Dambulla Cave Temple",
@@ -291,7 +296,37 @@
       ],
       "isActive": true,
       "createdAt": "2025-01-15T10:00:00.000Z",
-      "updatedAt": "2025-10-10T14:00:00.000Z"
+      "updatedAt": "2025-10-30T08:53:29.398Z",
+      "itinerary": [
+        {
+          "dayNumber": 1,
+          "items": []
+        },
+        {
+          "dayNumber": 2,
+          "items": []
+        },
+        {
+          "dayNumber": 3,
+          "items": []
+        },
+        {
+          "dayNumber": 4,
+          "items": []
+        },
+        {
+          "dayNumber": 5,
+          "items": []
+        },
+        {
+          "dayNumber": 6,
+          "items": []
+        },
+        {
+          "dayNumber": 7,
+          "items": []
+        }
+      ]
     },
     {
       "id": "2",
@@ -341,7 +376,12 @@
         "Tea plantation tour",
         "Guide services"
       ],
-      "excludes": ["International flights", "Lunch and dinner", "Personal expenses", "Tips"],
+      "excludes": [
+        "International flights",
+        "Lunch and dinner",
+        "Personal expenses",
+        "Tips"
+      ],
       "highlights": [
         "Nuwara Eliya tea estates",
         "Scenic train journey",
@@ -369,7 +409,12 @@
         "All entrance fees",
         "Safari & whale watching"
       ],
-      "excludes": ["International flights", "Visa fees", "Travel insurance", "Personal expenses"],
+      "excludes": [
+        "International flights",
+        "Visa fees",
+        "Travel insurance",
+        "Personal expenses"
+      ],
       "highlights": [
         "Cultural Triangle sites",
         "Yala Safari",
@@ -411,7 +456,21 @@
       ],
       "isActive": true,
       "createdAt": "2025-01-15T10:00:00.000Z",
-      "updatedAt": "2025-10-10T14:00:00.000Z"
+      "updatedAt": "2025-10-30T09:05:07.527Z",
+      "itinerary": [
+        {
+          "dayNumber": 1,
+          "items": []
+        },
+        {
+          "dayNumber": 2,
+          "items": []
+        },
+        {
+          "dayNumber": 3,
+          "items": []
+        }
+      ]
     }
   ],
   "bookings": [

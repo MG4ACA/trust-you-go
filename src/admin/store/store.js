@@ -3,6 +3,7 @@ import adminReducer from './slices/adminSlice';
 import agentReducer from './slices/agentSlice';
 import authReducer from './slices/authSlice';
 import locationReducer from './slices/locationSlice';
+import { packageReducer } from './slices/packageSlice';
 import uiReducer from './slices/uiSlice';
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     agents: agentReducer,
     admins: adminReducer,
     locations: locationReducer,
+    packages: packageReducer,
     ui: uiReducer,
   },
   middleware: (getDefaultMiddleware) =>

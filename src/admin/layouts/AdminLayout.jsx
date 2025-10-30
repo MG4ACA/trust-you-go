@@ -36,6 +36,11 @@ function AdminLayout() {
           command: () => navigate('/admin/locations'),
         },
         {
+          label: 'Packages',
+          icon: 'pi pi-box',
+          command: () => navigate('/admin/packages'),
+        },
+        {
           label: 'Create Admin',
           icon: 'pi pi-user-plus',
           command: () => navigate('/admin/create-admin'),

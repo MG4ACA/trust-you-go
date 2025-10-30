@@ -13,6 +13,8 @@ import Dashboard from './admin/pages/Dashboard';
 import LocationList from './admin/pages/LocationList';
 import Locations from './admin/pages/Locations';
 import Login from './admin/pages/Login';
+import Package from './admin/pages/Package';
+import PackageList from './admin/pages/PackageList';
 
 function ScrollToSection({ section }) {
   useEffect(() => {
@@ -67,6 +69,10 @@ function App() {
           <Route path="agents/create" element={<Agents />} />
           <Route path="agents/edit/:id" element={<Agents />} />
           <Route path="agents/:id" element={<Agents />} />
+          <Route path="packages" element={<PackageList />} />
+          <Route path="packages/create" element={<Package />} />
+          <Route path="packages/edit/:id" element={<Package />} />
+          <Route path="packages/:id" element={<Package />} />
           <Route path="locations" element={<LocationList />} />
           <Route path="locations/create" element={<Locations />} />
           <Route path="locations/edit/:id" element={<Locations />} />
