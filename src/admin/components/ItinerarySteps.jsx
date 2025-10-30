@@ -6,6 +6,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { Steps } from 'primereact/steps';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LocationTypeTag from './LocationTypeTag';
 
 const ItinerarySteps = ({
   numDays = 1,
@@ -14,17 +15,43 @@ const ItinerarySteps = ({
   onSave,
   disabled = false,
   locations = [],
+  errors = {},
 }) => {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [filteredLocations, setFilteredLocations] = useState([]);
+  const [locationInput, setLocationInput] = useState('');
+
+  const validateLocationAdd = (dayNumber, location) => {
+    const dayLocations = itineraryData[dayNumber - 1]?.locations || [];
+
+    // Check for duplicate locations
+    if (dayLocations.some((loc) => loc.id === location.id)) {
+      return 'Location already added to this day';
+    }
+
+    // Validate accommodation count
+    const accommodationCount = dayLocations.filter(
+      (loc) => loc.location_type === 'accommodation'
+    ).length;
+
+    if (location.location_type === 'accommodation' && accommodationCount >= 1) {
+      return 'Cannot add more than one accommodation per day';
+    }
+
+    return null;
+  };
 
   // Use memo to compute itinerary data
   const itineraryData = useMemo(() => {
     return Array.from({ length: numDays }, (_, index) => ({
       dayNumber: index + 1,
       description: value[index]?.description || '',
-      locations: value[index]?.locations || [],
+      locations: (value[index]?.locations || []).map((loc) => ({
+        ...loc,
+        visit_order: loc.visit_order || 0,
+        notes: loc.notes || '',
+      })),
     }));
   }, [numDays, value]);
 
@@ -55,7 +82,31 @@ const ItinerarySteps = ({
 
     // Check if location already exists
     if (!updatedItinerary[dayIndex].locations.find((loc) => loc.id === location.id)) {
-      updatedItinerary[dayIndex].locations = [...updatedItinerary[dayIndex].locations, location];
+      // Get the next visit_order for this day
+      const nextVisitOrder =
+        updatedItinerary[dayIndex].locations.length > 0
+          ? Math.max(...updatedItinerary[dayIndex].locations.map((l) => l.visit_order)) + 1
+          : 0;
+
+      // Make sure we have the complete location object with all properties
+      const selectedLocation = {
+        ...location,
+        visit_order: nextVisitOrder,
+        notes: '',
+        // Ensure these properties exist
+        images: location.images || [],
+        name: location.name || '',
+        city: location.city || '',
+        province: location.province || '',
+        location_type: location.location_type || '',
+      };
+
+      updatedItinerary[dayIndex].locations = [
+        ...updatedItinerary[dayIndex].locations,
+        selectedLocation,
+      ];
+
+      // Update the itinerary
       onChange?.(updatedItinerary);
     }
   };
@@ -94,6 +145,7 @@ const ItinerarySteps = ({
 
   return (
     <div className="itinerary-steps">
+      {errors.itinerary && <div className="p-error mb-3">{errors.itinerary}</div>}
       <Steps
         model={stepItems}
         activeIndex={activeStep}
@@ -125,24 +177,33 @@ const ItinerarySteps = ({
               <div className="col-12">
                 <div className="field">
                   <label>Add Location</label>
-                  <div className="p-inputgroup">
-                    <AutoComplete
-                      value={null}
-                      suggestions={filteredLocations}
-                      completeMethod={searchLocation}
-                      field="name"
-                      itemTemplate={locationItemTemplate}
-                      onChange={(e) => handleLocationSelect(index, e.value)}
-                      placeholder="Search for a location..."
-                      className="w-full"
-                    />
-                    <Button
-                      icon="pi pi-plus"
-                      className="p-button-success"
-                      onClick={handleAddNewLocation}
-                      tooltip="Add New Location"
-                      tooltipOptions={{ position: 'bottom' }}
-                    />
+                  <div className="grid">
+                    <div className="col-12">
+                      <div className="p-inputgroup">
+                        <AutoComplete
+                          value={locationInput}
+                          suggestions={filteredLocations}
+                          completeMethod={searchLocation}
+                          field="name"
+                          itemTemplate={locationItemTemplate}
+                          onChange={(e) => setLocationInput(e.value)}
+                          onSelect={(e) => {
+                            handleLocationSelect(index, e.value);
+                            setLocationInput('');
+                          }}
+                          placeholder="Search for a location..."
+                          className="w-full"
+                          dropdown
+                        />
+                        <Button
+                          icon="pi pi-plus"
+                          className="p-button-success"
+                          onClick={handleAddNewLocation}
+                          tooltip="Add New Location"
+                          tooltipOptions={{ position: 'bottom' }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -151,31 +212,59 @@ const ItinerarySteps = ({
             <div className="col-12">
               <div className="grid">
                 {day.locations &&
-                  day.locations.map((location) => (
-                    <div key={location.id} className="col-12 md:col-6 lg:col-4 xl:col-3">
-                      <Card
-                        title={location.name}
-                        subTitle={`${location.city}, ${location.province}`}
-                        className="mb-3"
-                      >
-                        {location.images && location.images.length > 0 && (
-                          <Image
-                            src={location.images[0].imageUrl}
-                            alt={location.name}
-                            width="100%"
-                            preview
-                          />
-                        )}
-                        {!disabled && (
-                          <Button
-                            icon="pi pi-times"
-                            className="p-button-rounded p-button-danger p-button-sm absolute right-0 top-0 m-2"
-                            onClick={() => removeLocation(index, location.id)}
-                          />
-                        )}
-                      </Card>
-                    </div>
-                  ))}
+                  [...day.locations]
+                    .sort((a, b) => a.visit_order - b.visit_order)
+                    .map((location) => (
+                      <div key={location.id} className="col-12 md:col-6 lg:col-4 xl:col-3">
+                        <Card
+                          title={location.name}
+                          subTitle={
+                            <div className="flex align-items-center gap-2">
+                              <LocationTypeTag type={location.location_type} />
+                              <span>
+                                {location.city}, {location.province}
+                              </span>
+                            </div>
+                          }
+                          className="mb-3"
+                        >
+                          {location.images && location.images.length > 0 && (
+                            <Image
+                              src={location.images[0].imageUrl}
+                              alt={location.name}
+                              width="100%"
+                              preview
+                            />
+                          )}
+                          <div className="mt-2">
+                            <InputTextarea
+                              value={location.notes || ''}
+                              onChange={(e) => {
+                                const updatedItinerary = [...itineraryData];
+                                const loc = updatedItinerary[index].locations.find(
+                                  (l) => l.id === location.id
+                                );
+                                if (loc) {
+                                  loc.notes = e.target.value;
+                                  onChange?.(updatedItinerary);
+                                }
+                              }}
+                              rows={2}
+                              placeholder="Add notes..."
+                              disabled={disabled}
+                              className="w-full"
+                            />
+                          </div>
+                          {!disabled && (
+                            <Button
+                              icon="pi pi-times"
+                              className="p-button-rounded p-button-danger p-button-sm absolute right-0 top-0 m-2"
+                              onClick={() => removeLocation(index, location.id)}
+                            />
+                          )}
+                        </Card>
+                      </div>
+                    ))}
               </div>
             </div>
           </div>

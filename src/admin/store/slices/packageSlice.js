@@ -65,6 +65,8 @@ const packageSlice = createSlice({
     selectedPackage: null,
     loading: false,
     error: null,
+    actionLoading: false,
+    actionError: null,
   },
   reducers: {
     clearSelectedPackage: (state) => {

@@ -75,9 +75,32 @@ const Package = () => {
 
   useEffect(() => {
     if (selectedPackage) {
-      setFormData(selectedPackage);
+      // Transform package_locations into itinerary format
+      const itinerary = Array.from({ length: selectedPackage.no_of_days }, (_, index) => ({
+        dayNumber: index + 1,
+        description: '',
+        locations: [],
+      }));
+
+      // Find corresponding location data for each package_location
+      selectedPackage.package_locations?.forEach((pl) => {
+        const location = locations.find((l) => l.id === pl.location_id);
+        if (location && pl.day_number <= selectedPackage.no_of_days) {
+          const dayIndex = pl.day_number - 1;
+          itinerary[dayIndex].locations.push({
+            ...location,
+            visit_order: pl.visit_order,
+            notes: pl.notes,
+          });
+        }
+      });
+
+      setFormData({
+        ...selectedPackage,
+        itinerary,
+      });
     }
-  }, [selectedPackage]);
+  }, [selectedPackage, locations]);
 
   useEffect(() => {
     if (error) {
@@ -90,8 +113,47 @@ const Package = () => {
     }
   }, [error]);
 
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.name?.trim()) errors.name = 'Package name is required';
+    if (!formData.description?.trim()) errors.description = 'Description is required';
+    if (!formData.duration || formData.duration < 1)
+      errors.duration = 'Duration must be at least 1 day';
+    if (!formData.price || formData.price <= 0) errors.price = 'Price must be greater than 0';
+    if (!formData.maxPeople || formData.maxPeople < 1)
+      errors.maxPeople = 'Max people must be at least 1';
+    if (!formData.difficulty) errors.difficulty = 'Difficulty level is required';
+    if (!formData.category) errors.category = 'Category is required';
+    if (!formData.includes?.length) errors.includes = 'At least one inclusion is required';
+    if (!formData.highlights?.length) errors.highlights = 'At least one highlight is required';
+
+    // Validate itinerary
+    if (formData.itinerary) {
+      const hasEmptyDays = formData.itinerary.some((day) => !day.locations?.length);
+      if (hasEmptyDays) {
+        errors.itinerary = 'Each day must have at least one location';
+      }
+    }
+
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      Object.entries(validationErrors).forEach(([field, message]) => {
+        toast.current.show({
+          severity: 'error',
+          summary: 'Validation Error',
+          detail: `${field}: ${message}`,
+          life: 3000,
+        });
+      });
+      return;
+    }
+
     try {
       if (id) {
         await dispatch(updatePackage({ id, data: formData })).unwrap();
@@ -354,11 +416,24 @@ const Package = () => {
               <h3>Itinerary</h3>
               <ItinerarySteps
                 numDays={formData.duration}
-                onChange={(itinerary) =>
-                  handleChange({
-                    target: { name: 'itinerary', value: itinerary },
-                  })
-                }
+                onChange={(itinerary) => {
+                  // Transform itinerary data into package_locations format
+                  const package_locations = itinerary.flatMap((day) =>
+                    day.locations.map((location) => ({
+                      location_id: location.id,
+                      day_number: day.dayNumber,
+                      visit_order: location.visit_order,
+                      notes: location.notes || '',
+                    }))
+                  );
+
+                  // Update both package_locations and itinerary
+                  setFormData((prev) => ({
+                    ...prev,
+                    package_locations: package_locations,
+                    itinerary: itinerary,
+                  }));
+                }}
                 value={formData.itinerary}
                 disabled={isViewMode}
                 locations={locations}

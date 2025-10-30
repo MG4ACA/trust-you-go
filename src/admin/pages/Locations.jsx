@@ -38,7 +38,7 @@ function Locations() {
     description: '',
     city: '',
     province: 'Western Province',
-    category: 'historical',
+    location_type: 'tourist_spot',
     latitude: 0,
     longitude: 0,
     entryFee: 0,
@@ -50,8 +50,11 @@ function Locations() {
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState({});
 
-  const categoryOptions = [
-    { label: 'Historical', value: 'historical' },
+  const locationTypeOptions = [
+    { label: 'Tourist Spot', value: 'tourist_spot' },
+    { label: 'Accommodation', value: 'accommodation' },
+    { label: 'Restaurant', value: 'restaurant' },
+    { label: 'Activity', value: 'activity' },
     { label: 'Religious', value: 'religious' },
     { label: 'Wildlife', value: 'wildlife' },
     { label: 'Nature', value: 'nature' },
@@ -99,7 +102,7 @@ function Locations() {
         description: currentLocation.description || '',
         city: currentLocation.city || '',
         province: currentLocation.province || 'Western Province',
-        category: currentLocation.category || 'historical',
+        location_type: currentLocation.location_type || 'historical',
         latitude: currentLocation.latitude || 0,
         longitude: currentLocation.longitude || 0,
         entryFee: currentLocation.entryFee || 0,
@@ -306,16 +309,16 @@ function Locations() {
                   />
                 </div>
 
-                {/* Category */}
+                {/* Location Type */}
                 <div className="col-12 md:col-6">
-                  <label htmlFor="category" className="block text-900 font-medium mb-2">
-                    Category <span className="text-red-500">*</span>
+                  <label htmlFor="locationType" className="block text-900 font-medium mb-2">
+                    Location Type <span className="text-red-500">*</span>
                   </label>
                   <Dropdown
-                    id="category"
-                    value={formData.category}
-                    options={categoryOptions}
-                    onChange={(e) => handleInputChange('category', e.value)}
+                    id="locationType"
+                    value={formData.location_type}
+                    options={locationTypeOptions}
+                    onChange={(e) => handleInputChange('location_type', e.value)}
                     className="w-full"
                     disabled={isViewMode}
                   />

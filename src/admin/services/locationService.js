@@ -40,9 +40,9 @@ const locationService = {
     return response.data;
   },
 
-  // Get locations by category
-  getByCategory: async (category) => {
-    const response = await apiClient.get(`/locations?category=${category}`);
+  // Get locations by type
+  getByType: async (locationType) => {
+    const response = await apiClient.get(`/locations?location_type=${locationType}`);
     return response.data;
   },
 

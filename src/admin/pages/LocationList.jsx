@@ -89,8 +89,8 @@ function LocationList() {
 
     return (
       <Tag
-        value={rowData.category}
-        severity={categoryColors[rowData.category] || 'secondary'}
+        value={rowData.location_type}
+        severity={categoryColors[rowData.location_type] || 'secondary'}
         style={{ textTransform: 'capitalize' }}
       />
     );
@@ -161,7 +161,7 @@ function LocationList() {
 
   // Filter locations
   const filteredLocations = locations.filter((location) => {
-    const matchesCategory = !categoryFilter || location.category === categoryFilter;
+    const matchesCategory = !categoryFilter || location.location_type === categoryFilter;
     const matchesSearch =
       !globalFilter ||
       location.name.toLowerCase().includes(globalFilter.toLowerCase()) ||
@@ -235,7 +235,7 @@ function LocationList() {
           style={{ minWidth: '15rem' }}
         />
         <Column
-          field="category"
+          field="location_type"
           header="Category"
           body={categoryBodyTemplate}
           sortable

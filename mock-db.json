@@ -108,7 +108,7 @@
       "description": "Ancient rock fortress and palace ruins, UNESCO World Heritage Site. Features stunning frescoes and landscaped gardens.",
       "city": "Sigiriya",
       "province": "Central Province",
-      "category": "historical",
+      "location_type": "historical",
       "latitude": 7.957,
       "longitude": 80.7603,
       "entryFee": 30,
@@ -124,7 +124,7 @@
       "description": "Sacred Buddhist temple housing a tooth relic of Buddha. Located in the royal palace complex of Kandy.",
       "city": "Kandy",
       "province": "Central Province",
-      "category": "religious",
+      "location_type": "religious",
       "latitude": 7.2935,
       "longitude": 80.6405,
       "entryFee": 10,
@@ -135,20 +135,19 @@
       "updatedAt": "2025-10-15T14:00:00.000Z"
     },
     {
-      "id": "3",
       "name": "Yala National Park",
       "description": "Premier wildlife sanctuary known for leopards, elephants, and diverse bird species. Safari destination.",
       "city": "Yala",
       "province": "Southern Province",
-      "category": "wildlife",
+      "location_type": "wildlife",
       "latitude": 6.3712,
       "longitude": 81.5199,
       "entryFee": 25,
       "bestTimeToVisit": "February to July",
       "averageVisitDuration": "Half day",
       "isActive": true,
-      "createdAt": "2025-01-10T10:00:00.000Z",
-      "updatedAt": "2025-10-15T14:00:00.000Z"
+      "updatedAt": "2025-10-30T23:40:38.915Z",
+      "id": "3"
     },
     {
       "id": "4",
@@ -156,7 +155,7 @@
       "description": "Historic fort built by Portuguese and fortified by Dutch. Picturesque streets, cafes, and colonial architecture.",
       "city": "Galle",
       "province": "Southern Province",
-      "category": "historical",
+      "location_type": "historical",
       "latitude": 6.0329,
       "longitude": 80.2168,
       "entryFee": 0,
@@ -172,7 +171,7 @@
       "description": "Lush tea estates in Sri Lanka's hill country. Cool climate, British colonial architecture, and scenic views.",
       "city": "Nuwara Eliya",
       "province": "Central Province",
-      "category": "nature",
+      "location_type": "nature",
       "latitude": 6.9497,
       "longitude": 80.7891,
       "entryFee": 5,
@@ -188,7 +187,7 @@
       "description": "Pristine beach destination perfect for whale watching, surfing, and relaxation. Crystal clear waters.",
       "city": "Mirissa",
       "province": "Southern Province",
-      "category": "beach",
+      "location_type": "beach",
       "latitude": 5.9467,
       "longitude": 80.4681,
       "entryFee": 0,
@@ -282,12 +281,7 @@
         "English-speaking guide",
         "Entrance fees"
       ],
-      "excludes": [
-        "International flights",
-        "Lunch",
-        "Personal expenses",
-        "Travel insurance"
-      ],
+      "excludes": ["International flights", "Lunch", "Personal expenses", "Travel insurance"],
       "highlights": [
         "Sigiriya Rock Fortress",
         "Dambulla Cave Temple",
@@ -376,12 +370,7 @@
         "Tea plantation tour",
         "Guide services"
       ],
-      "excludes": [
-        "International flights",
-        "Lunch and dinner",
-        "Personal expenses",
-        "Tips"
-      ],
+      "excludes": ["International flights", "Lunch and dinner", "Personal expenses", "Tips"],
       "highlights": [
         "Nuwara Eliya tea estates",
         "Scenic train journey",
@@ -409,12 +398,7 @@
         "All entrance fees",
         "Safari & whale watching"
       ],
-      "excludes": [
-        "International flights",
-        "Visa fees",
-        "Travel insurance",
-        "Personal expenses"
-      ],
+      "excludes": ["International flights", "Visa fees", "Travel insurance", "Personal expenses"],
       "highlights": [
         "Cultural Triangle sites",
         "Yala Safari",
