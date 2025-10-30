@@ -259,231 +259,231 @@ function Locations() {
           <Card>
             <form onSubmit={handleSubmit}>
               <div className="grid">
-            {/* Name */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="name" className="block text-900 font-medium mb-2">
-                Location Name <span className="text-red-500">*</span>
-              </label>
-              <InputText
-                id="name"
-                value={formData.name}
-                onChange={(e) => handleInputChange('name', e.target.value)}
-                className={`w-full ${errors.name ? 'p-invalid' : ''}`}
-                disabled={isViewMode}
-                placeholder="e.g., Sigiriya Rock Fortress"
-              />
-              {errors.name && <small className="p-error">{errors.name}</small>}
-            </div>
+                {/* Name */}
+                <div className="col-12 md:col-6">
+                  <label htmlFor="name" className="block text-900 font-medium mb-2">
+                    Location Name <span className="text-red-500">*</span>
+                  </label>
+                  <InputText
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    className={`w-full ${errors.name ? 'p-invalid' : ''}`}
+                    disabled={isViewMode}
+                    placeholder="e.g., Sigiriya Rock Fortress"
+                  />
+                  {errors.name && <small className="p-error">{errors.name}</small>}
+                </div>
 
-            {/* City */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="city" className="block text-900 font-medium mb-2">
-                City <span className="text-red-500">*</span>
-              </label>
-              <InputText
-                id="city"
-                value={formData.city}
-                onChange={(e) => handleInputChange('city', e.target.value)}
-                className={`w-full ${errors.city ? 'p-invalid' : ''}`}
-                disabled={isViewMode}
-                placeholder="e.g., Sigiriya"
-              />
-              {errors.city && <small className="p-error">{errors.city}</small>}
-            </div>
+                {/* City */}
+                <div className="col-12 md:col-6">
+                  <label htmlFor="city" className="block text-900 font-medium mb-2">
+                    City <span className="text-red-500">*</span>
+                  </label>
+                  <InputText
+                    id="city"
+                    value={formData.city}
+                    onChange={(e) => handleInputChange('city', e.target.value)}
+                    className={`w-full ${errors.city ? 'p-invalid' : ''}`}
+                    disabled={isViewMode}
+                    placeholder="e.g., Sigiriya"
+                  />
+                  {errors.city && <small className="p-error">{errors.city}</small>}
+                </div>
 
-            {/* Province */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="province" className="block text-900 font-medium mb-2">
-                Province <span className="text-red-500">*</span>
-              </label>
-              <Dropdown
-                id="province"
-                value={formData.province}
-                options={provinceOptions}
-                onChange={(e) => handleInputChange('province', e.value)}
-                className="w-full"
-                disabled={isViewMode}
-              />
-            </div>
+                {/* Province */}
+                <div className="col-12 md:col-6">
+                  <label htmlFor="province" className="block text-900 font-medium mb-2">
+                    Province <span className="text-red-500">*</span>
+                  </label>
+                  <Dropdown
+                    id="province"
+                    value={formData.province}
+                    options={provinceOptions}
+                    onChange={(e) => handleInputChange('province', e.value)}
+                    className="w-full"
+                    disabled={isViewMode}
+                  />
+                </div>
 
-            {/* Category */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="category" className="block text-900 font-medium mb-2">
-                Category <span className="text-red-500">*</span>
-              </label>
-              <Dropdown
-                id="category"
-                value={formData.category}
-                options={categoryOptions}
-                onChange={(e) => handleInputChange('category', e.value)}
-                className="w-full"
-                disabled={isViewMode}
-              />
-            </div>
+                {/* Category */}
+                <div className="col-12 md:col-6">
+                  <label htmlFor="category" className="block text-900 font-medium mb-2">
+                    Category <span className="text-red-500">*</span>
+                  </label>
+                  <Dropdown
+                    id="category"
+                    value={formData.category}
+                    options={categoryOptions}
+                    onChange={(e) => handleInputChange('category', e.value)}
+                    className="w-full"
+                    disabled={isViewMode}
+                  />
+                </div>
 
-            {/* Description */}
-            <div className="col-12">
-              <label htmlFor="description" className="block text-900 font-medium mb-2">
-                Description <span className="text-red-500">*</span>
-              </label>
-              <InputTextarea
-                id="description"
-                value={formData.description}
-                onChange={(e) => handleInputChange('description', e.target.value)}
-                rows={4}
-                className={`w-full ${errors.description ? 'p-invalid' : ''}`}
-                disabled={isViewMode}
-                placeholder="Provide a detailed description of the location..."
-              />
-              {errors.description && <small className="p-error">{errors.description}</small>}
-              <small className="text-600 block mt-1">
-                {formData.description.length} characters (minimum 20 required)
-              </small>
-            </div>
+                {/* Description */}
+                <div className="col-12">
+                  <label htmlFor="description" className="block text-900 font-medium mb-2">
+                    Description <span className="text-red-500">*</span>
+                  </label>
+                  <InputTextarea
+                    id="description"
+                    value={formData.description}
+                    onChange={(e) => handleInputChange('description', e.target.value)}
+                    rows={4}
+                    className={`w-full ${errors.description ? 'p-invalid' : ''}`}
+                    disabled={isViewMode}
+                    placeholder="Provide a detailed description of the location..."
+                  />
+                  {errors.description && <small className="p-error">{errors.description}</small>}
+                  <small className="text-600 block mt-1">
+                    {formData.description.length} characters (minimum 20 required)
+                  </small>
+                </div>
 
-            {/* Latitude */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="latitude" className="block text-900 font-medium mb-2">
-                Latitude <span className="text-red-500">*</span>
-              </label>
-              <InputNumber
-                id="latitude"
-                value={formData.latitude}
-                onValueChange={(e) => handleInputChange('latitude', e.value)}
-                className={`w-full ${errors.latitude ? 'p-invalid' : ''}`}
-                disabled={isViewMode}
-                minFractionDigits={2}
-                maxFractionDigits={6}
-                placeholder="e.g., 7.957"
-              />
-              {errors.latitude && <small className="p-error">{errors.latitude}</small>}
-            </div>
+                {/* Latitude */}
+                <div className="col-12 md:col-6">
+                  <label htmlFor="latitude" className="block text-900 font-medium mb-2">
+                    Latitude <span className="text-red-500">*</span>
+                  </label>
+                  <InputNumber
+                    id="latitude"
+                    value={formData.latitude}
+                    onValueChange={(e) => handleInputChange('latitude', e.value)}
+                    className={`w-full ${errors.latitude ? 'p-invalid' : ''}`}
+                    disabled={isViewMode}
+                    minFractionDigits={2}
+                    maxFractionDigits={6}
+                    placeholder="e.g., 7.957"
+                  />
+                  {errors.latitude && <small className="p-error">{errors.latitude}</small>}
+                </div>
 
-            {/* Longitude */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="longitude" className="block text-900 font-medium mb-2">
-                Longitude <span className="text-red-500">*</span>
-              </label>
-              <InputNumber
-                id="longitude"
-                value={formData.longitude}
-                onValueChange={(e) => handleInputChange('longitude', e.value)}
-                className={`w-full ${errors.longitude ? 'p-invalid' : ''}`}
-                disabled={isViewMode}
-                minFractionDigits={2}
-                maxFractionDigits={6}
-                placeholder="e.g., 80.7603"
-              />
-              {errors.longitude && <small className="p-error">{errors.longitude}</small>}
-            </div>
+                {/* Longitude */}
+                <div className="col-12 md:col-6">
+                  <label htmlFor="longitude" className="block text-900 font-medium mb-2">
+                    Longitude <span className="text-red-500">*</span>
+                  </label>
+                  <InputNumber
+                    id="longitude"
+                    value={formData.longitude}
+                    onValueChange={(e) => handleInputChange('longitude', e.value)}
+                    className={`w-full ${errors.longitude ? 'p-invalid' : ''}`}
+                    disabled={isViewMode}
+                    minFractionDigits={2}
+                    maxFractionDigits={6}
+                    placeholder="e.g., 80.7603"
+                  />
+                  {errors.longitude && <small className="p-error">{errors.longitude}</small>}
+                </div>
 
-            {/* Entry Fee */}
-            <div className="col-12 md:col-4">
-              <label htmlFor="entryFee" className="block text-900 font-medium mb-2">
-                Entry Fee (USD) <span className="text-red-500">*</span>
-              </label>
-              <InputNumber
-                id="entryFee"
-                value={formData.entryFee}
-                onValueChange={(e) => handleInputChange('entryFee', e.value)}
-                className={`w-full ${errors.entryFee ? 'p-invalid' : ''}`}
-                disabled={isViewMode}
-                min={0}
-                prefix="$"
-                placeholder="0"
-              />
-              {errors.entryFee && <small className="p-error">{errors.entryFee}</small>}
-              <small className="text-600 block mt-1">Set to 0 for free entry</small>
-            </div>
+                {/* Entry Fee */}
+                <div className="col-12 md:col-4">
+                  <label htmlFor="entryFee" className="block text-900 font-medium mb-2">
+                    Entry Fee (USD) <span className="text-red-500">*</span>
+                  </label>
+                  <InputNumber
+                    id="entryFee"
+                    value={formData.entryFee}
+                    onValueChange={(e) => handleInputChange('entryFee', e.value)}
+                    className={`w-full ${errors.entryFee ? 'p-invalid' : ''}`}
+                    disabled={isViewMode}
+                    min={0}
+                    prefix="$"
+                    placeholder="0"
+                  />
+                  {errors.entryFee && <small className="p-error">{errors.entryFee}</small>}
+                  <small className="text-600 block mt-1">Set to 0 for free entry</small>
+                </div>
 
-            {/* Best Time to Visit */}
-            <div className="col-12 md:col-4">
-              <label htmlFor="bestTimeToVisit" className="block text-900 font-medium mb-2">
-                Best Time to Visit <span className="text-red-500">*</span>
-              </label>
-              <InputText
-                id="bestTimeToVisit"
-                value={formData.bestTimeToVisit}
-                onChange={(e) => handleInputChange('bestTimeToVisit', e.target.value)}
-                className={`w-full ${errors.bestTimeToVisit ? 'p-invalid' : ''}`}
-                disabled={isViewMode}
-                placeholder="e.g., December to April"
-              />
-              {errors.bestTimeToVisit && (
-                <small className="p-error">{errors.bestTimeToVisit}</small>
+                {/* Best Time to Visit */}
+                <div className="col-12 md:col-4">
+                  <label htmlFor="bestTimeToVisit" className="block text-900 font-medium mb-2">
+                    Best Time to Visit <span className="text-red-500">*</span>
+                  </label>
+                  <InputText
+                    id="bestTimeToVisit"
+                    value={formData.bestTimeToVisit}
+                    onChange={(e) => handleInputChange('bestTimeToVisit', e.target.value)}
+                    className={`w-full ${errors.bestTimeToVisit ? 'p-invalid' : ''}`}
+                    disabled={isViewMode}
+                    placeholder="e.g., December to April"
+                  />
+                  {errors.bestTimeToVisit && (
+                    <small className="p-error">{errors.bestTimeToVisit}</small>
+                  )}
+                </div>
+
+                {/* Average Visit Duration */}
+                <div className="col-12 md:col-4">
+                  <label htmlFor="averageVisitDuration" className="block text-900 font-medium mb-2">
+                    Avg. Visit Duration <span className="text-red-500">*</span>
+                  </label>
+                  <InputText
+                    id="averageVisitDuration"
+                    value={formData.averageVisitDuration}
+                    onChange={(e) => handleInputChange('averageVisitDuration', e.target.value)}
+                    className={`w-full ${errors.averageVisitDuration ? 'p-invalid' : ''}`}
+                    disabled={isViewMode}
+                    placeholder="e.g., 3-4 hours"
+                  />
+                  {errors.averageVisitDuration && (
+                    <small className="p-error">{errors.averageVisitDuration}</small>
+                  )}
+                </div>
+
+                {/* Active Status */}
+                <div className="col-12">
+                  <div className="flex align-items-center">
+                    <Checkbox
+                      inputId="isActive"
+                      checked={formData.isActive}
+                      onChange={(e) => handleInputChange('isActive', e.checked)}
+                      disabled={isViewMode}
+                    />
+                    <label htmlFor="isActive" className="ml-2 text-900">
+                      Active (Location visible to agents and customers)
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {!isViewMode && (
+                <>
+                  <Divider />
+                  <div className="flex justify-content-end gap-2">
+                    <Button
+                      label="Cancel"
+                      icon="pi pi-times"
+                      outlined
+                      severity="secondary"
+                      onClick={() => navigate('/admin/locations')}
+                      type="button"
+                    />
+                    <Button
+                      label={isEditMode ? 'Update Location' : 'Create Location'}
+                      icon={isEditMode ? 'pi pi-check' : 'pi-plus'}
+                      severity="success"
+                      loading={actionLoading}
+                      type="submit"
+                    />
+                  </div>
+                </>
               )}
-            </div>
 
-            {/* Average Visit Duration */}
-            <div className="col-12 md:col-4">
-              <label htmlFor="averageVisitDuration" className="block text-900 font-medium mb-2">
-                Avg. Visit Duration <span className="text-red-500">*</span>
-              </label>
-              <InputText
-                id="averageVisitDuration"
-                value={formData.averageVisitDuration}
-                onChange={(e) => handleInputChange('averageVisitDuration', e.target.value)}
-                className={`w-full ${errors.averageVisitDuration ? 'p-invalid' : ''}`}
-                disabled={isViewMode}
-                placeholder="e.g., 3-4 hours"
-              />
-              {errors.averageVisitDuration && (
-                <small className="p-error">{errors.averageVisitDuration}</small>
+              {isViewMode && (
+                <>
+                  <Divider />
+                  <div className="flex justify-content-end gap-2">
+                    <Button
+                      label="Edit Location"
+                      icon="pi pi-pencil"
+                      severity="info"
+                      onClick={() => navigate(`/admin/locations/edit/${id}`)}
+                    />
+                  </div>
+                </>
               )}
-            </div>
-
-            {/* Active Status */}
-            <div className="col-12">
-              <div className="flex align-items-center">
-                <Checkbox
-                  inputId="isActive"
-                  checked={formData.isActive}
-                  onChange={(e) => handleInputChange('isActive', e.checked)}
-                  disabled={isViewMode}
-                />
-                <label htmlFor="isActive" className="ml-2 text-900">
-                  Active (Location visible to agents and customers)
-                </label>
-              </div>
-            </div>
-          </div>
-
-          {!isViewMode && (
-            <>
-              <Divider />
-              <div className="flex justify-content-end gap-2">
-                <Button
-                  label="Cancel"
-                  icon="pi pi-times"
-                  outlined
-                  severity="secondary"
-                  onClick={() => navigate('/admin/locations')}
-                  type="button"
-                />
-                <Button
-                  label={isEditMode ? 'Update Location' : 'Create Location'}
-                  icon={isEditMode ? 'pi pi-check' : 'pi-plus'}
-                  severity="success"
-                  loading={actionLoading}
-                  type="submit"
-                />
-              </div>
-            </>
-          )}
-
-          {isViewMode && (
-            <>
-              <Divider />
-              <div className="flex justify-content-end gap-2">
-                <Button
-                  label="Edit Location"
-                  icon="pi pi-pencil"
-                  severity="info"
-                  onClick={() => navigate(`/admin/locations/edit/${id}`)}
-                />
-              </div>
-            </>
-          )}
             </form>
           </Card>
         </TabPanel>

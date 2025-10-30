@@ -1,13 +1,13 @@
 /**
  * Upload Service
  * Handles file uploads to S3 bucket
- * 
+ *
  * NOTE: This is a mock implementation for development.
  * In production, this should:
  * 1. Get pre-signed URLs from backend API
  * 2. Upload directly to S3 using pre-signed URLs
  * 3. Return the final S3 URLs
- * 
+ *
  * AWS S3 Configuration Required:
  * - Bucket: trust-you-go-bucket
  * - Region: us-east-1 (or your preferred region)
@@ -194,7 +194,9 @@ export const saveLocationImagesMetadata = async (locationId, images) => {
  */
 export const getLocationImages = async (locationId) => {
   try {
-    const response = await apiClient.get(`/location_images?locationId=${locationId}&_sort=displayOrder&_order=asc`);
+    const response = await apiClient.get(
+      `/location_images?locationId=${locationId}&_sort=displayOrder&_order=asc`
+    );
     return response.data;
   } catch (error) {
     console.error('Get location images error:', error);

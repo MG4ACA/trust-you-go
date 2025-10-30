@@ -39,23 +39,6 @@
   ],
   "agents": [
     {
-      "id": "1",
-      "firstName": "Kamal",
-      "lastName": "Fernando",
-      "email": "kamal.fernando@travelagent.lk",
-      "phone": "+94771234567",
-      "commissionRate": 15,
-      "status": "active",
-      "address": "123, Galle Road, Colombo 03",
-      "city": "Colombo",
-      "country": "Sri Lanka",
-      "joinedDate": "2024-06-15",
-      "totalBookings": 45,
-      "totalRevenue": 125000,
-      "createdAt": "2024-06-15T10:00:00.000Z",
-      "updatedAt": "2025-10-20T14:30:00.000Z"
-    },
-    {
       "id": "2",
       "firstName": "Nimal",
       "lastName": "Perera",
@@ -90,23 +73,6 @@
       "updatedAt": "2025-10-21T09:00:00.000Z"
     },
     {
-      "id": "4",
-      "firstName": "Sunil",
-      "lastName": "Jayawardena",
-      "email": "sunil.j@ceylonholidays.com",
-      "phone": "+94763456789",
-      "commissionRate": 10,
-      "status": "inactive",
-      "address": "23, Main Street, Negombo",
-      "city": "Negombo",
-      "country": "Sri Lanka",
-      "joinedDate": "2024-09-05",
-      "totalBookings": 12,
-      "totalRevenue": 35000,
-      "createdAt": "2024-09-05T10:00:00.000Z",
-      "updatedAt": "2025-09-30T16:00:00.000Z"
-    },
-    {
       "id": "5",
       "firstName": "Priyanka",
       "lastName": "Rathnayake",
@@ -122,6 +88,17 @@
       "totalRevenue": 210000,
       "createdAt": "2024-04-01T10:00:00.000Z",
       "updatedAt": "2025-10-19T13:45:00.000Z"
+    },
+    {
+      "id": "433c",
+      "name": "Gimhana Mithuranga",
+      "email": "mg4.emny@gmail.com",
+      "phone": "0705045099",
+      "location": "Galle",
+      "status": "active",
+      "bio": "",
+      "specializations": "",
+      "joinedDate": "2025-10-27"
     }
   ],
   "locations": [
@@ -220,6 +197,72 @@
       "isActive": true,
       "createdAt": "2025-01-10T10:00:00.000Z",
       "updatedAt": "2025-10-15T14:00:00.000Z"
+    }
+  ],
+  "location_images": [
+    {
+      "id": "1",
+      "locationId": "1",
+      "imageUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/1/sigiriya-main.jpg",
+      "thumbnailUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/1/thumbs/sigiriya-main.jpg",
+      "displayOrder": 0,
+      "uploadedAt": "2025-01-10T10:30:00.000Z"
+    },
+    {
+      "id": "2",
+      "locationId": "1",
+      "imageUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/1/sigiriya-view.jpg",
+      "thumbnailUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/1/thumbs/sigiriya-view.jpg",
+      "displayOrder": 1,
+      "uploadedAt": "2025-01-10T10:31:00.000Z"
+    },
+    {
+      "id": "3",
+      "locationId": "1",
+      "imageUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/1/sigiriya-frescoes.jpg",
+      "thumbnailUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/1/thumbs/sigiriya-frescoes.jpg",
+      "displayOrder": 2,
+      "uploadedAt": "2025-01-10T10:32:00.000Z"
+    },
+    {
+      "id": "4",
+      "locationId": "2",
+      "imageUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/2/temple-exterior.jpg",
+      "thumbnailUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/2/thumbs/temple-exterior.jpg",
+      "displayOrder": 0,
+      "uploadedAt": "2025-01-10T11:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "locationId": "2",
+      "imageUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/2/temple-interior.jpg",
+      "thumbnailUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/2/thumbs/temple-interior.jpg",
+      "displayOrder": 1,
+      "uploadedAt": "2025-01-10T11:01:00.000Z"
+    },
+    {
+      "id": "6",
+      "locationId": "3",
+      "imageUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/3/yala-leopard.jpg",
+      "thumbnailUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/3/thumbs/yala-leopard.jpg",
+      "displayOrder": 0,
+      "uploadedAt": "2025-01-10T12:00:00.000Z"
+    },
+    {
+      "id": "7",
+      "locationId": "3",
+      "imageUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/3/yala-elephant.jpg",
+      "thumbnailUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/3/thumbs/yala-elephant.jpg",
+      "displayOrder": 1,
+      "uploadedAt": "2025-01-10T12:01:00.000Z"
+    },
+    {
+      "id": "8",
+      "locationId": "3",
+      "imageUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/3/yala-landscape.jpg",
+      "thumbnailUrl": "https://trust-you-go-bucket.s3.amazonaws.com/locations/3/thumbs/yala-landscape.jpg",
+      "displayOrder": 2,
+      "uploadedAt": "2025-01-10T12:02:00.000Z"
     }
   ],
   "packages": [
@@ -401,7 +444,7 @@
       "travelerName": "Emma Wilson",
       "travelerEmail": "emma.w@email.com",
       "travelerPhone": "+9876543210",
-      "agentId": "1",
+      "agentId": null,
       "agentName": "Kamal Fernando",
       "numberOfPeople": 4,
       "startDate": "2025-11-20",

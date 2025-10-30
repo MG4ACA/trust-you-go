@@ -44,7 +44,9 @@ function ImageUploader({ locationId, initialImages = [], onImagesChange, disable
       toast.current.show({
         severity: 'warn',
         summary: 'Upload Limit',
-        detail: `Maximum ${MAX_IMAGES} images allowed. You can upload ${MAX_IMAGES - images.length} more.`,
+        detail: `Maximum ${MAX_IMAGES} images allowed. You can upload ${
+          MAX_IMAGES - images.length
+        } more.`,
         life: 4000,
       });
       return;
@@ -176,10 +178,7 @@ function ImageUploader({ locationId, initialImages = [], onImagesChange, disable
   const emptyTemplate = () => {
     return (
       <div className="flex align-items-center flex-column p-4">
-        <i
-          className="pi pi-image text-6xl text-400 mb-3"
-          style={{ fontSize: '4rem' }}
-        ></i>
+        <i className="pi pi-image text-6xl text-400 mb-3" style={{ fontSize: '4rem' }}></i>
         <span className="text-600 text-center">
           Drag and drop images here
           <br />
@@ -230,10 +229,7 @@ function ImageUploader({ locationId, initialImages = [], onImagesChange, disable
                   />
 
                   {/* Action Buttons */}
-                  <div
-                    className="flex gap-2 mt-2"
-                    style={{ opacity: disabled ? 0.5 : 1 }}
-                  >
+                  <div className="flex gap-2 mt-2" style={{ opacity: disabled ? 0.5 : 1 }}>
                     <Button
                       icon="pi pi-arrow-up"
                       outlined
