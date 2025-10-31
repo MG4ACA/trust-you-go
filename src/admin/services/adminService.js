@@ -1,3 +1,4 @@
+import { API_ENDPOINTS } from '../config/apiConfig';
 import apiClient from './api';
 
 /**
@@ -12,7 +13,7 @@ const adminService = {
    */
   async getAll() {
     try {
-      const response = await apiClient.get('/admins');
+      const response = await apiClient.get(API_ENDPOINTS.ADMINS);
       return response.data.success ? response.data.data : [];
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch admins');
@@ -26,7 +27,7 @@ const adminService = {
    */
   async getById(id) {
     try {
-      const response = await apiClient.get(`/admins/${id}`);
+      const response = await apiClient.get(API_ENDPOINTS.ADMIN_BY_ID(id));
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch admin');
@@ -46,7 +47,7 @@ const adminService = {
         updatedAt: new Date().toISOString(),
       };
 
-      const response = await apiClient.post('/admins', dataWithTimestamps);
+      const response = await apiClient.post(API_ENDPOINTS.ADMINS, dataWithTimestamps);
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to create admin');
@@ -66,7 +67,7 @@ const adminService = {
         updatedAt: new Date().toISOString(),
       };
 
-      const response = await apiClient.put(`/admins/${id}`, dataWithTimestamp);
+      const response = await apiClient.put(API_ENDPOINTS.ADMIN_BY_ID(id), dataWithTimestamp);
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to update admin');
@@ -80,7 +81,7 @@ const adminService = {
    */
   async delete(id) {
     try {
-      await apiClient.delete(`/admins/${id}`);
+      await apiClient.delete(API_ENDPOINTS.ADMIN_BY_ID(id));
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to delete admin');
     }
@@ -94,7 +95,7 @@ const adminService = {
    */
   async changePassword(id, newPassword) {
     try {
-      const response = await apiClient.patch(`/admins/${id}`, {
+      const response = await apiClient.patch(API_ENDPOINTS.ADMIN_BY_ID(id), {
         password: newPassword,
         updatedAt: new Date().toISOString(),
       });

@@ -1,3 +1,4 @@
+import { API_ENDPOINTS } from '../config/apiConfig';
 import apiClient from './api';
 
 /**
@@ -12,7 +13,9 @@ class PackageLocationService {
    */
   async getByPackageId(packageId) {
     try {
-      const response = await apiClient.get(`/package-locations?packageId=${packageId}`);
+      const response = await apiClient.get(API_ENDPOINTS.PACKAGE_LOCATIONS, {
+        params: { packageId },
+      });
       return response.data.success ? response.data.data : [];
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch package locations');
@@ -32,7 +35,7 @@ class PackageLocationService {
         updatedAt: new Date().toISOString(),
       };
 
-      const response = await apiClient.post('/package-locations', dataWithTimestamps);
+      const response = await apiClient.post(API_ENDPOINTS.PACKAGE_LOCATIONS, dataWithTimestamps);
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to create package location');
@@ -52,7 +55,10 @@ class PackageLocationService {
         updatedAt: new Date().toISOString(),
       };
 
-      const response = await apiClient.put(`/package-locations/${id}`, dataWithTimestamp);
+      const response = await apiClient.put(
+        API_ENDPOINTS.PACKAGE_LOCATION_BY_ID(id),
+        dataWithTimestamp
+      );
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to update package location');
@@ -66,7 +72,7 @@ class PackageLocationService {
    */
   async delete(id) {
     try {
-      await apiClient.delete(`/package-locations/${id}`);
+      await apiClient.delete(API_ENDPOINTS.PACKAGE_LOCATION_BY_ID(id));
       return id;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to delete package location');

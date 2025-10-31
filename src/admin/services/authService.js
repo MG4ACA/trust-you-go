@@ -1,3 +1,4 @@
+import { API_ENDPOINTS } from '../config/apiConfig';
 import apiClient from './api';
 
 /**
@@ -15,7 +16,9 @@ const authService = {
   async login(email, password) {
     try {
       // Query mock server for admin by email
-      const response = await apiClient.get(`/admins?email=${email}`);
+      const response = await apiClient.get(API_ENDPOINTS.ADMINS, {
+        params: { email },
+      });
 
       // Handle new response structure
       const admins = response.data.success ? response.data.data : response.data;

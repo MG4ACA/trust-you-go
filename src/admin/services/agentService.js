@@ -1,3 +1,4 @@
+import { API_ENDPOINTS } from '../config/apiConfig';
 import apiClient from './api';
 
 /**
@@ -13,7 +14,7 @@ const agentService = {
    */
   async getAll(params = {}) {
     try {
-      const response = await apiClient.get('/agents', { params });
+      const response = await apiClient.get(API_ENDPOINTS.AGENTS, { params });
       return response.data.success ? response.data.data : [];
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch agents');
@@ -27,7 +28,7 @@ const agentService = {
    */
   async getById(id) {
     try {
-      const response = await apiClient.get(`/agents/${id}`);
+      const response = await apiClient.get(API_ENDPOINTS.AGENT_BY_ID(id));
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch agent');
@@ -48,7 +49,7 @@ const agentService = {
         updatedAt: new Date().toISOString(),
       };
 
-      const response = await apiClient.post('/agents', dataWithTimestamps);
+      const response = await apiClient.post(API_ENDPOINTS.AGENTS, dataWithTimestamps);
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to create agent');
@@ -69,7 +70,7 @@ const agentService = {
         updatedAt: new Date().toISOString(),
       };
 
-      const response = await apiClient.put(`/agents/${id}`, dataWithTimestamp);
+      const response = await apiClient.put(API_ENDPOINTS.AGENT_BY_ID(id), dataWithTimestamp);
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to update agent');
@@ -89,7 +90,7 @@ const agentService = {
         updatedAt: new Date().toISOString(),
       };
 
-      const response = await apiClient.patch(`/agents/${id}`, dataWithTimestamp);
+      const response = await apiClient.patch(API_ENDPOINTS.AGENT_BY_ID(id), dataWithTimestamp);
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to patch agent');
@@ -103,7 +104,7 @@ const agentService = {
    */
   async delete(id) {
     try {
-      await apiClient.delete(`/agents/${id}`);
+      await apiClient.delete(API_ENDPOINTS.AGENT_BY_ID(id));
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to delete agent');
     }
@@ -117,7 +118,7 @@ const agentService = {
   async search(query) {
     try {
       // JSON Server supports full-text search with 'q' parameter
-      const response = await apiClient.get('/agents', {
+      const response = await apiClient.get(API_ENDPOINTS.AGENTS, {
         params: { q: query },
       });
       return response.data.success ? response.data.data : [];
@@ -133,7 +134,7 @@ const agentService = {
    */
   async getByStatus(status) {
     try {
-      const response = await apiClient.get('/agents', {
+      const response = await apiClient.get(API_ENDPOINTS.AGENTS, {
         params: { status },
       });
       return response.data.success ? response.data.data : [];
@@ -150,7 +151,7 @@ const agentService = {
    */
   async getPaginated(page = 1, limit = 10) {
     try {
-      const response = await apiClient.get('/agents', {
+      const response = await apiClient.get(API_ENDPOINTS.AGENTS, {
         params: {
           _page: page,
           _limit: limit,

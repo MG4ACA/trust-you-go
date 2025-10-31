@@ -1,4 +1,5 @@
 import { apiClient } from '../api';
+import { API_ENDPOINTS } from '../config/apiConfig';
 
 /**
  * Package Service
@@ -11,7 +12,7 @@ class PackageService {
    * @returns {Promise} List of packages
    */
   async getAll(params = {}) {
-    const response = await apiClient.get('/packages', { params });
+    const response = await apiClient.get(API_ENDPOINTS.PACKAGES, { params });
     return response.data.success ? response.data.data : [];
   }
 
@@ -21,7 +22,7 @@ class PackageService {
    * @returns {Promise} Package details
    */
   async getById(id) {
-    const response = await apiClient.get(`/packages/${id}`);
+    const response = await apiClient.get(API_ENDPOINTS.PACKAGE_BY_ID(id));
     return response.data.success ? response.data.data : response.data;
   }
 
@@ -31,7 +32,7 @@ class PackageService {
    * @returns {Promise} Created package
    */
   async create(data) {
-    const response = await apiClient.post('/packages', {
+    const response = await apiClient.post(API_ENDPOINTS.PACKAGES, {
       ...data,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -46,7 +47,7 @@ class PackageService {
    * @returns {Promise} Updated package
    */
   async update(id, data) {
-    const response = await apiClient.put(`/packages/${id}`, {
+    const response = await apiClient.put(API_ENDPOINTS.PACKAGE_BY_ID(id), {
       ...data,
       updatedAt: new Date().toISOString(),
     });
@@ -59,7 +60,7 @@ class PackageService {
    * @returns {Promise} Void
    */
   async delete(id) {
-    await apiClient.delete(`/packages/${id}`);
+    await apiClient.delete(API_ENDPOINTS.PACKAGE_BY_ID(id));
   }
 }
 

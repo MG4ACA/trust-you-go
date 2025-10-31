@@ -1,3 +1,4 @@
+import { API_ENDPOINTS } from '../config/apiConfig';
 import apiClient from './api';
 
 /**
@@ -12,7 +13,7 @@ class BookingService {
    */
   async getAll(params = {}) {
     try {
-      const response = await apiClient.get('/bookings', { params });
+      const response = await apiClient.get(API_ENDPOINTS.BOOKINGS, { params });
       return response.data.success ? response.data.data : [];
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch bookings');
@@ -26,7 +27,7 @@ class BookingService {
    */
   async getById(id) {
     try {
-      const response = await apiClient.get(`/bookings/${id}`);
+      const response = await apiClient.get(API_ENDPOINTS.BOOKING_BY_ID(id));
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch booking');
@@ -40,7 +41,7 @@ class BookingService {
    */
   async getByPackageId(packageId) {
     try {
-      const response = await apiClient.get(`/bookings/package/${packageId}`);
+      const response = await apiClient.get(API_ENDPOINTS.BOOKINGS_BY_PACKAGE(packageId));
       return response.data.success ? response.data.data : [];
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch bookings by package');
@@ -54,7 +55,7 @@ class BookingService {
    */
   async getByAgentId(agentId) {
     try {
-      const response = await apiClient.get(`/bookings/agent/${agentId}`);
+      const response = await apiClient.get(API_ENDPOINTS.BOOKINGS_BY_AGENT(agentId));
       return response.data.success ? response.data.data : [];
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch bookings by agent');
@@ -68,7 +69,7 @@ class BookingService {
    */
   async create(data) {
     try {
-      const response = await apiClient.post('/bookings', data);
+      const response = await apiClient.post(API_ENDPOINTS.BOOKINGS, data);
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to create booking');
@@ -83,7 +84,7 @@ class BookingService {
    */
   async update(id, data) {
     try {
-      const response = await apiClient.put(`/bookings/${id}`, data);
+      const response = await apiClient.put(API_ENDPOINTS.BOOKING_BY_ID(id), data);
       return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to update booking');
@@ -97,7 +98,7 @@ class BookingService {
    */
   async delete(id) {
     try {
-      const response = await apiClient.delete(`/bookings/${id}`);
+      const response = await apiClient.delete(API_ENDPOINTS.BOOKING_BY_ID(id));
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to delete booking');
@@ -111,8 +112,8 @@ class BookingService {
    */
   async getByStatus(status) {
     try {
-      const response = await apiClient.get('/bookings', {
-        params: { status }
+      const response = await apiClient.get(API_ENDPOINTS.BOOKINGS, {
+        params: { status },
       });
       return response.data.success ? response.data.data : [];
     } catch (error) {
@@ -127,12 +128,12 @@ class BookingService {
    */
   async getRecent(limit = 10) {
     try {
-      const response = await apiClient.get('/bookings', {
+      const response = await apiClient.get(API_ENDPOINTS.BOOKINGS, {
         params: {
           _sort: 'createdAt',
           _order: 'desc',
-          _limit: limit
-        }
+          _limit: limit,
+        },
       });
       return response.data.success ? response.data.data : [];
     } catch (error) {
