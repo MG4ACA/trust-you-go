@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ItinerarySteps from '../components/ItinerarySteps';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import { fetchLocations } from '../store/slices/locationSlice';
 import {
   clearSelectedPackage,
@@ -171,7 +172,7 @@ const Package = () => {
           detail: 'Package created successfully',
           life: 3000,
         });
-        navigate('/admin/packages');
+        navigate(ADMIN_ROUTES.PACKAGES_LIST);
       }
     } catch (error) {
       toast.current.show({
@@ -199,7 +200,7 @@ const Package = () => {
   };
 
   const handleCancel = () => {
-    navigate('/admin/packages');
+    navigate(ADMIN_ROUTES.PACKAGES_LIST);
   };
 
   const getTitle = () => {
@@ -227,13 +228,13 @@ const Package = () => {
             label="Back to List"
             icon="pi pi-arrow-left"
             outlined
-            onClick={() => navigate('/admin/packages')}
+            onClick={() => navigate(ADMIN_ROUTES.PACKAGES_LIST)}
           />
           {isViewMode && (
             <Button
               label="Edit Package"
               icon="pi pi-pencil"
-              onClick={() => navigate(`/admin/packages/edit/${id}`)}
+              onClick={() => navigate(ADMIN_ROUTES.EDIT_PACKAGE(id))}
             />
           )}
         </div>

@@ -7,6 +7,7 @@ import { Toast } from 'primereact/toast';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import { deletePackage, fetchPackages } from '../store/slices/packageSlice';
 
 const PackageList = () => {
@@ -32,11 +33,11 @@ const PackageList = () => {
   }, [error]);
 
   const handleAdd = () => {
-    navigate('/admin/packages/create');
+    navigate(ADMIN_ROUTES.CREATE_PACKAGE);
   };
 
   const handleEdit = (id) => {
-    navigate(`/admin/packages/edit/${id}`);
+    navigate(ADMIN_ROUTES.EDIT_PACKAGE(id));
   };
 
   const handleDelete = (id) => {
@@ -89,13 +90,13 @@ const PackageList = () => {
         <Button
           icon="pi pi-eye"
           className="p-button-rounded p-button-text mr-2"
-          onClick={() => navigate(`/admin/packages/${rowData.id}`)}
+          onClick={() => navigate(ADMIN_ROUTES.VIEW_PACKAGE(rowData.id))}
           tooltip="View"
         />
         <Button
           icon="pi pi-pencil"
           className="p-button-rounded p-button-text mr-2"
-          onClick={() => navigate(`/admin/packages/edit/${rowData.id}`)}
+          onClick={() => navigate(ADMIN_ROUTES.EDIT_PACKAGE(rowData.id))}
           tooltip="Edit"
         />
         <Button

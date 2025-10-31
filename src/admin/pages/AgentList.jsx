@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { TableSkeleton } from '../components/LoadingSkeleton';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import { deleteAgent, fetchAgents } from '../store/slices/agentSlice';
 import '../styles/admin.css';
 
@@ -95,7 +96,7 @@ function AgentList() {
           severity="info"
           tooltip="View Details"
           tooltipOptions={{ position: 'top' }}
-          onClick={() => navigate(`/admin/agents/${rowData.id}`)}
+          onClick={() => navigate(ADMIN_ROUTES.VIEW_AGENT(rowData.id))}
         />
         <Button
           icon="pi pi-pencil"
@@ -104,7 +105,7 @@ function AgentList() {
           severity="success"
           tooltip="Edit Agent"
           tooltipOptions={{ position: 'top' }}
-          onClick={() => navigate(`/admin/agents/edit/${rowData.id}`)}
+          onClick={() => navigate(ADMIN_ROUTES.EDIT_AGENT(rowData.id))}
         />
         <Button
           icon="pi pi-trash"
@@ -178,7 +179,7 @@ function AgentList() {
           label="Add Agent"
           icon="pi pi-plus"
           severity="success"
-          onClick={() => navigate('/admin/agents/create')}
+          onClick={() => navigate(ADMIN_ROUTES.CREATE_AGENT)}
         />
       </div>
     </div>

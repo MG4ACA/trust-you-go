@@ -1,5 +1,6 @@
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 
 function Breadcrumb() {
   const location = useLocation();
@@ -7,7 +8,7 @@ function Breadcrumb() {
 
   const home = {
     icon: 'pi pi-home',
-    command: () => navigate('/admin/dashboard'),
+    command: () => navigate(ADMIN_ROUTES.DASHBOARD),
   };
 
   const getBreadcrumbItems = () => {

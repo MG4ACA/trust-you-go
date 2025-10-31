@@ -2,6 +2,7 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import { checkAuthStatus } from '../store/slices/authSlice';
 
 function ProtectedRoute({ children }) {
@@ -36,7 +37,7 @@ function ProtectedRoute({ children }) {
 
   // Redirect to login if not authenticated
   if (!isAuthenticated) {
-    return <Navigate to="/admin/login" state={{ from: location }} replace />;
+    return <Navigate to={ADMIN_ROUTES.LOGIN} state={{ from: location }} replace />;
   }
 
   // Render children if authenticated

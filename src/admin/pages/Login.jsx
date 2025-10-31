@@ -7,6 +7,7 @@ import { Toast } from 'primereact/toast';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import { clearError, loginAdmin } from '../store/slices/authSlice';
 
 // Import admin styles (includes PrimeFlex)
@@ -27,7 +28,7 @@ function Login() {
   // Redirect to dashboard if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/admin/dashboard');
+      navigate(ADMIN_ROUTES.DASHBOARD);
     }
   }, [isAuthenticated, navigate]);
 
@@ -102,7 +103,7 @@ function Login() {
 
       // Navigate to dashboard after a short delay
       setTimeout(() => {
-        navigate('/admin/dashboard');
+        navigate(ADMIN_ROUTES.DASHBOARD);
       }, 1000);
     } catch {
       // Error is handled by useEffect

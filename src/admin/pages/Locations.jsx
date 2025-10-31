@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import ImageUploader from '../components/ImageUploader';
 import { FormSkeleton } from '../components/LoadingSkeleton';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import { getLocationImages, saveLocationImagesMetadata } from '../services/uploadService';
 import {
   clearCurrentLocation,
@@ -206,7 +207,7 @@ function Locations() {
         }
       }
 
-      setTimeout(() => navigate('/admin/locations'), 1500);
+      setTimeout(() => navigate(ADMIN_ROUTES.LOCATIONS_LIST), 1500);
     } catch (error) {
       const errorDetail =
         error.message ||
@@ -252,7 +253,7 @@ function Locations() {
           label="Back to List"
           icon="pi pi-arrow-left"
           outlined
-          onClick={() => navigate('/admin/locations')}
+          onClick={() => navigate(ADMIN_ROUTES.LOCATIONS_LIST)}
         />
       </div>
 
@@ -460,7 +461,7 @@ function Locations() {
                       icon="pi pi-times"
                       outlined
                       severity="secondary"
-                      onClick={() => navigate('/admin/locations')}
+                      onClick={() => navigate(ADMIN_ROUTES.LOCATIONS_LIST)}
                       type="button"
                     />
                     <Button
@@ -510,7 +511,7 @@ function Locations() {
                     icon="pi pi-times"
                     outlined
                     severity="secondary"
-                    onClick={() => navigate('/admin/locations')}
+                    onClick={() => navigate(ADMIN_ROUTES.LOCATIONS_LIST)}
                     type="button"
                   />
                   <Button

@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FormSkeleton } from '../components/LoadingSkeleton';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import {
   clearCurrentAgent,
   createAgent,
@@ -158,7 +159,7 @@ function Agents() {
         });
       }
 
-      setTimeout(() => navigate('/admin/agents'), 1500);
+      setTimeout(() => navigate(ADMIN_ROUTES.AGENTS_LIST), 1500);
     } catch (error) {
       const errorDetail =
         error.message ||
@@ -204,7 +205,7 @@ function Agents() {
           label="Back to List"
           icon="pi pi-arrow-left"
           outlined
-          onClick={() => navigate('/admin/agents')}
+          onClick={() => navigate(ADMIN_ROUTES.AGENTS_LIST)}
         />
       </div>
 
@@ -470,7 +471,7 @@ function Agents() {
                   icon="pi pi-times"
                   outlined
                   severity="secondary"
-                  onClick={() => navigate('/admin/agents')}
+                  onClick={() => navigate(ADMIN_ROUTES.AGENTS_LIST)}
                   type="button"
                 />
                 <Button
@@ -492,7 +493,7 @@ function Agents() {
                   label="Edit Agent"
                   icon="pi pi-pencil"
                   severity="info"
-                  onClick={() => navigate(`/admin/agents/edit/${id}`)}
+                  onClick={() => navigate(ADMIN_ROUTES.EDIT_AGENT(id))}
                 />
               </div>
             </>

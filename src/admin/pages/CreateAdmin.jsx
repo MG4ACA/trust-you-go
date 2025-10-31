@@ -9,6 +9,7 @@ import { Toast } from 'primereact/toast';
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import { createAdmin } from '../store/slices/adminSlice';
 import '../styles/admin.css';
 
@@ -129,7 +130,7 @@ function CreateAdmin() {
         life: 3000,
       });
 
-      setTimeout(() => navigate('/admin/dashboard'), 1500);
+      setTimeout(() => navigate(ADMIN_ROUTES.DASHBOARD), 1500);
     } catch (error) {
       const isUsernameTaken = error.message?.includes('username');
       const isEmailTaken = error.message?.includes('email');
@@ -170,7 +171,7 @@ function CreateAdmin() {
           label="Back to Dashboard"
           icon="pi pi-arrow-left"
           outlined
-          onClick={() => navigate('/admin/dashboard')}
+          onClick={() => navigate(ADMIN_ROUTES.DASHBOARD)}
         />
       </div>
 
@@ -337,7 +338,7 @@ function CreateAdmin() {
                   icon="pi pi-times"
                   outlined
                   severity="secondary"
-                  onClick={() => navigate('/admin/dashboard')}
+                  onClick={() => navigate(ADMIN_ROUTES.DASHBOARD)}
                   type="button"
                 />
                 <Button

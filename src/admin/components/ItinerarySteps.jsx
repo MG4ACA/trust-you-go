@@ -6,6 +6,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { Steps } from 'primereact/steps';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import LocationTypeTag from './LocationTypeTag';
 
 const ItinerarySteps = ({
@@ -125,7 +126,7 @@ const ItinerarySteps = ({
       await onSave(itineraryData);
     }
     // Navigate to location creation page
-    navigate('/admin/locations/create');
+    navigate(ADMIN_ROUTES.CREATE_LOCATION);
   };
 
   const locationItemTemplate = (location) => (

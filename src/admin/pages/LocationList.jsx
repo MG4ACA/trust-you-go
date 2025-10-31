@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { TableSkeleton } from '../components/LoadingSkeleton';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import { deleteLocation, fetchLocations } from '../store/slices/locationSlice';
 import '../styles/admin.css';
 
@@ -121,7 +122,7 @@ function LocationList() {
           rounded
           outlined
           severity="info"
-          onClick={() => navigate(`/admin/locations/${rowData.id}`)}
+          onClick={() => navigate(ADMIN_ROUTES.VIEW_LOCATION(rowData.id))}
           tooltip="View"
           tooltipOptions={{ position: 'top' }}
         />
@@ -130,7 +131,7 @@ function LocationList() {
           rounded
           outlined
           severity="warning"
-          onClick={() => navigate(`/admin/locations/edit/${rowData.id}`)}
+          onClick={() => navigate(ADMIN_ROUTES.EDIT_LOCATION(rowData.id))}
           tooltip="Edit"
           tooltipOptions={{ position: 'top' }}
         />
@@ -199,7 +200,7 @@ function LocationList() {
           label="Add Location"
           icon="pi pi-plus"
           severity="success"
-          onClick={() => navigate('/admin/locations/create')}
+          onClick={() => navigate(ADMIN_ROUTES.CREATE_LOCATION)}
         />
       </div>
     </div>

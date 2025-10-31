@@ -4,6 +4,7 @@ import { Menu } from 'primereact/menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../components/Breadcrumb';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import { logoutAdmin } from '../store/slices/authSlice';
 import { toggleSidebar } from '../store/slices/uiSlice';
 
@@ -23,27 +24,27 @@ function AdminLayout() {
         {
           label: 'Dashboard',
           icon: 'pi pi-home',
-          command: () => navigate('/admin/dashboard'),
+          command: () => navigate(ADMIN_ROUTES.DASHBOARD),
         },
         {
           label: 'Agents',
           icon: 'pi pi-users',
-          command: () => navigate('/admin/agents'),
+          command: () => navigate(ADMIN_ROUTES.AGENTS_LIST),
         },
         {
           label: 'Locations',
           icon: 'pi pi-map-marker',
-          command: () => navigate('/admin/locations'),
+          command: () => navigate(ADMIN_ROUTES.LOCATIONS_LIST),
         },
         {
           label: 'Packages',
           icon: 'pi pi-box',
-          command: () => navigate('/admin/packages'),
+          command: () => navigate(ADMIN_ROUTES.PACKAGES_LIST),
         },
         {
           label: 'Create Admin',
           icon: 'pi pi-user-plus',
-          command: () => navigate('/admin/create-admin'),
+          command: () => navigate(ADMIN_ROUTES.CREATE_ADMIN),
         },
       ],
     },
@@ -59,7 +60,7 @@ function AdminLayout() {
           command: () => {
             // Dispatch logout action
             dispatch(logoutAdmin());
-            navigate('/admin/login');
+            navigate(ADMIN_ROUTES.LOGIN);
           },
         },
       ],

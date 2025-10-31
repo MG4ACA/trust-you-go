@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DashboardSkeleton } from '../components/LoadingSkeleton';
+import { ADMIN_ROUTES } from '../config/routeConfig';
 import { fetchAgents } from '../store/slices/agentSlice';
 import '../styles/admin.css';
 
@@ -132,7 +133,7 @@ function Dashboard() {
               description="Browse and manage all travel agents"
               icon="pi pi-users"
               color="#667eea"
-              action={() => navigate('/admin/agents')}
+              action={() => navigate(ADMIN_ROUTES.AGENTS_LIST)}
             />
           </div>
           <div className="col-12 md:col-6 lg:col-3">
@@ -141,7 +142,7 @@ function Dashboard() {
               description="Register a new travel agent"
               icon="pi pi-user-plus"
               color="#48bb78"
-              action={() => navigate('/admin/agents/create')}
+              action={() => navigate(ADMIN_ROUTES.CREATE_AGENT)}
             />
           </div>
           <div className="col-12 md:col-6 lg:col-3">
@@ -150,7 +151,7 @@ function Dashboard() {
               description="Add a new admin user"
               icon="pi pi-shield"
               color="#ed8936"
-              action={() => navigate('/admin/create-admin')}
+              action={() => navigate(ADMIN_ROUTES.CREATE_ADMIN)}
             />
           </div>
           <div className="col-12 md:col-6 lg:col-3">
