@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-// Base API URL for mock server
-const API_BASE_URL = 'http://localhost:3001';
+import { API_BASE_URL } from '../config/apiConfig';
 
 // Create axios instance with default config
 const apiClient = axios.create({
