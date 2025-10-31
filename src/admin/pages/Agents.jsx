@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FormSkeleton } from '../components/LoadingSkeleton';
 import { ADMIN_ROUTES } from '../config/routeConfig';
+import { SAMPLE_DATA } from '../config/sampleData';
 import {
   clearCurrentAgent,
   createAgent,
@@ -125,6 +126,22 @@ function Agents() {
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: '' }));
     }
+  };
+
+  const handlePopulateSampleData = () => {
+    setFormData((prev) => ({
+      ...prev,
+      ...SAMPLE_DATA.agent,
+      joinedDate: prev.joinedDate, // Keep the current date
+      totalBookings: prev.totalBookings, // Keep the current value
+      totalRevenue: prev.totalRevenue, // Keep the current value
+    }));
+    toast.current.show({
+      severity: 'info',
+      summary: 'Sample Data Loaded',
+      detail: 'Form populated with sample agent data',
+      life: 2000,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -465,22 +482,33 @@ function Agents() {
           {!isViewMode && (
             <>
               <Divider />
-              <div className="flex justify-content-end gap-2">
+              <div className="flex justify-content-between align-items-center gap-2">
                 <Button
-                  label="Cancel"
-                  icon="pi pi-times"
-                  outlined
-                  severity="secondary"
-                  onClick={() => navigate(ADMIN_ROUTES.AGENTS_LIST)}
+                  label="Load Sample Data"
+                  icon="pi pi-list"
+                  text
+                  onClick={handlePopulateSampleData}
                   type="button"
+                  tooltip="Populate form with sample agent data"
+                  tooltipOptions={{ position: 'bottom' }}
                 />
-                <Button
-                  label={isEditMode ? 'Update Agent' : 'Create Agent'}
-                  icon={isEditMode ? 'pi pi-check' : 'pi pi-plus'}
-                  severity="success"
-                  loading={actionLoading}
-                  type="submit"
-                />
+                <div className="flex justify-content-end gap-2">
+                  <Button
+                    label="Cancel"
+                    icon="pi pi-times"
+                    outlined
+                    severity="secondary"
+                    onClick={() => navigate(ADMIN_ROUTES.AGENTS_LIST)}
+                    type="button"
+                  />
+                  <Button
+                    label={isEditMode ? 'Update Agent' : 'Create Agent'}
+                    icon={isEditMode ? 'pi pi-check' : 'pi pi-plus'}
+                    severity="success"
+                    loading={actionLoading}
+                    type="submit"
+                  />
+                </div>
               </div>
             </>
           )}

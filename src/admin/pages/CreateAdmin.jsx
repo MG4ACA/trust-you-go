@@ -10,6 +10,7 @@ import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ADMIN_ROUTES } from '../config/routeConfig';
+import { SAMPLE_DATA } from '../config/sampleData';
 import { createAdmin } from '../store/slices/adminSlice';
 import '../styles/admin.css';
 
@@ -102,6 +103,26 @@ function CreateAdmin() {
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: '' }));
     }
+  };
+
+  const handlePopulateSampleData = () => {
+    setFormData((prev) => ({
+      ...prev,
+      firstName: SAMPLE_DATA.admin.firstName,
+      lastName: SAMPLE_DATA.admin.lastName,
+      email: SAMPLE_DATA.admin.email,
+      password: SAMPLE_DATA.admin.password,
+      confirmPassword: SAMPLE_DATA.admin.confirmPassword,
+      phone: SAMPLE_DATA.admin.phone,
+      role: SAMPLE_DATA.admin.role,
+      status: SAMPLE_DATA.admin.status,
+    }));
+    toast.current.show({
+      severity: 'info',
+      summary: 'Sample Data Loaded',
+      detail: 'Form populated with sample admin data',
+      life: 2000,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -332,22 +353,33 @@ function CreateAdmin() {
 
               <Divider />
 
-              <div className="flex justify-content-end gap-2">
+              <div className="flex justify-content-between align-items-center gap-2">
                 <Button
-                  label="Cancel"
-                  icon="pi pi-times"
-                  outlined
-                  severity="secondary"
-                  onClick={() => navigate(ADMIN_ROUTES.DASHBOARD)}
+                  label="Load Sample Data"
+                  icon="pi pi-list"
+                  text
+                  onClick={handlePopulateSampleData}
                   type="button"
+                  tooltip="Populate form with sample admin data"
+                  tooltipOptions={{ position: 'bottom' }}
                 />
-                <Button
-                  label="Create Admin"
-                  icon="pi pi-check"
-                  severity="success"
-                  loading={actionLoading}
-                  type="submit"
-                />
+                <div className="flex justify-content-end gap-2">
+                  <Button
+                    label="Cancel"
+                    icon="pi pi-times"
+                    outlined
+                    severity="secondary"
+                    onClick={() => navigate(ADMIN_ROUTES.DASHBOARD)}
+                    type="button"
+                  />
+                  <Button
+                    label="Create Admin"
+                    icon="pi pi-check"
+                    severity="success"
+                    loading={actionLoading}
+                    type="submit"
+                  />
+                </div>
               </div>
             </form>
           </Card>

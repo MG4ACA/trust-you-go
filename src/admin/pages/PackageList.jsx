@@ -67,10 +67,40 @@ const PackageList = () => {
   };
 
   const renderHeader = () => {
+    const handleRefresh = async () => {
+      try {
+        await dispatch(fetchPackages());
+        toast.current.show({
+          severity: 'success',
+          summary: 'Refreshed',
+          detail: 'Package list refreshed successfully',
+          life: 2000,
+        });
+      } catch {
+        toast.current.show({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to refresh package list',
+          life: 2000,
+        });
+      }
+    };
+
     return (
-      <div className="flex justify-content-between align-items-center">
+      <div className="flex justify-content-between align-items-center gap-2">
         <h3 className="m-0">Travel Packages</h3>
-        <Button icon="pi pi-plus" label="New Package" onClick={handleAdd} severity="success" />
+        <div className="flex gap-2">
+          <Button
+            icon="pi pi-refresh"
+            rounded
+            outlined
+            loading={loading}
+            onClick={handleRefresh}
+            tooltip="Refresh Table"
+            tooltipOptions={{ position: 'bottom' }}
+          />
+          <Button icon="pi pi-plus" label="New Package" onClick={handleAdd} severity="success" />
+        </div>
       </div>
     );
   };

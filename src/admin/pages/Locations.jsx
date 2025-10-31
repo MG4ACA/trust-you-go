@@ -14,6 +14,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ImageUploader from '../components/ImageUploader';
 import { FormSkeleton } from '../components/LoadingSkeleton';
 import { ADMIN_ROUTES } from '../config/routeConfig';
+import { SAMPLE_DATA } from '../config/sampleData';
 import { getLocationImages, saveLocationImagesMetadata } from '../services/uploadService';
 import {
   clearCurrentLocation,
@@ -160,6 +161,19 @@ function Locations() {
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: '' }));
     }
+  };
+
+  const handlePopulateSampleData = () => {
+    setFormData((prev) => ({
+      ...prev,
+      ...SAMPLE_DATA.location,
+    }));
+    toast.current.show({
+      severity: 'info',
+      summary: 'Sample Data Loaded',
+      detail: 'Form populated with sample location data',
+      life: 2000,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -455,22 +469,33 @@ function Locations() {
               {!isViewMode && (
                 <>
                   <Divider />
-                  <div className="flex justify-content-end gap-2">
+                  <div className="flex justify-content-between align-items-center gap-2">
                     <Button
-                      label="Cancel"
-                      icon="pi pi-times"
-                      outlined
-                      severity="secondary"
-                      onClick={() => navigate(ADMIN_ROUTES.LOCATIONS_LIST)}
+                      label="Load Sample Data"
+                      icon="pi pi-list"
+                      text
+                      onClick={handlePopulateSampleData}
                       type="button"
+                      tooltip="Populate form with sample location data"
+                      tooltipOptions={{ position: 'bottom' }}
                     />
-                    <Button
-                      label={isEditMode ? 'Update Location' : 'Create Location'}
-                      icon={isEditMode ? 'pi pi-check' : 'pi-plus'}
-                      severity="success"
-                      loading={actionLoading}
-                      type="submit"
-                    />
+                    <div className="flex justify-content-end gap-2">
+                      <Button
+                        label="Cancel"
+                        icon="pi pi-times"
+                        outlined
+                        severity="secondary"
+                        onClick={() => navigate(ADMIN_ROUTES.LOCATIONS_LIST)}
+                        type="button"
+                      />
+                      <Button
+                        label={isEditMode ? 'Update Location' : 'Create Location'}
+                        icon={isEditMode ? 'pi pi-check' : 'pi-plus'}
+                        severity="success"
+                        loading={actionLoading}
+                        type="submit"
+                      />
+                    </div>
                   </div>
                 </>
               )}

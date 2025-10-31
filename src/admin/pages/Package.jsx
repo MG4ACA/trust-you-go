@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ItinerarySteps from '../components/ItinerarySteps';
 import { ADMIN_ROUTES } from '../config/routeConfig';
+import { SAMPLE_DATA } from '../config/sampleData';
 import { fetchLocations } from '../store/slices/locationSlice';
 import {
   clearSelectedPackage,
@@ -137,6 +138,21 @@ const Package = () => {
     }
 
     return errors;
+  };
+
+  const handlePopulateSampleData = () => {
+    setFormData((prev) => ({
+      ...prev,
+      ...SAMPLE_DATA.package,
+      // Keep itinerary if it exists
+      itinerary: prev.itinerary || [],
+    }));
+    toast.current.show({
+      severity: 'info',
+      summary: 'Sample Data Loaded',
+      detail: 'Form populated with sample package data',
+      life: 2000,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -453,9 +469,20 @@ const Package = () => {
                 }}
               />
             </div>
-            <div className="col-12 flex justify-content-end gap-2">
+            <div className="col-12 flex justify-content-between align-items-center gap-2">
               {!isViewMode && (
-                <>
+                <Button
+                  label="Load Sample Data"
+                  icon="pi pi-list"
+                  text
+                  onClick={handlePopulateSampleData}
+                  type="button"
+                  tooltip="Populate form with sample package data"
+                  tooltipOptions={{ position: 'bottom' }}
+                />
+              )}
+              {!isViewMode && (
+                <div className="flex gap-2">
                   <Button
                     label="Cancel"
                     icon="pi pi-times"
@@ -463,7 +490,7 @@ const Package = () => {
                     className="p-button-text"
                   />
                   <Button label="Save" icon="pi pi-save" type="submit" loading={loading} />
-                </>
+                </div>
               )}
             </div>
           </div>

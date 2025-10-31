@@ -152,6 +152,25 @@ function AgentList() {
   });
 
   // Define header after filteredAgents
+  const handleRefresh = async () => {
+    try {
+      await dispatch(fetchAgents());
+      toast.current.show({
+        severity: 'success',
+        summary: 'Refreshed',
+        detail: 'Agent list refreshed successfully',
+        life: 2000,
+      });
+    } catch {
+      toast.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to refresh agent list',
+        life: 2000,
+      });
+    }
+  };
+
   const header = (
     <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center gap-3">
       <div className="flex align-items-center gap-2">
@@ -180,6 +199,15 @@ function AgentList() {
           icon="pi pi-plus"
           severity="success"
           onClick={() => navigate(ADMIN_ROUTES.CREATE_AGENT)}
+        />
+        <Button
+          icon="pi pi-refresh"
+          rounded
+          outlined
+          loading={loading}
+          onClick={handleRefresh}
+          tooltip="Refresh Table"
+          tooltipOptions={{ position: 'bottom' }}
         />
       </div>
     </div>
