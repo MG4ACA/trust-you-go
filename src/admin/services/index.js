@@ -8,5 +8,7 @@
 
 export { default as adminService } from './adminService';
 export { default as agentService } from './agentService';
+export { bookingService } from './bookingService';
 export { default as apiClient } from './api';
 export { default as authService } from './authService';
+export { packageLocationService } from './packageLocationService';

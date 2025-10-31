@@ -1,15 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-const API_URL = 'http://localhost:3001';
+import { agentService } from '../../services/agentService';
 
 // Async thunk to fetch all agents
 export const fetchAgents = createAsyncThunk('agents/fetchAll', async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${API_URL}/agents`);
-    return response.data;
+    return await agentService.getAll();
   } catch (error) {
-    return rejectWithValue(error.response?.data?.message || 'Failed to fetch agents');
+    return rejectWithValue(error.message || 'Failed to fetch agents');
   }
 });
 
@@ -18,10 +15,9 @@ export const fetchAgentById = createAsyncThunk(
   'agents/fetchById',
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/agents/${id}`);
-      return response.data;
+      return await agentService.getById(id);
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to fetch agent');
+      return rejectWithValue(error.message || 'Failed to fetch agent');
     }
   }
 );
@@ -31,10 +27,9 @@ export const createAgent = createAsyncThunk(
   'agents/create',
   async (agentData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_URL}/agents`, agentData);
-      return response.data;
+      return await agentService.create(agentData);
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to create agent');
+      return rejectWithValue(error.message || 'Failed to create agent');
     }
   }
 );
@@ -44,10 +39,9 @@ export const updateAgent = createAsyncThunk(
   'agents/update',
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${API_URL}/agents/${id}`, data);
-      return response.data;
+      return await agentService.update(id, data);
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to update agent');
+      return rejectWithValue(error.message || 'Failed to update agent');
     }
   }
 );
@@ -55,10 +49,10 @@ export const updateAgent = createAsyncThunk(
 // Async thunk to delete agent
 export const deleteAgent = createAsyncThunk('agents/delete', async (id, { rejectWithValue }) => {
   try {
-    await axios.delete(`${API_URL}/agents/${id}`);
+    await agentService.delete(id);
     return id;
   } catch (error) {
-    return rejectWithValue(error.response?.data?.message || 'Failed to delete agent');
+    return rejectWithValue(error.message || 'Failed to delete agent');
   }
 });
 

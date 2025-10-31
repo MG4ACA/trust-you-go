@@ -1,26 +1,76 @@
-import axios from 'axios';
+import apiClient from './api';
 
-const API_URL = 'http://localhost:3001';
-
+/**
+ * Package Location Service
+ * Handles package-location relationship operations
+ */
 class PackageLocationService {
+  /**
+   * Get package locations by package ID
+   * @param {string} packageId - Package ID
+   * @returns {Promise<Array>} - List of package locations
+   */
   async getByPackageId(packageId) {
-    const response = await axios.get(`${API_URL}/package-locations?package_id=${packageId}`);
-    return response.data;
+    try {
+      const response = await apiClient.get(`/package-locations?packageId=${packageId}`);
+      return response.data.success ? response.data.data : [];
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Failed to fetch package locations');
+    }
   }
 
+  /**
+   * Create new package location
+   * @param {Object} data - Package location data
+   * @returns {Promise<Object>} - Created package location
+   */
   async create(data) {
-    const response = await axios.post(`${API_URL}/package-locations`, data);
-    return response.data;
+    try {
+      const dataWithTimestamps = {
+        ...data,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      const response = await apiClient.post('/package-locations', dataWithTimestamps);
+      return response.data.success ? response.data.data : response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Failed to create package location');
+    }
   }
 
+  /**
+   * Update package location
+   * @param {string} id - Package location ID
+   * @param {Object} data - Updated package location data
+   * @returns {Promise<Object>} - Updated package location
+   */
   async update(id, data) {
-    const response = await axios.put(`${API_URL}/package-locations/${id}`, data);
-    return response.data;
+    try {
+      const dataWithTimestamp = {
+        ...data,
+        updatedAt: new Date().toISOString(),
+      };
+
+      const response = await apiClient.put(`/package-locations/${id}`, dataWithTimestamp);
+      return response.data.success ? response.data.data : response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Failed to update package location');
+    }
   }
 
+  /**
+   * Delete package location
+   * @param {string} id - Package location ID
+   * @returns {Promise<string>} - Deleted package location ID
+   */
   async delete(id) {
-    await axios.delete(`${API_URL}/package-locations/${id}`);
-    return id;
+    try {
+      await apiClient.delete(`/package-locations/${id}`);
+      return id;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Failed to delete package location');
+    }
   }
 }
 

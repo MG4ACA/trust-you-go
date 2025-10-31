@@ -12,7 +12,7 @@ class PackageService {
    */
   async getAll(params = {}) {
     const response = await apiClient.get('/packages', { params });
-    return response.data;
+    return response.data.success ? response.data.data : [];
   }
 
   /**
@@ -22,7 +22,7 @@ class PackageService {
    */
   async getById(id) {
     const response = await apiClient.get(`/packages/${id}`);
-    return response.data;
+    return response.data.success ? response.data.data : response.data;
   }
 
   /**
@@ -36,7 +36,7 @@ class PackageService {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     });
-    return response.data;
+    return response.data.success ? response.data.data : response.data;
   }
 
   /**
@@ -50,7 +50,7 @@ class PackageService {
       ...data,
       updatedAt: new Date().toISOString(),
     });
-    return response.data;
+    return response.data.success ? response.data.data : response.data;
   }
 
   /**

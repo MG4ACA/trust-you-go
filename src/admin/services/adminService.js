@@ -13,7 +13,7 @@ const adminService = {
   async getAll() {
     try {
       const response = await apiClient.get('/admins');
-      return response.data;
+      return response.data.success ? response.data.data : [];
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch admins');
     }
@@ -27,7 +27,7 @@ const adminService = {
   async getById(id) {
     try {
       const response = await apiClient.get(`/admins/${id}`);
-      return response.data;
+      return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch admin');
     }
@@ -47,7 +47,7 @@ const adminService = {
       };
 
       const response = await apiClient.post('/admins', dataWithTimestamps);
-      return response.data;
+      return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to create admin');
     }
@@ -67,7 +67,7 @@ const adminService = {
       };
 
       const response = await apiClient.put(`/admins/${id}`, dataWithTimestamp);
-      return response.data;
+      return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to update admin');
     }
@@ -98,7 +98,7 @@ const adminService = {
         password: newPassword,
         updatedAt: new Date().toISOString(),
       });
-      return response.data;
+      return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to change password');
     }

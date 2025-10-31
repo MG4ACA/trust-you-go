@@ -1,15 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-const API_URL = 'http://localhost:3001';
+import { adminService } from '../../services/adminService';
 
 // Async thunk to fetch all admins
 export const fetchAdmins = createAsyncThunk('admins/fetchAll', async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${API_URL}/admins`);
-    return response.data;
+    return await adminService.getAll();
   } catch (error) {
-    return rejectWithValue(error.response?.data?.message || 'Failed to fetch admins');
+    return rejectWithValue(error.message || 'Failed to fetch admins');
   }
 });
 
@@ -18,10 +15,9 @@ export const fetchAdminById = createAsyncThunk(
   'admins/fetchById',
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/admins/${id}`);
-      return response.data;
+      return await adminService.getById(id);
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to fetch admin');
+      return rejectWithValue(error.message || 'Failed to fetch admin');
     }
   }
 );
@@ -31,15 +27,9 @@ export const createAdmin = createAsyncThunk(
   'admins/create',
   async (adminData, { rejectWithValue }) => {
     try {
-      const dataWithTimestamps = {
-        ...adminData,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-      const response = await axios.post(`${API_URL}/admins`, dataWithTimestamps);
-      return response.data;
+      return await adminService.create(adminData);
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to create admin');
+      return rejectWithValue(error.message || 'Failed to create admin');
     }
   }
 );
@@ -49,14 +39,9 @@ export const updateAdmin = createAsyncThunk(
   'admins/update',
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      const dataWithTimestamp = {
-        ...data,
-        updatedAt: new Date().toISOString(),
-      };
-      const response = await axios.put(`${API_URL}/admins/${id}`, dataWithTimestamp);
-      return response.data;
+      return await adminService.update(id, data);
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to update admin');
+      return rejectWithValue(error.message || 'Failed to update admin');
     }
   }
 );
@@ -64,10 +49,10 @@ export const updateAdmin = createAsyncThunk(
 // Async thunk to delete admin
 export const deleteAdmin = createAsyncThunk('admins/delete', async (id, { rejectWithValue }) => {
   try {
-    await axios.delete(`${API_URL}/admins/${id}`);
+    await adminService.delete(id);
     return id;
   } catch (error) {
-    return rejectWithValue(error.response?.data?.message || 'Failed to delete admin');
+    return rejectWithValue(error.message || 'Failed to delete admin');
   }
 });
 

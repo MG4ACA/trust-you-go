@@ -14,7 +14,7 @@ const agentService = {
   async getAll(params = {}) {
     try {
       const response = await apiClient.get('/agents', { params });
-      return response.data;
+      return response.data.success ? response.data.data : [];
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch agents');
     }
@@ -28,7 +28,7 @@ const agentService = {
   async getById(id) {
     try {
       const response = await apiClient.get(`/agents/${id}`);
-      return response.data;
+      return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch agent');
     }
@@ -49,7 +49,7 @@ const agentService = {
       };
 
       const response = await apiClient.post('/agents', dataWithTimestamps);
-      return response.data;
+      return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to create agent');
     }
@@ -70,7 +70,7 @@ const agentService = {
       };
 
       const response = await apiClient.put(`/agents/${id}`, dataWithTimestamp);
-      return response.data;
+      return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to update agent');
     }
@@ -90,7 +90,7 @@ const agentService = {
       };
 
       const response = await apiClient.patch(`/agents/${id}`, dataWithTimestamp);
-      return response.data;
+      return response.data.success ? response.data.data : response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to patch agent');
     }
@@ -120,7 +120,7 @@ const agentService = {
       const response = await apiClient.get('/agents', {
         params: { q: query },
       });
-      return response.data;
+      return response.data.success ? response.data.data : [];
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to search agents');
     }
@@ -136,7 +136,7 @@ const agentService = {
       const response = await apiClient.get('/agents', {
         params: { status },
       });
-      return response.data;
+      return response.data.success ? response.data.data : [];
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch agents by status');
     }
@@ -163,7 +163,7 @@ const agentService = {
       const total = parseInt(response.headers['x-total-count'] || '0', 10);
 
       return {
-        data: response.data,
+        data: response.data.success ? response.data.data : response.data,
         pagination: {
           page,
           limit,

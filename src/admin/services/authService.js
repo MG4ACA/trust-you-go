@@ -17,11 +17,14 @@ const authService = {
       // Query mock server for admin by email
       const response = await apiClient.get(`/admins?email=${email}`);
 
-      if (response.data.length === 0) {
+      // Handle new response structure
+      const admins = response.data.success ? response.data.data : response.data;
+
+      if (!admins || admins.length === 0) {
         throw new Error('Invalid email or password');
       }
 
-      const admin = response.data[0];
+      const admin = admins[0];
 
       // Simple password check (in production, backend handles this)
       if (admin.password !== password) {
