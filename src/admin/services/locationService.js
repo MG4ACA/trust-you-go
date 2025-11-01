@@ -1,12 +1,23 @@
 import { API_ENDPOINTS } from '../config/apiConfig';
+import { locationMapper } from '../mappers';
 import apiClient from './api';
+
+/**
+ * Location Service
+ * Handles all location-related API calls
+ *
+ * IMPORTANT: All methods return camelCase data (converted by locationMapper)
+ * This ensures Redux store receives consistent, predictable data format
+ */
 
 const locationService = {
   // Get all locations
   getAll: async () => {
     try {
       const response = await apiClient.get(API_ENDPOINTS.LOCATIONS);
-      return response.data.success ? response.data.data : [];
+      const data = response.data.success ? response.data.data : [];
+      // Convert snake_case API response to camelCase for Redux
+      return locationMapper.toReduxArray(data);
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch locations');
     }
@@ -16,7 +27,9 @@ const locationService = {
   getById: async (id) => {
     try {
       const response = await apiClient.get(API_ENDPOINTS.LOCATION_BY_ID(id));
-      return response.data.success ? response.data.data : response.data;
+      const data = response.data.success ? response.data.data : response.data;
+      // Convert snake_case API response to camelCase for Redux
+      return locationMapper.toRedux(data);
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch location');
     }
@@ -25,13 +38,14 @@ const locationService = {
   // Create new location
   create: async (locationData) => {
     try {
-      const dataWithTimestamps = {
-        ...locationData,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-      const response = await apiClient.post(API_ENDPOINTS.LOCATIONS, dataWithTimestamps);
-      return response.data.success ? response.data.data : response.data;
+      // Convert camelCase form data to snake_case API format
+      const apiFormat = locationMapper.formToAPI(locationData);
+
+      const response = await apiClient.post(API_ENDPOINTS.LOCATIONS, apiFormat);
+      const data = response.data.success ? response.data.data : response.data;
+
+      // Convert snake_case API response back to camelCase for Redux
+      return locationMapper.toRedux(data);
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to create location');
     }
@@ -40,12 +54,14 @@ const locationService = {
   // Update location
   update: async (id, locationData) => {
     try {
-      const dataWithTimestamp = {
-        ...locationData,
-        updatedAt: new Date().toISOString(),
-      };
-      const response = await apiClient.put(API_ENDPOINTS.LOCATION_BY_ID(id), dataWithTimestamp);
-      return response.data.success ? response.data.data : response.data;
+      // Convert camelCase form data to snake_case API format
+      const apiFormat = locationMapper.formToAPI(locationData);
+
+      const response = await apiClient.put(API_ENDPOINTS.LOCATION_BY_ID(id), apiFormat);
+      const data = response.data.success ? response.data.data : response.data;
+
+      // Convert snake_case API response back to camelCase for Redux
+      return locationMapper.toRedux(data);
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to update location');
     }
@@ -67,7 +83,9 @@ const locationService = {
       const response = await apiClient.get(API_ENDPOINTS.LOCATIONS, {
         params: { location_type: locationType },
       });
-      return response.data.success ? response.data.data : [];
+      const data = response.data.success ? response.data.data : [];
+      // Convert snake_case API response to camelCase for Redux
+      return locationMapper.toReduxArray(data);
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch locations by type');
     }
@@ -77,9 +95,11 @@ const locationService = {
   getActive: async () => {
     try {
       const response = await apiClient.get(API_ENDPOINTS.LOCATIONS, {
-        params: { isActive: true },
+        params: { is_active: true },
       });
-      return response.data.success ? response.data.data : [];
+      const data = response.data.success ? response.data.data : [];
+      // Convert snake_case API response to camelCase for Redux
+      return locationMapper.toReduxArray(data);
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to fetch active locations');
     }
