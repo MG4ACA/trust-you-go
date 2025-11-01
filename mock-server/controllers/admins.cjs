@@ -5,17 +5,33 @@ module.exports = (server, db) => {
     db.admins = [];
   }
 
-  // GET /admins - Get all admins
+  // GET /admins - Get all admins or filter by query params (e.g., email)
   server.get('/admins', (req, res) => {
-    const admins = db.get('admins').value();
-    if (admins) {
-      res.json({
-        success: true,
-        data: admins,
-      });
-    } else {
-      res.status(404).json({ error: 'Admins not found' });
+    let admins = db.get('admins').value();
+
+    if (!admins) {
+      return res.status(404).json({ error: 'Admins not found' });
     }
+
+    // Filter by query parameters
+    const { email, username, id } = req.query;
+
+    if (email) {
+      admins = admins.filter((a) => a.email === email);
+    }
+
+    if (username) {
+      admins = admins.filter((a) => a.username === username);
+    }
+
+    if (id) {
+      admins = admins.filter((a) => a.id === id);
+    }
+
+    res.json({
+      success: true,
+      data: admins,
+    });
   });
 
   // GET /admins/:id - Get admin by ID

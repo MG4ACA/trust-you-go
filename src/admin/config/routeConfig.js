@@ -16,8 +16,10 @@ export const ADMIN_ROUTES = {
   DASHBOARD: '/admin/dashboard',
 
   // Admin management
-  ADMINS: '/admin/admins',
-  CREATE_ADMIN: '/admin/create-admin',
+  ADMINS_LIST: '/admin/admins',
+  CREATE_ADMIN: '/admin/admins/create',
+  EDIT_ADMIN: (id) => `/admin/admins/edit/${id}`,
+  VIEW_ADMIN: (id) => `/admin/admins/${id}`,
 
   // Agent management
   AGENTS: '/admin/agents',

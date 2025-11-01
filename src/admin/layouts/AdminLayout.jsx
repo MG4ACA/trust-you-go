@@ -42,9 +42,9 @@ function AdminLayout() {
           command: () => navigate(ADMIN_ROUTES.PACKAGES_LIST),
         },
         {
-          label: 'Create Admin',
-          icon: 'pi pi-user-plus',
-          command: () => navigate(ADMIN_ROUTES.CREATE_ADMIN),
+          label: 'Admins',
+          icon: 'pi pi-shield',
+          command: () => navigate(ADMIN_ROUTES.ADMINS_LIST),
         },
       ],
     },
