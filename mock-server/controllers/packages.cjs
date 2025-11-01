@@ -27,7 +27,7 @@ module.exports = (server, db) => {
   server.get('/packages/:id', (req, res) => {
     const packageData = db
       .get('packages')
-      .find((p) => p.id === req.params.id)
+      .find((p) => p.package_id === req.params.id)
       .value();
 
     if (packageData) {
@@ -47,10 +47,10 @@ module.exports = (server, db) => {
     const packageId = Date.now().toString();
 
     const newPackage = {
-      id: packageId,
+      package_id: packageId,
       ...packageData,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     };
 
     // Add package to packages collection
@@ -60,13 +60,13 @@ module.exports = (server, db) => {
     if (package_locations && Array.isArray(package_locations)) {
       package_locations.forEach((pl, index) => {
         const packageLocation = {
-          id: Date.now().toString() + index,
-          packageId: packageId,
-          locationId: pl.location_id,
-          dayNumber: pl.day_number,
-          visitOrder: pl.visit_order,
+          package_location_id: Date.now().toString() + index,
+          package_id: packageId,
+          location_id: pl.location_id,
+          day_number: pl.day_number,
+          visit_order: pl.visit_order,
           notes: pl.notes || '',
-          createdAt: new Date().toISOString(),
+          created_at: new Date().toISOString(),
         };
         db.get('packageLocations').push(packageLocation).write();
       });
@@ -79,13 +79,13 @@ module.exports = (server, db) => {
         if (day.locations && Array.isArray(day.locations)) {
           day.locations.forEach((location) => {
             const packageLocation = {
-              id: Date.now().toString() + locationIndex,
-              packageId: packageId,
-              locationId: location.id,
-              dayNumber: day.dayNumber,
-              visitOrder: location.visit_order || 0,
+              package_location_id: Date.now().toString() + locationIndex,
+              package_id: packageId,
+              location_id: location.id,
+              day_number: day.dayNumber,
+              visit_order: location.visit_order || 0,
               notes: location.notes || '',
-              createdAt: new Date().toISOString(),
+              created_at: new Date().toISOString(),
             };
             db.get('packageLocations').push(packageLocation).write();
             locationIndex++;
@@ -104,7 +104,7 @@ module.exports = (server, db) => {
   // PUT /packages/:id - Update package
   server.put('/packages/:id', (req, res) => {
     const packageId = req.params.id;
-    const packageExists = db.get('packages').find({ id: packageId }).value();
+    const packageExists = db.get('packages').find({ package_id: packageId }).value();
 
     if (!packageExists) {
       return res.status(404).json({ error: 'Package not found' });
@@ -114,27 +114,27 @@ module.exports = (server, db) => {
 
     const updatedData = {
       ...packageData,
-      updatedAt: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     };
 
     // Update package data
-    db.get('packages').find({ id: packageId }).assign(updatedData).write();
+    db.get('packages').find({ package_id: packageId }).assign(updatedData).write();
 
     // Update package locations if provided
     if (package_locations && Array.isArray(package_locations)) {
       // Remove existing package locations
-      db.get('packageLocations').remove({ packageId: packageId }).write();
+      db.get('packageLocations').remove({ package_id: packageId }).write();
 
       // Add new package locations
       package_locations.forEach((pl, index) => {
         const packageLocation = {
-          id: Date.now().toString() + index,
-          packageId: packageId,
-          locationId: pl.location_id,
-          dayNumber: pl.day_number,
-          visitOrder: pl.visit_order,
+          package_location_id: Date.now().toString() + index,
+          package_id: packageId,
+          location_id: pl.location_id,
+          day_number: pl.day_number,
+          visit_order: pl.visit_order,
           notes: pl.notes || '',
-          createdAt: new Date().toISOString(),
+          created_at: new Date().toISOString(),
         };
         db.get('packageLocations').push(packageLocation).write();
       });
@@ -143,20 +143,20 @@ module.exports = (server, db) => {
     // If itinerary is provided, convert it to package_locations
     if (itinerary && Array.isArray(itinerary)) {
       // Remove existing package locations
-      db.get('packageLocations').remove({ packageId: packageId }).write();
+      db.get('packageLocations').remove({ package_id: packageId }).write();
 
       let locationIndex = 0;
       itinerary.forEach((day) => {
         if (day.locations && Array.isArray(day.locations)) {
           day.locations.forEach((location) => {
             const packageLocation = {
-              id: Date.now().toString() + locationIndex,
-              packageId: packageId,
-              locationId: location.id,
-              dayNumber: day.dayNumber,
-              visitOrder: location.visit_order || 0,
+              package_location_id: Date.now().toString() + locationIndex,
+              package_id: packageId,
+              location_id: location.id,
+              day_number: day.dayNumber,
+              visit_order: location.visit_order || 0,
               notes: location.notes || '',
-              createdAt: new Date().toISOString(),
+              created_at: new Date().toISOString(),
             };
             db.get('packageLocations').push(packageLocation).write();
             locationIndex++;
@@ -165,7 +165,7 @@ module.exports = (server, db) => {
       });
     }
 
-    const updatedPackage = db.get('packages').find({ id: packageId }).value();
+    const updatedPackage = db.get('packages').find({ package_id: packageId }).value();
     const populatedPackage = populatePackage(updatedPackage);
 
     res.json({
@@ -177,17 +177,17 @@ module.exports = (server, db) => {
   // DELETE /packages/:id - Delete package
   server.delete('/packages/:id', (req, res) => {
     const packageId = req.params.id;
-    const packageExists = db.get('packages').find({ id: packageId }).value();
+    const packageExists = db.get('packages').find({ package_id: packageId }).value();
 
     if (!packageExists) {
       return res.status(404).json({ error: 'Package not found' });
     }
 
     // Remove package from packages collection
-    db.get('packages').remove({ id: packageId }).write();
+    db.get('packages').remove({ package_id: packageId }).write();
 
     // Remove associated package locations
-    db.get('packageLocations').remove({ packageId: packageId }).write();
+    db.get('packageLocations').remove({ package_id: packageId }).write();
 
     res.json({
       success: true,

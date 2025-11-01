@@ -25,7 +25,7 @@ module.exports = (server, db) => {
     }
 
     if (id) {
-      admins = admins.filter((a) => a.id === id);
+      admins = admins.filter((a) => a.admin_id === id);
     }
 
     res.json({
@@ -38,7 +38,7 @@ module.exports = (server, db) => {
   server.get('/admins/:id', (req, res) => {
     const admin = db
       .get('admins')
-      .find((a) => a.id === req.params.id)
+      .find((a) => a.admin_id === req.params.id)
       .value();
 
     if (admin) {
@@ -57,10 +57,10 @@ module.exports = (server, db) => {
     const adminId = Date.now().toString();
 
     const newAdmin = {
-      id: adminId,
+      admin_id: adminId,
       ...adminData,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     };
 
     // Add admin to admins collection
@@ -75,7 +75,7 @@ module.exports = (server, db) => {
   // PUT /admins/:id - Update admin
   server.put('/admins/:id', (req, res) => {
     const adminId = req.params.id;
-    const adminExists = db.get('admins').find({ id: adminId }).value();
+    const adminExists = db.get('admins').find({ admin_id: adminId }).value();
 
     if (!adminExists) {
       return res.status(404).json({ error: 'Admin not found' });
@@ -85,13 +85,13 @@ module.exports = (server, db) => {
 
     const updatedData = {
       ...adminData,
-      updatedAt: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     };
 
     // Update admin data
-    db.get('admins').find({ id: adminId }).assign(updatedData).write();
+    db.get('admins').find({ admin_id: adminId }).assign(updatedData).write();
 
-    const updatedAdmin = db.get('admins').find({ id: adminId }).value();
+    const updatedAdmin = db.get('admins').find({ admin_id: adminId }).value();
 
     res.json({
       success: true,
@@ -102,14 +102,14 @@ module.exports = (server, db) => {
   // DELETE /admins/:id - Delete admin
   server.delete('/admins/:id', (req, res) => {
     const adminId = req.params.id;
-    const adminExists = db.get('admins').find({ id: adminId }).value();
+    const adminExists = db.get('admins').find({ admin_id: adminId }).value();
 
     if (!adminExists) {
       return res.status(404).json({ error: 'Admin not found' });
     }
 
     // Remove admin from admins collection
-    db.get('admins').remove({ id: adminId }).write();
+    db.get('admins').remove({ admin_id: adminId }).write();
 
     res.json({
       success: true,

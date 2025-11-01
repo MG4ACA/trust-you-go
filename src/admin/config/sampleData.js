@@ -41,35 +41,13 @@ export const SAMPLE_DATA = {
 
   // Sample data for Package form
   package: {
-    name: 'Cultural Triangle Tour',
+    title: 'Cultural Triangle Tour',
     description:
       'Explore the rich cultural heritage of Sri Lanka. This comprehensive tour covers three ancient capitals: Anuradhapura, Polonnaruwa, and Kandy. Visit UNESCO World Heritage Sites, ancient temples, and learn about Buddhist history and architecture.',
-    duration: 5,
-    price: 899.99,
-    maxPeople: 15,
-    difficulty: 'easy',
-    category: 'cultural',
-    includes: [
-      'Accommodation in 3-star hotels',
-      'Daily breakfast and dinner',
-      'All entrance fees',
-      'Professional tour guide',
-      'Comfortable transportation',
-    ],
-    excludes: [
-      'International flights',
-      'Travel insurance',
-      'Personal expenses',
-      'Tips and gratuities',
-    ],
-    highlights: [
-      'Visit Sigiriya Rock Fortress',
-      'Explore Anuradhapura Ancient City',
-      'Visit Polonnaruwa Archaeological Site',
-      'Tour Kandy Temple of the Tooth',
-      'Experience local cuisine',
-    ],
-    isActive: true,
+    no_of_days: 5,
+    base_price: 899.99,
+    is_template: false,
+    is_active: true,
   },
 
   // Sample data for Admin form

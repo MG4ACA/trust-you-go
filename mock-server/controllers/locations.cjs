@@ -28,7 +28,7 @@ module.exports = (server, db) => {
   server.get('/locations/:id', (req, res) => {
     const location = db
       .get('locations')
-      .find((l) => l.id === req.params.id)
+      .find((l) => l.location_id === req.params.id)
       .value();
 
     if (location) {
@@ -48,10 +48,10 @@ module.exports = (server, db) => {
     const locationId = Date.now().toString();
 
     const newLocation = {
-      id: locationId,
+      location_id: locationId,
       ...locationData,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     };
 
     // Add location to locations collection
@@ -61,12 +61,12 @@ module.exports = (server, db) => {
     if (images && Array.isArray(images)) {
       images.forEach((image, index) => {
         const locationImage = {
-          id: Date.now().toString() + index,
-          locationId: locationId,
-          imageUrl: image.imageUrl,
-          thumbnailUrl: image.thumbnailUrl || null,
-          displayOrder: image.displayOrder || index,
-          uploadedAt: new Date().toISOString(),
+          image_id: Date.now().toString() + index,
+          location_id: locationId,
+          image_url: image.imageUrl,
+          thumbnail_url: image.thumbnailUrl || null,
+          display_order: image.displayOrder || index,
+          uploaded_at: new Date().toISOString(),
         };
         db.get('locationImages').push(locationImage).write();
       });
@@ -82,7 +82,7 @@ module.exports = (server, db) => {
   // PUT /locations/:id - Update location
   server.put('/locations/:id', (req, res) => {
     const locationId = req.params.id;
-    const locationExists = db.get('locations').find({ id: locationId }).value();
+    const locationExists = db.get('locations').find({ location_id: locationId }).value();
 
     if (!locationExists) {
       return res.status(404).json({ error: 'Location not found' });
@@ -92,32 +92,32 @@ module.exports = (server, db) => {
 
     const updatedData = {
       ...locationData,
-      updatedAt: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     };
 
     // Update location data
-    db.get('locations').find({ id: locationId }).assign(updatedData).write();
+    db.get('locations').find({ location_id: locationId }).assign(updatedData).write();
 
     // Update location images if provided
     if (images && Array.isArray(images)) {
       // Remove existing location images
-      db.get('locationImages').remove({ locationId: locationId }).write();
+      db.get('locationImages').remove({ location_id: locationId }).write();
 
       // Add new location images
       images.forEach((image, index) => {
         const locationImage = {
-          id: Date.now().toString() + index,
-          locationId: locationId,
-          imageUrl: image.imageUrl,
-          thumbnailUrl: image.thumbnailUrl || null,
-          displayOrder: image.displayOrder || index,
-          uploadedAt: new Date().toISOString(),
+          image_id: Date.now().toString() + index,
+          location_id: locationId,
+          image_url: image.imageUrl,
+          thumbnail_url: image.thumbnailUrl || null,
+          display_order: image.displayOrder || index,
+          uploaded_at: new Date().toISOString(),
         };
         db.get('locationImages').push(locationImage).write();
       });
     }
 
-    const updatedLocation = db.get('locations').find({ id: locationId }).value();
+    const updatedLocation = db.get('locations').find({ location_id: locationId }).value();
     const populatedLocation = populateLocation(updatedLocation);
 
     res.json({
@@ -129,20 +129,20 @@ module.exports = (server, db) => {
   // DELETE /locations/:id - Delete location
   server.delete('/locations/:id', (req, res) => {
     const locationId = req.params.id;
-    const locationExists = db.get('locations').find({ id: locationId }).value();
+    const locationExists = db.get('locations').find({ location_id: locationId }).value();
 
     if (!locationExists) {
       return res.status(404).json({ error: 'Location not found' });
     }
 
     // Remove location from locations collection
-    db.get('locations').remove({ id: locationId }).write();
+    db.get('locations').remove({ location_id: locationId }).write();
 
     // Remove associated location images
-    db.get('locationImages').remove({ locationId: locationId }).write();
+    db.get('locationImages').remove({ location_id: locationId }).write();
 
     // Remove associated package locations
-    db.get('packageLocations').remove({ locationId: locationId }).write();
+    db.get('packageLocations').remove({ location_id: locationId }).write();
 
     res.json({
       success: true,

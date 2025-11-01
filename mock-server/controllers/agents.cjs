@@ -22,7 +22,7 @@ module.exports = (server, db) => {
   server.get('/agents/:id', (req, res) => {
     const agent = db
       .get('agents')
-      .find((a) => a.id === req.params.id)
+      .find((a) => a.agent_id === req.params.id)
       .value();
 
     if (agent) {
@@ -41,10 +41,10 @@ module.exports = (server, db) => {
     const agentId = Date.now().toString();
 
     const newAgent = {
-      id: agentId,
+      agent_id: agentId,
       ...agentData,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     };
 
     // Add agent to agents collection
@@ -59,7 +59,7 @@ module.exports = (server, db) => {
   // PUT /agents/:id - Update agent
   server.put('/agents/:id', (req, res) => {
     const agentId = req.params.id;
-    const agentExists = db.get('agents').find({ id: agentId }).value();
+    const agentExists = db.get('agents').find({ agent_id: agentId }).value();
 
     if (!agentExists) {
       return res.status(404).json({ error: 'Agent not found' });
@@ -69,13 +69,13 @@ module.exports = (server, db) => {
 
     const updatedData = {
       ...agentData,
-      updatedAt: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     };
 
     // Update agent data
-    db.get('agents').find({ id: agentId }).assign(updatedData).write();
+    db.get('agents').find({ agent_id: agentId }).assign(updatedData).write();
 
-    const updatedAgent = db.get('agents').find({ id: agentId }).value();
+    const updatedAgent = db.get('agents').find({ agent_id: agentId }).value();
 
     res.json({
       success: true,
@@ -86,14 +86,14 @@ module.exports = (server, db) => {
   // DELETE /agents/:id - Delete agent
   server.delete('/agents/:id', (req, res) => {
     const agentId = req.params.id;
-    const agentExists = db.get('agents').find({ id: agentId }).value();
+    const agentExists = db.get('agents').find({ agent_id: agentId }).value();
 
     if (!agentExists) {
       return res.status(404).json({ error: 'Agent not found' });
     }
 
     // Remove agent from agents collection
-    db.get('agents').remove({ id: agentId }).write();
+    db.get('agents').remove({ agent_id: agentId }).write();
 
     res.json({
       success: true,
