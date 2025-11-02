@@ -33,12 +33,10 @@ function Admins() {
 
   // Form state
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
-    phone: '',
-    role: 'administrator',
-    status: 'active',
+    contact: '',
+    isActive: true,
   });
 
   const [errors, setErrors] = useState({});
@@ -60,38 +58,26 @@ function Admins() {
   useEffect(() => {
     if (currentAdmin && (isViewMode || isEditMode)) {
       setFormData({
-        firstName: currentAdmin.firstName || '',
-        lastName: currentAdmin.lastName || '',
+        name: currentAdmin.name || '',
         email: currentAdmin.email || '',
-        phone: currentAdmin.phone || '',
-        role: currentAdmin.role || 'administrator',
-        status: currentAdmin.status || 'active',
+        contact: currentAdmin.contact || '',
+        isActive: currentAdmin.isActive !== undefined ? currentAdmin.isActive : true,
       });
     }
   }, [currentAdmin, isViewMode, isEditMode]);
 
-  // Role options for dropdowns
-  const roleOptions = [
-    { label: 'Administrator', value: 'administrator' },
-    { label: 'Manager', value: 'manager' },
-    { label: 'Super Admin', value: 'super_admin' },
-  ];
-
+  // Status options for dropdowns
   const statusOptions = [
-    { label: 'Active', value: 'active' },
-    { label: 'Inactive', value: 'inactive' },
+    { label: 'Active', value: true },
+    { label: 'Inactive', value: false },
   ];
 
   // Form validation
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
-    }
-
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
     }
 
     if (!formData.email.trim()) {
@@ -100,10 +86,10 @@ function Admins() {
       newErrors.email = 'Invalid email format';
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone is required';
-    } else if (!/^\+?[\d\s-()]+$/.test(formData.phone)) {
-      newErrors.phone = 'Invalid phone format';
+    if (!formData.contact.trim()) {
+      newErrors.contact = 'Contact is required';
+    } else if (!/^\+?[\d\s-()]+$/.test(formData.contact)) {
+      newErrors.contact = 'Invalid contact format';
     }
 
     setErrors(newErrors);
@@ -219,42 +205,23 @@ function Admins() {
       <Card>
         <form onSubmit={handleSubmit}>
           <div className="grid">
-            {/* First Name */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="firstName" className="block text-900 font-medium mb-2">
-                First Name <span className="text-red-500">*</span>
+            {/* Name */}
+            <div className="col-12">
+              <label htmlFor="name" className="block text-900 font-medium mb-2">
+                Name <span className="text-red-500">*</span>
               </label>
               {isViewMode ? (
-                <div className="text-900 text-xl">{formData.firstName}</div>
+                <div className="text-900 text-xl">{formData.name}</div>
               ) : (
                 <>
                   <InputText
-                    id="firstName"
-                    value={formData.firstName}
-                    onChange={(e) => handleInputChange('firstName', e.target.value)}
-                    className={`w-full ${errors.firstName ? 'p-invalid' : ''}`}
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    className={`w-full ${errors.name ? 'p-invalid' : ''}`}
+                    placeholder="e.g., John Silva"
                   />
-                  {errors.firstName && <small className="p-error">{errors.firstName}</small>}
-                </>
-              )}
-            </div>
-
-            {/* Last Name */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="lastName" className="block text-900 font-medium mb-2">
-                Last Name <span className="text-red-500">*</span>
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">{formData.lastName}</div>
-              ) : (
-                <>
-                  <InputText
-                    id="lastName"
-                    value={formData.lastName}
-                    onChange={(e) => handleInputChange('lastName', e.target.value)}
-                    className={`w-full ${errors.lastName ? 'p-invalid' : ''}`}
-                  />
-                  {errors.lastName && <small className="p-error">{errors.lastName}</small>}
+                  {errors.name && <small className="p-error">{errors.name}</small>}
                 </>
               )}
             </div>
@@ -283,72 +250,52 @@ function Admins() {
               )}
             </div>
 
-            {/* Phone */}
+            {/* Contact */}
             <div className="col-12 md:col-6">
-              <label htmlFor="phone" className="block text-900 font-medium mb-2">
-                Phone <span className="text-red-500">*</span>
+              <label htmlFor="contact" className="block text-900 font-medium mb-2">
+                Contact <span className="text-red-500">*</span>
               </label>
               {isViewMode ? (
                 <div className="text-900 text-xl">
                   <i className="pi pi-phone mr-2"></i>
-                  {formData.phone}
+                  {formData.contact}
                 </div>
               ) : (
                 <>
                   <InputText
-                    id="phone"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className={`w-full ${errors.phone ? 'p-invalid' : ''}`}
+                    id="contact"
+                    value={formData.contact}
+                    onChange={(e) => handleInputChange('contact', e.target.value)}
+                    className={`w-full ${errors.contact ? 'p-invalid' : ''}`}
                     placeholder="+94XXXXXXXXX"
                   />
-                  {errors.phone && <small className="p-error">{errors.phone}</small>}
+                  {errors.contact && <small className="p-error">{errors.contact}</small>}
                 </>
               )}
             </div>
 
-            {/* Role */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="role" className="block text-900 font-medium mb-2">
-                Role <span className="text-red-500">*</span>
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">
-                  {roleOptions.find((opt) => opt.value === formData.role)?.label}
-                </div>
-              ) : (
-                <Dropdown
-                  id="role"
-                  value={formData.role}
-                  options={roleOptions}
-                  onChange={(e) => handleInputChange('role', e.value)}
-                  className="w-full"
-                />
-              )}
-            </div>
-
             {/* Status */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="status" className="block text-900 font-medium mb-2">
-                Status
+            <div className="col-12">
+              <label htmlFor="isActive" className="block text-900 font-medium mb-2">
+                Status <span className="text-red-500">*</span>
               </label>
               {isViewMode ? (
                 <div className="text-900 text-xl">
                   <i
                     className={`pi ${
-                      formData.status === 'active'
+                      formData.isActive
                         ? 'pi-check-circle text-green-500'
                         : 'pi-times-circle text-red-500'
                     } mr-2`}
                   ></i>
-                  {formData.status.charAt(0).toUpperCase() + formData.status.slice(1)}
+                  {formData.isActive ? 'Active' : 'Inactive'}
                 </div>
               ) : (
                 <Dropdown
-                  id="status"
-                  value={formData.status}
+                  id="isActive"
+                  value={formData.isActive}
                   options={statusOptions}
-                  onChange={(e) => handleInputChange('status', e.value)}
+                  onChange={(e) => handleInputChange('isActive', e.value)}
                   className="w-full"
                 />
               )}

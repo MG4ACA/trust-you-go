@@ -2,7 +2,6 @@ import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { DataTable } from 'primereact/datatable';
-import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
 import { Toast } from 'primereact/toast';
@@ -21,26 +20,18 @@ function AgentList() {
   const { agents, loading } = useSelector((state) => state.agents);
 
   const [globalFilter, setGlobalFilter] = useState('');
-  const [statusFilter, setStatusFilter] = useState(null);
 
   useEffect(() => {
     dispatch(fetchAgents());
   }, [dispatch]);
 
-  const statusOptions = [
-    { label: 'All', value: null },
-    { label: 'Active', value: 'active' },
-    { label: 'Pending', value: 'pending' },
-    { label: 'Inactive', value: 'inactive' },
-  ];
-
-  const handleDelete = (agentId, firstName, lastName) => {
-    const agentName = `${firstName || ''} ${lastName || ''}`.trim() || 'this agent';
+  const handleDelete = (agentId, agentName) => {
+    const displayName = agentName || 'this agent';
     confirmDialog({
       message: (
         <div>
           <p className="m-0 mb-3">
-            Are you sure you want to delete <strong>{agentName}</strong>?
+            Are you sure you want to delete <strong>{displayName}</strong>?
           </p>
           <p className="m-0 text-600 text-sm">
             This action cannot be undone. All agent data will be permanently removed.
@@ -75,15 +66,13 @@ function AgentList() {
     });
   };
 
-  const statusBodyTemplate = (rowData) => {
-    const severity =
-      {
-        active: 'success',
-        pending: 'warning',
-        inactive: 'danger',
-      }[rowData.status] || 'info';
-
-    return <Tag value={rowData.status} severity={severity} />;
+  const activeBodyTemplate = (rowData) => {
+    return (
+      <Tag
+        value={rowData.isActive ? 'Active' : 'Inactive'}
+        severity={rowData.isActive ? 'success' : 'danger'}
+      />
+    );
   };
 
   const actionBodyTemplate = (rowData) => {
@@ -96,7 +85,7 @@ function AgentList() {
           severity="info"
           tooltip="View Details"
           tooltipOptions={{ position: 'top' }}
-          onClick={() => navigate(ADMIN_ROUTES.VIEW_AGENT(rowData.id))}
+          onClick={() => navigate(ADMIN_ROUTES.VIEW_AGENT(rowData.agentId))}
         />
         <Button
           icon="pi pi-pencil"
@@ -105,7 +94,7 @@ function AgentList() {
           severity="success"
           tooltip="Edit Agent"
           tooltipOptions={{ position: 'top' }}
-          onClick={() => navigate(ADMIN_ROUTES.EDIT_AGENT(rowData.id))}
+          onClick={() => navigate(ADMIN_ROUTES.EDIT_AGENT(rowData.agentId))}
         />
         <Button
           icon="pi pi-trash"
@@ -114,41 +103,37 @@ function AgentList() {
           severity="danger"
           tooltip="Delete Agent"
           tooltipOptions={{ position: 'top' }}
-          onClick={() => handleDelete(rowData.id, rowData.firstName, rowData.lastName)}
+          onClick={() => handleDelete(rowData.agentId, rowData.name)}
         />
       </div>
     );
   };
 
   const contactBodyTemplate = (rowData) => {
-    const fullName = `${rowData.firstName || ''} ${rowData.lastName || ''}`.trim() || 'N/A';
     return (
       <div>
-        <div className="mb-1 font-semibold">{fullName}</div>
+        <div className="mb-1 font-semibold">{rowData.name || 'N/A'}</div>
         <div className="mb-1 text-sm">
           <i className="pi pi-envelope mr-2 text-600"></i>
           <span>{rowData.email}</span>
         </div>
         <div className="text-sm">
           <i className="pi pi-phone mr-2 text-600"></i>
-          <span>{rowData.phone}</span>
+          <span>{rowData.contact}</span>
         </div>
       </div>
     );
   };
 
-  // Calculate filtered agents first
+  // Calculate filtered agents
   const filteredAgents = agents.filter((agent) => {
-    const matchesStatus = !statusFilter || agent.status === statusFilter;
-    const fullName = `${agent.firstName || ''} ${agent.lastName || ''}`.toLowerCase();
     const matchesSearch =
       !globalFilter ||
-      fullName.includes(globalFilter.toLowerCase()) ||
-      agent.email.toLowerCase().includes(globalFilter.toLowerCase()) ||
-      agent.phone.includes(globalFilter) ||
-      (agent.city && agent.city.toLowerCase().includes(globalFilter.toLowerCase()));
+      (agent.name && agent.name.toLowerCase().includes(globalFilter.toLowerCase())) ||
+      (agent.email && agent.email.toLowerCase().includes(globalFilter.toLowerCase())) ||
+      (agent.contact && agent.contact.includes(globalFilter));
 
-    return matchesStatus && matchesSearch;
+    return matchesSearch;
   });
 
   // Define header after filteredAgents
@@ -178,13 +163,6 @@ function AgentList() {
         <Tag value={`${filteredAgents.length} total`} severity="info" />
       </div>
       <div className="flex flex-column md:flex-row gap-2">
-        <Dropdown
-          value={statusFilter}
-          options={statusOptions}
-          onChange={(e) => setStatusFilter(e.value)}
-          placeholder="Filter by Status"
-          className="w-full md:w-14rem"
-        />
         <span className="p-input-icon-left w-full md:w-20rem">
           <i className="pi pi-search" />
           <InputText
@@ -229,7 +207,7 @@ function AgentList() {
         paginator
         rows={10}
         rowsPerPageOptions={[5, 10, 25, 50]}
-        dataKey="id"
+        dataKey="agentId"
         emptyMessage="No agents found"
         className="p-datatable-gridlines"
         stripedRows
@@ -240,26 +218,33 @@ function AgentList() {
           header="Agent"
           body={contactBodyTemplate}
           sortable
-          sortField="firstName"
+          sortField="name"
           style={{ minWidth: '18rem' }}
         />
-        <Column field="city" header="City" sortable style={{ minWidth: '10rem' }} />
         <Column
           field="commissionRate"
           header="Commission"
           body={(rowData) => `${rowData.commissionRate}%`}
           sortable
-          style={{ minWidth: '8rem' }}
+          style={{ minWidth: '10rem' }}
         />
+        <Column field="notes" header="Notes" sortable style={{ minWidth: '15rem' }} />
         <Column
-          field="status"
+          field="isActive"
           header="Status"
-          body={statusBodyTemplate}
+          body={activeBodyTemplate}
           sortable
           style={{ minWidth: '8rem' }}
         />
-        <Column field="totalBookings" header="Bookings" sortable style={{ minWidth: '8rem' }} />
-        <Column field="joinedDate" header="Joined Date" sortable style={{ minWidth: '10rem' }} />
+        <Column
+          field="createdAt"
+          header="Created"
+          body={(rowData) =>
+            rowData.createdAt ? new Date(rowData.createdAt).toLocaleDateString() : 'N/A'
+          }
+          sortable
+          style={{ minWidth: '10rem' }}
+        />
         <Column
           header="Actions"
           body={actionBodyTemplate}

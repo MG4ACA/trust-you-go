@@ -1,8 +1,6 @@
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Checkbox } from 'primereact/checkbox';
-import { Chips } from 'primereact/chips';
-import { Dropdown } from 'primereact/dropdown';
 import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
@@ -12,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ItinerarySteps from '../components/ItinerarySteps';
 import { ADMIN_ROUTES } from '../config/routeConfig';
-import { SAMPLE_DATA } from '../config/sampleData';
 import { fetchLocations } from '../store/slices/locationSlice';
 import {
   clearSelectedPackage,
@@ -20,20 +17,6 @@ import {
   fetchPackageById,
   updatePackage,
 } from '../store/slices/packageSlice';
-
-const difficultyLevels = [
-  { label: 'Easy', value: 'easy' },
-  { label: 'Moderate', value: 'moderate' },
-  { label: 'Challenging', value: 'challenging' },
-];
-
-const categories = [
-  { label: 'Cultural', value: 'cultural' },
-  { label: 'Adventure', value: 'adventure' },
-  { label: 'Nature', value: 'nature' },
-  { label: 'Comprehensive', value: 'comprehensive' },
-  { label: 'Short Trip', value: 'short-trip' },
-];
 
 const Package = () => {
   const toast = useRef(null);
@@ -49,17 +32,13 @@ const Package = () => {
   const isViewMode = id && !isCreateMode && !isEditMode;
 
   const [formData, setFormData] = useState({
-    name: '',
+    title: '',
     description: '',
-    duration: 1,
-    price: 0,
-    maxPeople: 1,
-    difficulty: 'easy',
-    category: 'cultural',
-    includes: [],
-    excludes: [],
-    highlights: [],
+    noOfDays: 1,
+    basePrice: 0,
+    isTemplate: false,
     isActive: true,
+    packageLocations: [],
   });
 
   useEffect(() => {
@@ -77,29 +56,17 @@ const Package = () => {
 
   useEffect(() => {
     if (selectedPackage) {
-      // Transform package_locations into itinerary format
-      const itinerary = Array.from({ length: selectedPackage.no_of_days }, (_, index) => ({
-        dayNumber: index + 1,
-        description: '',
-        locations: [],
-      }));
-
-      // Find corresponding location data for each package_location
-      selectedPackage.package_locations?.forEach((pl) => {
-        const location = locations.find((l) => l.id === pl.location_id);
-        if (location && pl.day_number <= selectedPackage.no_of_days) {
-          const dayIndex = pl.day_number - 1;
-          itinerary[dayIndex].locations.push({
-            ...location,
-            visit_order: pl.visit_order,
-            notes: pl.notes,
-          });
-        }
-      });
+      // Transform package_locations into display format
+      const packageLocations = selectedPackage.packageLocations || [];
 
       setFormData({
-        ...selectedPackage,
-        itinerary,
+        title: selectedPackage.title || '',
+        description: selectedPackage.description || '',
+        noOfDays: selectedPackage.noOfDays || 1,
+        basePrice: selectedPackage.basePrice || 0,
+        isTemplate: selectedPackage.isTemplate || false,
+        isActive: selectedPackage.isActive !== undefined ? selectedPackage.isActive : true,
+        packageLocations: packageLocations,
       });
     }
   }, [selectedPackage, locations]);
@@ -117,24 +84,24 @@ const Package = () => {
 
   const validateForm = () => {
     const errors = {};
-    if (!formData.name?.trim()) errors.name = 'Package name is required';
+    if (!formData.title?.trim()) errors.title = 'Package title is required';
     if (!formData.description?.trim()) errors.description = 'Description is required';
-    if (!formData.duration || formData.duration < 1)
-      errors.duration = 'Duration must be at least 1 day';
-    if (!formData.price || formData.price <= 0) errors.price = 'Price must be greater than 0';
-    if (!formData.maxPeople || formData.maxPeople < 1)
-      errors.maxPeople = 'Max people must be at least 1';
-    if (!formData.difficulty) errors.difficulty = 'Difficulty level is required';
-    if (!formData.category) errors.category = 'Category is required';
-    if (!formData.includes?.length) errors.includes = 'At least one inclusion is required';
-    if (!formData.highlights?.length) errors.highlights = 'At least one highlight is required';
+    if (!formData.noOfDays || formData.noOfDays < 1)
+      errors.noOfDays = 'Duration must be at least 1 day';
+    if (!formData.basePrice || formData.basePrice <= 0)
+      errors.basePrice = 'Base price must be greater than 0';
 
-    // Validate itinerary
-    if (formData.itinerary) {
-      const hasEmptyDays = formData.itinerary.some((day) => !day.locations?.length);
-      if (hasEmptyDays) {
-        errors.itinerary = 'Each day must have at least one location';
+    // Validate package_locations - each day must have at least one location
+    if (formData.packageLocations && formData.packageLocations.length > 0) {
+      const daysWithLocations = new Set(formData.packageLocations.map((pl) => pl.day_number));
+      const allDaysCovered = Array.from({ length: formData.noOfDays }, (_, i) => i + 1).every(
+        (day) => daysWithLocations.has(day)
+      );
+      if (!allDaysCovered) {
+        errors.packageLocations = 'Each day must have at least one location';
       }
+    } else if (formData.noOfDays > 0) {
+      errors.packageLocations = 'At least one location must be added to the package';
     }
 
     return errors;
@@ -143,9 +110,14 @@ const Package = () => {
   const handlePopulateSampleData = () => {
     setFormData((prev) => ({
       ...prev,
-      ...SAMPLE_DATA.package,
-      // Keep itinerary if it exists
-      itinerary: prev.itinerary || [],
+      title: 'Cultural Triangle Tour',
+      description:
+        'Explore the rich cultural heritage of Sri Lanka. This comprehensive tour covers three ancient capitals: Anuradhapura, Polonnaruwa, and Kandy. Visit UNESCO World Heritage Sites, ancient temples, and learn about Buddhist history and architecture.',
+      noOfDays: 5,
+      basePrice: 899.99,
+      isTemplate: false,
+      isActive: true,
+      packageLocations: prev.packageLocations || [],
     }));
     toast.current.show({
       severity: 'info',
@@ -260,11 +232,11 @@ const Package = () => {
           <div className="grid">
             <div className="col-12">
               <div className="field">
-                <label htmlFor="name">Package Name *</label>
+                <label htmlFor="title">Package Title *</label>
                 <InputText
-                  id="name"
-                  name="name"
-                  value={formData.name}
+                  id="title"
+                  name="title"
+                  value={formData.title}
                   onChange={handleChange}
                   required
                   disabled={isViewMode}
@@ -287,26 +259,26 @@ const Package = () => {
             </div>
             <div className="col-6">
               <div className="field">
-                <label htmlFor="duration">Duration (Days) *</label>
+                <label htmlFor="noOfDays">Duration (Days) *</label>
                 <InputNumber
-                  id="duration"
-                  name="duration"
-                  value={formData.duration}
-                  onValueChange={(e) => handleNumberChange(e, 'duration')}
+                  id="noOfDays"
+                  name="noOfDays"
+                  value={formData.noOfDays}
+                  onValueChange={(e) => handleNumberChange(e, 'noOfDays')}
                   min={1}
                   required
                   disabled={isViewMode}
                 />
               </div>
-            </div>{' '}
+            </div>
             <div className="col-6">
               <div className="field">
-                <label htmlFor="price">Price ($) *</label>
+                <label htmlFor="basePrice">Base Price ($) *</label>
                 <InputNumber
-                  id="price"
-                  name="price"
-                  value={formData.price}
-                  onValueChange={(e) => handleNumberChange(e, 'price')}
+                  id="basePrice"
+                  name="basePrice"
+                  value={formData.basePrice}
+                  onValueChange={(e) => handleNumberChange(e, 'basePrice')}
                   mode="currency"
                   currency="USD"
                   locale="en-US"
@@ -318,44 +290,22 @@ const Package = () => {
             </div>
             <div className="col-6">
               <div className="field">
-                <label htmlFor="maxPeople">Maximum People *</label>
-                <InputNumber
-                  id="maxPeople"
-                  name="maxPeople"
-                  value={formData.maxPeople}
-                  onValueChange={(e) => handleNumberChange(e, 'maxPeople')}
-                  min={1}
-                  required
-                  disabled={isViewMode}
-                />
-              </div>
-            </div>
-            <div className="col-6">
-              <div className="field">
-                <label htmlFor="difficulty">Difficulty Level *</label>
-                <Dropdown
-                  id="difficulty"
-                  name="difficulty"
-                  value={formData.difficulty}
-                  options={difficultyLevels}
-                  onChange={handleChange}
-                  required
-                  disabled={isViewMode}
-                />
-              </div>
-            </div>
-            <div className="col-6">
-              <div className="field">
-                <label htmlFor="category">Category *</label>
-                <Dropdown
-                  id="category"
-                  name="category"
-                  value={formData.category}
-                  options={categories}
-                  onChange={handleChange}
-                  required
-                  disabled={isViewMode}
-                />
+                <label htmlFor="isTemplate" className="block">
+                  Template Package
+                </label>
+                <div className="flex align-items-center">
+                  <Checkbox
+                    inputId="isTemplate"
+                    name="isTemplate"
+                    checked={formData.isTemplate}
+                    onChange={(e) =>
+                      handleChange({
+                        target: { name: 'isTemplate', value: e.checked },
+                      })
+                    }
+                    disabled={isViewMode}
+                  />
+                </div>
               </div>
             </div>
             <div className="col-6">
@@ -379,86 +329,33 @@ const Package = () => {
               </div>
             </div>
             <div className="col-12">
-              <div className="field">
-                <label htmlFor="includes">Inclusions</label>
-                <Chips
-                  id="includes"
-                  name="includes"
-                  value={formData.includes}
-                  onChange={(e) =>
-                    handleChange({
-                      target: { name: 'includes', value: e.value },
-                    })
-                  }
-                  placeholder="Add inclusion..."
-                  disabled={isViewMode}
-                />
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="field">
-                <label htmlFor="excludes">Exclusions</label>
-                <Chips
-                  id="excludes"
-                  name="excludes"
-                  value={formData.excludes}
-                  onChange={(e) =>
-                    handleChange({
-                      target: { name: 'excludes', value: e.value },
-                    })
-                  }
-                  placeholder="Add exclusion..."
-                  disabled={isViewMode}
-                />
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="field">
-                <label htmlFor="highlights">Highlights</label>
-                <Chips
-                  id="highlights"
-                  name="highlights"
-                  value={formData.highlights}
-                  onChange={(e) =>
-                    handleChange({
-                      target: { name: 'highlights', value: e.value },
-                    })
-                  }
-                  placeholder="Add highlight..."
-                  disabled={isViewMode}
-                />
-              </div>
-            </div>
-            <div className="col-12">
-              <h3>Itinerary</h3>
+              <h3>Package Locations</h3>
               <ItinerarySteps
-                numDays={formData.duration}
-                onChange={(itinerary) => {
-                  // Transform itinerary data into package_locations format
-                  const package_locations = itinerary.flatMap((day) =>
-                    day.locations.map((location) => ({
+                numDays={formData.noOfDays}
+                onChange={(packageLocations) => {
+                  // Transform itinerary data into packageLocations format
+                  const transformedLocations = packageLocations.flatMap((day) =>
+                    (day.locations || []).map((location) => ({
                       location_id: location.id,
                       day_number: day.dayNumber,
-                      visit_order: location.visit_order,
+                      visit_order: location.visit_order || 0,
                       notes: location.notes || '',
                     }))
                   );
 
-                  // Update both package_locations and itinerary
                   setFormData((prev) => ({
                     ...prev,
-                    package_locations: package_locations,
-                    itinerary: itinerary,
+                    packageLocations: transformedLocations,
                   }));
                 }}
-                value={formData.itinerary}
+                value={formData.package_locations}
                 disabled={isViewMode}
                 locations={locations}
-                onSave={async (itineraryData) => {
-                  // Save current form data with the new itinerary
+                onSave={async (packageLocationData) => {
+                  // Save current form data with the new package locations
                   const updatedData = {
                     ...formData,
-                    itinerary: itineraryData,
+                    package_locations: packageLocationData,
                   };
 
                   if (id) {

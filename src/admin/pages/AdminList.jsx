@@ -59,16 +59,15 @@ function AdminList() {
     const matchesRole = !roleFilter || admin.role === roleFilter;
     const matchesSearch =
       !globalFilter ||
-      admin.firstName?.toLowerCase().includes(globalFilter.toLowerCase()) ||
-      admin.lastName?.toLowerCase().includes(globalFilter.toLowerCase()) ||
+      admin.name?.toLowerCase().includes(globalFilter.toLowerCase()) ||
       admin.email?.toLowerCase().includes(globalFilter.toLowerCase()) ||
-      admin.phone?.includes(globalFilter);
+      admin.contact?.includes(globalFilter);
 
     return matchesRole && matchesSearch;
   });
 
-  const handleDelete = (adminId, firstName, lastName) => {
-    const adminName = `${firstName || ''} ${lastName || ''}`.trim() || 'this admin';
+  const handleDelete = (adminId, name) => {
+    const adminName = name || 'this admin';
     confirmDialog({
       message: (
         <div>
@@ -118,15 +117,18 @@ function AdminList() {
   };
 
   const statusBodyTemplate = (rowData) => {
-    const severity = rowData.status === 'active' ? 'success' : 'danger';
-    return <Tag value={rowData.status || 'active'} severity={severity} />;
+    return (
+      <Tag
+        value={rowData.isActive ? 'Active' : 'Inactive'}
+        severity={rowData.isActive ? 'success' : 'danger'}
+      />
+    );
   };
 
   const contactBodyTemplate = (rowData) => {
-    const fullName = `${rowData.firstName || ''} ${rowData.lastName || ''}`.trim() || 'N/A';
     return (
       <div>
-        <div className="mb-1 font-semibold">{fullName}</div>
+        <div className="mb-1 font-semibold">{rowData.name || 'N/A'}</div>
         <div className="text-sm">
           <i className="pi pi-envelope mr-2 text-600"></i>
           <span>{rowData.email}</span>
@@ -145,7 +147,7 @@ function AdminList() {
           severity="info"
           tooltip="View Details"
           tooltipOptions={{ position: 'top' }}
-          onClick={() => navigate(ADMIN_ROUTES.VIEW_ADMIN(rowData.id))}
+          onClick={() => navigate(ADMIN_ROUTES.VIEW_ADMIN(rowData.adminId))}
         />
         <Button
           icon="pi pi-pencil"
@@ -154,7 +156,7 @@ function AdminList() {
           severity="success"
           tooltip="Edit Admin"
           tooltipOptions={{ position: 'top' }}
-          onClick={() => navigate(ADMIN_ROUTES.EDIT_ADMIN(rowData.id))}
+          onClick={() => navigate(ADMIN_ROUTES.EDIT_ADMIN(rowData.adminId))}
         />
         <Button
           icon="pi pi-trash"
@@ -163,7 +165,7 @@ function AdminList() {
           severity="danger"
           tooltip="Delete Admin"
           tooltipOptions={{ position: 'top' }}
-          onClick={() => handleDelete(rowData.id, rowData.firstName, rowData.lastName)}
+          onClick={() => handleDelete(rowData.adminId, rowData.name)}
         />
       </div>
     );
@@ -248,7 +250,7 @@ function AdminList() {
         paginator
         rows={10}
         rowsPerPageOptions={[5, 10, 25, 50]}
-        dataKey="id"
+        dataKey="adminId"
         emptyMessage="No admins found"
         className="p-datatable-gridlines"
         stripedRows
@@ -259,10 +261,10 @@ function AdminList() {
           header="Admin"
           body={contactBodyTemplate}
           sortable
-          sortField="firstName"
+          sortField="name"
           style={{ minWidth: '18rem' }}
         />
-        <Column field="phone" header="Phone" sortable style={{ minWidth: '12rem' }} />
+        <Column field="contact" header="Contact" sortable style={{ minWidth: '12rem' }} />
         <Column
           header="Role"
           body={roleBodyTemplate}
@@ -274,7 +276,7 @@ function AdminList() {
           header="Status"
           body={statusBodyTemplate}
           sortable
-          sortField="status"
+          sortField="isActive"
           style={{ minWidth: '8rem' }}
         />
         <Column

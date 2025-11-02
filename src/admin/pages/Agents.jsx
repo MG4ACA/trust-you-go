@@ -30,18 +30,12 @@ function Agents() {
   const isCreateMode = !id;
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
-    phone: '',
-    address: '',
-    city: '',
-    country: 'Sri Lanka',
+    contact: '',
     commissionRate: 15,
-    status: 'pending',
-    joinedDate: new Date().toISOString().split('T')[0],
-    totalBookings: 0,
-    totalRevenue: 0,
+    isActive: true,
+    notes: '',
   });
 
   const [errors, setErrors] = useState({});
@@ -59,37 +53,21 @@ function Agents() {
   useEffect(() => {
     if (currentAgent && (isViewMode || isEditMode)) {
       setFormData({
-        firstName: currentAgent.firstName || '',
-        lastName: currentAgent.lastName || '',
+        name: currentAgent.name || '',
         email: currentAgent.email || '',
-        phone: currentAgent.phone || '',
-        address: currentAgent.address || '',
-        city: currentAgent.city || '',
-        country: currentAgent.country || 'Sri Lanka',
+        contact: currentAgent.contact || '',
         commissionRate: currentAgent.commissionRate || 15,
-        status: currentAgent.status || 'pending',
-        joinedDate: currentAgent.joinedDate || new Date().toISOString().split('T')[0],
-        totalBookings: currentAgent.totalBookings || 0,
-        totalRevenue: currentAgent.totalRevenue || 0,
+        isActive: currentAgent.isActive ?? true,
+        notes: currentAgent.notes || '',
       });
     }
   }, [currentAgent, isViewMode, isEditMode]);
 
-  const statusOptions = [
-    { label: 'Active', value: 'active' },
-    { label: 'Pending', value: 'pending' },
-    { label: 'Inactive', value: 'inactive' },
-  ];
-
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
-    }
-
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
     }
 
     if (!formData.email.trim()) {
@@ -98,18 +76,10 @@ function Agents() {
       newErrors.email = 'Invalid email format';
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone is required';
-    } else if (!/^\+?[\d\s-()]+$/.test(formData.phone)) {
-      newErrors.phone = 'Invalid phone format';
-    }
-
-    if (!formData.address.trim()) {
-      newErrors.address = 'Address is required';
-    }
-
-    if (!formData.city.trim()) {
-      newErrors.city = 'City is required';
+    if (!formData.contact.trim()) {
+      newErrors.contact = 'Contact is required';
+    } else if (!/^\+?[\d\s-()]+$/.test(formData.contact)) {
+      newErrors.contact = 'Invalid contact format';
     }
 
     if (formData.commissionRate < 0 || formData.commissionRate > 100) {
@@ -132,9 +102,6 @@ function Agents() {
     setFormData((prev) => ({
       ...prev,
       ...SAMPLE_DATA.agent,
-      joinedDate: prev.joinedDate, // Keep the current date
-      totalBookings: prev.totalBookings, // Keep the current value
-      totalRevenue: prev.totalRevenue, // Keep the current value
     }));
     toast.current.show({
       severity: 'info',
@@ -229,42 +196,22 @@ function Agents() {
       <Card>
         <form onSubmit={handleSubmit}>
           <div className="grid">
-            {/* First Name */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="firstName" className="block text-900 font-medium mb-2">
-                First Name <span className="text-red-500">*</span>
+            {/* Name */}
+            <div className="col-12">
+              <label htmlFor="name" className="block text-900 font-medium mb-2">
+                Name <span className="text-red-500">*</span>
               </label>
               {isViewMode ? (
-                <div className="text-900 text-xl">{formData.firstName}</div>
+                <div className="text-900 text-xl">{formData.name}</div>
               ) : (
                 <>
                   <InputText
-                    id="firstName"
-                    value={formData.firstName}
-                    onChange={(e) => handleInputChange('firstName', e.target.value)}
-                    className={`w-full ${errors.firstName ? 'p-invalid' : ''}`}
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    className={`w-full ${errors.name ? 'p-invalid' : ''}`}
                   />
-                  {errors.firstName && <small className="p-error">{errors.firstName}</small>}
-                </>
-              )}
-            </div>
-
-            {/* Last Name */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="lastName" className="block text-900 font-medium mb-2">
-                Last Name <span className="text-red-500">*</span>
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">{formData.lastName}</div>
-              ) : (
-                <>
-                  <InputText
-                    id="lastName"
-                    value={formData.lastName}
-                    onChange={(e) => handleInputChange('lastName', e.target.value)}
-                    className={`w-full ${errors.lastName ? 'p-invalid' : ''}`}
-                  />
-                  {errors.lastName && <small className="p-error">{errors.lastName}</small>}
+                  {errors.name && <small className="p-error">{errors.name}</small>}
                 </>
               )}
             </div>
@@ -293,88 +240,27 @@ function Agents() {
               )}
             </div>
 
-            {/* Phone */}
+            {/* Contact */}
             <div className="col-12 md:col-6">
-              <label htmlFor="phone" className="block text-900 font-medium mb-2">
-                Phone <span className="text-red-500">*</span>
+              <label htmlFor="contact" className="block text-900 font-medium mb-2">
+                Contact <span className="text-red-500">*</span>
               </label>
               {isViewMode ? (
                 <div className="text-900 text-xl">
                   <i className="pi pi-phone mr-2"></i>
-                  {formData.phone}
+                  {formData.contact}
                 </div>
               ) : (
                 <>
                   <InputText
-                    id="phone"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className={`w-full ${errors.phone ? 'p-invalid' : ''}`}
+                    id="contact"
+                    value={formData.contact}
+                    onChange={(e) => handleInputChange('contact', e.target.value)}
+                    className={`w-full ${errors.contact ? 'p-invalid' : ''}`}
                     placeholder="+94XXXXXXXXX"
                   />
-                  {errors.phone && <small className="p-error">{errors.phone}</small>}
+                  {errors.contact && <small className="p-error">{errors.contact}</small>}
                 </>
-              )}
-            </div>
-
-            {/* Address */}
-            <div className="col-12">
-              <label htmlFor="address" className="block text-900 font-medium mb-2">
-                Address <span className="text-red-500">*</span>
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">
-                  <i className="pi pi-map-marker mr-2"></i>
-                  {formData.address}
-                </div>
-              ) : (
-                <>
-                  <InputText
-                    id="address"
-                    value={formData.address}
-                    onChange={(e) => handleInputChange('address', e.target.value)}
-                    className={`w-full ${errors.address ? 'p-invalid' : ''}`}
-                    placeholder="Street address"
-                  />
-                  {errors.address && <small className="p-error">{errors.address}</small>}
-                </>
-              )}
-            </div>
-
-            {/* City */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="city" className="block text-900 font-medium mb-2">
-                City <span className="text-red-500">*</span>
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">{formData.city}</div>
-              ) : (
-                <>
-                  <InputText
-                    id="city"
-                    value={formData.city}
-                    onChange={(e) => handleInputChange('city', e.target.value)}
-                    className={`w-full ${errors.city ? 'p-invalid' : ''}`}
-                  />
-                  {errors.city && <small className="p-error">{errors.city}</small>}
-                </>
-              )}
-            </div>
-
-            {/* Country */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="country" className="block text-900 font-medium mb-2">
-                Country
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">{formData.country}</div>
-              ) : (
-                <InputText
-                  id="country"
-                  value={formData.country}
-                  onChange={(e) => handleInputChange('country', e.target.value)}
-                  className="w-full"
-                />
               )}
             </div>
 
@@ -405,78 +291,53 @@ function Agents() {
               )}
             </div>
 
-            {/* Status */}
+            {/* Active Status */}
             <div className="col-12 md:col-6">
-              <label htmlFor="status" className="block text-900 font-medium mb-2">
+              <label htmlFor="isActive" className="block text-900 font-medium mb-2">
                 Status
               </label>
               {isViewMode ? (
                 <div className="text-900 text-xl">
                   <i
                     className={`pi ${
-                      formData.status === 'active'
+                      formData.isActive
                         ? 'pi-check-circle text-green-500'
-                        : formData.status === 'pending'
-                        ? 'pi-clock text-orange-500'
                         : 'pi-times-circle text-red-500'
                     } mr-2`}
                   ></i>
-                  {formData.status.charAt(0).toUpperCase() + formData.status.slice(1)}
+                  {formData.isActive ? 'Active' : 'Inactive'}
                 </div>
               ) : (
                 <Dropdown
-                  id="status"
-                  value={formData.status}
-                  options={statusOptions}
-                  onChange={(e) => handleInputChange('status', e.value)}
+                  id="isActive"
+                  value={formData.isActive}
+                  options={[
+                    { label: 'Active', value: true },
+                    { label: 'Inactive', value: false }
+                  ]}
+                  onChange={(e) => handleInputChange('isActive', e.value)}
                   className="w-full"
                 />
               )}
             </div>
 
-            {/* Joined Date */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="joinedDate" className="block text-900 font-medium mb-2">
-                Joined Date
+            {/* Notes */}
+            <div className="col-12">
+              <label htmlFor="notes" className="block text-900 font-medium mb-2">
+                Notes
               </label>
               {isViewMode ? (
-                <div className="text-900 text-xl">
-                  <i className="pi pi-calendar mr-2"></i>
-                  {formData.joinedDate}
-                </div>
+                <div className="text-900 text-xl">{formData.notes || 'No notes'}</div>
               ) : (
                 <InputText
-                  id="joinedDate"
-                  type="date"
-                  value={formData.joinedDate}
-                  onChange={(e) => handleInputChange('joinedDate', e.target.value)}
+                  id="notes"
+                  value={formData.notes}
+                  onChange={(e) => handleInputChange('notes', e.target.value)}
                   className="w-full"
-                  disabled={isEditMode}
+                  placeholder="Additional notes about the agent..."
                 />
               )}
             </div>
-
-            {/* Total Bookings (View/Edit only) */}
-            {(isViewMode || isEditMode) && (
-              <div className="col-12 md:col-6">
-                <label className="block text-900 font-medium mb-2">Total Bookings</label>
-                <div className="text-900 text-xl">
-                  <i className="pi pi-shopping-bag mr-2 text-blue-500"></i>
-                  {formData.totalBookings}
-                </div>
-              </div>
-            )}
-
-            {/* Total Revenue (View/Edit only) */}
-            {(isViewMode || isEditMode) && (
-              <div className="col-12 md:col-6">
-                <label className="block text-900 font-medium mb-2">Total Revenue</label>
-                <div className="text-900 text-xl">
-                  <i className="pi pi-dollar mr-2 text-green-500"></i>
-                  LKR {formData.totalRevenue.toLocaleString()}
-                </div>
-              </div>
-            )}
           </div>
 
           {!isViewMode && (

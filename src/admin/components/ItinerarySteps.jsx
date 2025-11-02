@@ -23,46 +23,41 @@ const ItinerarySteps = ({
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [locationInput, setLocationInput] = useState('');
 
-  const validateLocationAdd = (dayNumber, location) => {
-    const dayLocations = itineraryData[dayNumber - 1]?.locations || [];
-
-    // Check for duplicate locations
-    if (dayLocations.some((loc) => loc.id === location.id)) {
-      return 'Location already added to this day';
-    }
-
-    // Validate accommodation count
-    const accommodationCount = dayLocations.filter(
-      (loc) => loc.location_type === 'accommodation'
-    ).length;
-
-    if (location.location_type === 'accommodation' && accommodationCount >= 1) {
-      return 'Cannot add more than one accommodation per day';
-    }
-
-    return null;
-  };
-
-  // Use memo to compute itinerary data
+  // Build itinerary from package_locations
   const itineraryData = useMemo(() => {
-    return Array.from({ length: numDays }, (_, index) => ({
+    const itinerary = Array.from({ length: numDays }, (_, index) => ({
       dayNumber: index + 1,
-      description: value[index]?.description || '',
-      locations: (value[index]?.locations || []).map((loc) => ({
-        ...loc,
-        visit_order: loc.visit_order || 0,
-        notes: loc.notes || '',
-      })),
+      description: '',
+      locations: [],
     }));
-  }, [numDays, value]);
+
+    // Populate locations from package_locations
+    if (Array.isArray(value)) {
+      value.forEach((pl) => {
+        const location = locations.find((l) => l.locationId === pl.location_id);
+        if (location && pl.day_number <= numDays) {
+          const dayIndex = pl.day_number - 1;
+          itinerary[dayIndex].locations.push({
+            ...location,
+            visit_order: pl.visit_order || 0,
+            notes: pl.notes || '',
+          });
+        }
+      });
+    }
+
+    // Sort locations by visit_order within each day
+    itinerary.forEach((day) => {
+      day.locations.sort((a, b) => (a.visit_order || 0) - (b.visit_order || 0));
+    });
+
+    return itinerary;
+  }, [numDays, value, locations]);
 
   const handleDescriptionChange = (dayIndex, newDescription) => {
-    const updatedItinerary = [...itineraryData];
-    updatedItinerary[dayIndex] = {
-      ...updatedItinerary[dayIndex],
-      description: newDescription,
-    };
-    onChange?.(updatedItinerary);
+    // For now, descriptions are not persisted (not in database schema)
+    // This is kept for UI purposes but won't be saved
+    console.log('Day description changed:', dayIndex, newDescription);
   };
 
   const searchLocation = (event) => {
@@ -70,54 +65,68 @@ const ItinerarySteps = ({
     setFilteredLocations(
       locations.filter(
         (location) =>
-          location.name.toLowerCase().includes(query) || location.city.toLowerCase().includes(query)
+          location.name.toLowerCase().includes(query) ||
+          location.description.toLowerCase().includes(query)
       )
     );
   };
 
   const handleLocationSelect = (dayIndex, location) => {
-    const updatedItinerary = [...itineraryData];
-    if (!updatedItinerary[dayIndex].locations) {
-      updatedItinerary[dayIndex].locations = [];
+    // Transform back to package_locations format
+    const packageLocations = itineraryData.flatMap((day) =>
+      (day.locations || []).map((loc) => ({
+        location_id: loc.locationId,
+        day_number: day.dayNumber,
+        visit_order: loc.visit_order || 0,
+        notes: loc.notes || '',
+      }))
+    );
+
+    // Check if location already exists on this day
+    const dayNumber = itineraryData[dayIndex].dayNumber;
+    if (
+      packageLocations.some(
+        (pl) => pl.location_id === location.locationId && pl.day_number === dayNumber
+      )
+    ) {
+      return; // Location already added
     }
 
-    // Check if location already exists
-    if (!updatedItinerary[dayIndex].locations.find((loc) => loc.id === location.id)) {
-      // Get the next visit_order for this day
-      const nextVisitOrder =
-        updatedItinerary[dayIndex].locations.length > 0
-          ? Math.max(...updatedItinerary[dayIndex].locations.map((l) => l.visit_order)) + 1
-          : 0;
+    // Get next visit order for this day
+    const dayLocations = packageLocations.filter((pl) => pl.day_number === dayNumber);
+    const nextVisitOrder =
+      dayLocations.length > 0 ? Math.max(...dayLocations.map((l) => l.visit_order || 0)) + 1 : 0;
 
-      // Make sure we have the complete location object with all properties
-      const selectedLocation = {
-        ...location,
-        visit_order: nextVisitOrder,
-        notes: '',
-        // Ensure these properties exist
-        images: location.images || [],
-        name: location.name || '',
-        city: location.city || '',
-        province: location.province || '',
-        location_type: location.location_type || '',
-      };
+    // Add new location
+    const newPackageLocation = {
+      location_id: location.locationId,
+      day_number: dayNumber,
+      visit_order: nextVisitOrder,
+      notes: '',
+    };
 
-      updatedItinerary[dayIndex].locations = [
-        ...updatedItinerary[dayIndex].locations,
-        selectedLocation,
-      ];
-
-      // Update the itinerary
-      onChange?.(updatedItinerary);
-    }
+    packageLocations.push(newPackageLocation);
+    onChange?.(packageLocations);
   };
 
   const removeLocation = (dayIndex, locationId) => {
-    const updatedItinerary = [...itineraryData];
-    updatedItinerary[dayIndex].locations = updatedItinerary[dayIndex].locations.filter(
-      (location) => location.id !== locationId
+    // Transform back to package_locations format
+    const packageLocations = itineraryData.flatMap((day) =>
+      (day.locations || []).map((loc) => ({
+        location_id: loc.locationId,
+        day_number: day.dayNumber,
+        visit_order: loc.visit_order || 0,
+        notes: loc.notes || '',
+      }))
     );
-    onChange?.(updatedItinerary);
+
+    // Remove the location
+    const dayNumber = itineraryData[dayIndex].dayNumber;
+    const filtered = packageLocations.filter(
+      (pl) => !(pl.location_id === locationId && pl.day_number === dayNumber)
+    );
+
+    onChange?.(filtered);
   };
 
   const handleAddNewLocation = async () => {
@@ -130,12 +139,10 @@ const ItinerarySteps = ({
   };
 
   const locationItemTemplate = (location) => (
-    <div key={location.id} className="flex align-items-center">
+    <div key={location.locationId} className="flex align-items-center">
       <div>
         <div>{location.name}</div>
-        <small>
-          {location.city}, {location.province}
-        </small>
+        <small>{location.description}</small>
       </div>
     </div>
   );
@@ -216,15 +223,12 @@ const ItinerarySteps = ({
                   [...day.locations]
                     .sort((a, b) => a.visit_order - b.visit_order)
                     .map((location) => (
-                      <div key={location.id} className="col-12 md:col-6 lg:col-4 xl:col-3">
+                      <div key={location.locationId} className="col-12 md:col-6 lg:col-4 xl:col-3">
                         <Card
                           title={location.name}
                           subTitle={
                             <div className="flex align-items-center gap-2">
-                              <LocationTypeTag type={location.location_type} />
-                              <span>
-                                {location.city}, {location.province}
-                              </span>
+                              <LocationTypeTag type={location.locationType} />
                             </div>
                           }
                           className="mb-3"
@@ -241,14 +245,26 @@ const ItinerarySteps = ({
                             <InputTextarea
                               value={location.notes || ''}
                               onChange={(e) => {
-                                const updatedItinerary = [...itineraryData];
-                                const loc = updatedItinerary[index].locations.find(
-                                  (l) => l.id === location.id
+                                // Transform back to package_locations format
+                                const packageLocations = itineraryData.flatMap((day) =>
+                                  (day.locations || []).map((loc) => ({
+                                    location_id: loc.locationId,
+                                    day_number: day.dayNumber,
+                                    visit_order: loc.visit_order || 0,
+                                    notes: loc.notes || '',
+                                  }))
                                 );
-                                if (loc) {
-                                  loc.notes = e.target.value;
-                                  onChange?.(updatedItinerary);
-                                }
+
+                                // Find and update the note
+                                const dayNumber = itineraryData[index].dayNumber;
+                                const updated = packageLocations.map((pl) =>
+                                  pl.location_id === location.locationId &&
+                                  pl.day_number === dayNumber
+                                    ? { ...pl, notes: e.target.value }
+                                    : pl
+                                );
+
+                                onChange?.(updated);
                               }}
                               rows={2}
                               placeholder="Add notes..."
@@ -260,7 +276,7 @@ const ItinerarySteps = ({
                             <Button
                               icon="pi pi-times"
                               className="p-button-rounded p-button-danger p-button-sm absolute right-0 top-0 m-2"
-                              onClick={() => removeLocation(index, location.id)}
+                              onClick={() => removeLocation(index, location.locationId)}
                             />
                           )}
                         </Card>

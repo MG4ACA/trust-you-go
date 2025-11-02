@@ -36,10 +36,6 @@ const PackageList = () => {
     navigate(ADMIN_ROUTES.CREATE_PACKAGE);
   };
 
-  const handleEdit = (id) => {
-    navigate(ADMIN_ROUTES.EDIT_PACKAGE(id));
-  };
-
   const handleDelete = (id) => {
     confirmDialog({
       message: 'Are you sure you want to delete this package?',
@@ -143,7 +139,7 @@ const PackageList = () => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-    }).format(rowData.price);
+    }).format(rowData.basePrice);
   };
 
   const header = renderHeader();
@@ -167,12 +163,10 @@ const PackageList = () => {
         responsiveLayout="scroll"
       >
         <Column selectionMode="multiple" headerStyle={{ width: '3rem' }} />
-        <Column field="name" header="Name" sortable />
-        <Column field="duration" header="Duration (Days)" sortable />
-        <Column field="price" header="Price" body={priceTemplate} sortable />
-        <Column field="category" header="Category" sortable />
-        <Column field="difficulty" header="Difficulty Level" sortable />
-        <Column field="maxPeople" header="Max People" sortable />
+        <Column field="title" header="Title" sortable />
+        <Column field="noOfDays" header="Duration (Days)" sortable />
+        <Column field="basePrice" header="Price" body={priceTemplate} sortable />
+        <Column field="isTemplate" header="Template" sortable />
         <Column field="isActive" header="Status" body={statusTemplate} sortable />
         <Column header="Actions" body={actionsTemplate} />
       </DataTable>

@@ -90,8 +90,8 @@ function LocationList() {
 
     return (
       <Tag
-        value={rowData.location_type}
-        severity={categoryColors[rowData.location_type] || 'secondary'}
+        value={rowData.locationType}
+        severity={categoryColors[rowData.locationType] || 'secondary'}
         style={{ textTransform: 'capitalize' }}
       />
     );
@@ -106,14 +106,6 @@ function LocationList() {
     );
   };
 
-  const entryFeeBodyTemplate = (rowData) => {
-    return rowData.entryFee === 0 ? (
-      <Tag value="Free" severity="success" />
-    ) : (
-      <span>${rowData.entryFee}</span>
-    );
-  };
-
   const actionBodyTemplate = (rowData) => {
     return (
       <div className="flex gap-2">
@@ -122,7 +114,7 @@ function LocationList() {
           rounded
           outlined
           severity="info"
-          onClick={() => navigate(ADMIN_ROUTES.VIEW_LOCATION(rowData.id))}
+          onClick={() => navigate(ADMIN_ROUTES.VIEW_LOCATION(rowData.locationId))}
           tooltip="View"
           tooltipOptions={{ position: 'top' }}
         />
@@ -131,7 +123,7 @@ function LocationList() {
           rounded
           outlined
           severity="warning"
-          onClick={() => navigate(ADMIN_ROUTES.EDIT_LOCATION(rowData.id))}
+          onClick={() => navigate(ADMIN_ROUTES.EDIT_LOCATION(rowData.locationId))}
           tooltip="Edit"
           tooltipOptions={{ position: 'top' }}
         />
@@ -140,7 +132,7 @@ function LocationList() {
           rounded
           outlined
           severity="danger"
-          onClick={() => handleDelete(rowData.id, rowData.name)}
+          onClick={() => handleDelete(rowData.locationId, rowData.name)}
           tooltip="Delete"
           tooltipOptions={{ position: 'top' }}
         />
@@ -152,22 +144,17 @@ function LocationList() {
     return (
       <div>
         <div className="font-semibold">{rowData.name}</div>
-        <div className="text-sm text-600">
-          <i className="pi pi-map-marker mr-1"></i>
-          {rowData.city}, {rowData.province}
-        </div>
+        <div className="text-sm text-600">{rowData.description}</div>
       </div>
     );
   };
 
   // Filter locations
   const filteredLocations = locations.filter((location) => {
-    const matchesCategory = !categoryFilter || location.location_type === categoryFilter;
+    const matchesCategory = !categoryFilter || location.locationType === categoryFilter;
     const matchesSearch =
       !globalFilter ||
       location.name.toLowerCase().includes(globalFilter.toLowerCase()) ||
-      location.city.toLowerCase().includes(globalFilter.toLowerCase()) ||
-      location.province.toLowerCase().includes(globalFilter.toLowerCase()) ||
       location.description.toLowerCase().includes(globalFilter.toLowerCase());
 
     return matchesCategory && matchesSearch;
@@ -250,7 +237,7 @@ function LocationList() {
         paginator
         rows={10}
         rowsPerPageOptions={[5, 10, 25, 50]}
-        dataKey="id"
+        dataKey="locationId"
         emptyMessage="No locations found"
         className="p-datatable-gridlines"
         stripedRows
@@ -264,26 +251,13 @@ function LocationList() {
           style={{ minWidth: '15rem' }}
         />
         <Column
-          field="location_type"
+          field="locationType"
           header="Category"
           body={categoryBodyTemplate}
           sortable
           style={{ minWidth: '10rem' }}
         />
-        <Column
-          field="entryFee"
-          header="Entry Fee"
-          body={entryFeeBodyTemplate}
-          sortable
-          style={{ minWidth: '8rem' }}
-        />
-        <Column field="bestTimeToVisit" header="Best Time" sortable style={{ minWidth: '12rem' }} />
-        <Column
-          field="averageVisitDuration"
-          header="Duration"
-          sortable
-          style={{ minWidth: '10rem' }}
-        />
+        <Column field="locationUrl" header="URL" sortable style={{ minWidth: '12rem' }} />
         <Column
           field="isActive"
           header="Status"

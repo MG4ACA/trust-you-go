@@ -3,7 +3,6 @@ import { Card } from 'primereact/card';
 import { Checkbox } from 'primereact/checkbox';
 import { Divider } from 'primereact/divider';
 import { Dropdown } from 'primereact/dropdown';
-import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { TabPanel, TabView } from 'primereact/tabview';
@@ -38,14 +37,8 @@ function Locations() {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    city: '',
-    province: 'Western Province',
-    location_type: 'tourist_spot',
-    latitude: 0,
-    longitude: 0,
-    entryFee: 0,
-    bestTimeToVisit: '',
-    averageVisitDuration: '',
+    locationType: 'historical',
+    locationUrl: '',
     isActive: true,
   });
 
@@ -53,27 +46,12 @@ function Locations() {
   const [errors, setErrors] = useState({});
 
   const locationTypeOptions = [
-    { label: 'Tourist Spot', value: 'tourist_spot' },
-    { label: 'Accommodation', value: 'accommodation' },
-    { label: 'Restaurant', value: 'restaurant' },
-    { label: 'Activity', value: 'activity' },
+    { label: 'Historical', value: 'historical' },
     { label: 'Religious', value: 'religious' },
     { label: 'Wildlife', value: 'wildlife' },
     { label: 'Nature', value: 'nature' },
     { label: 'Beach', value: 'beach' },
     { label: 'Adventure', value: 'adventure' },
-  ];
-
-  const provinceOptions = [
-    { label: 'Western Province', value: 'Western Province' },
-    { label: 'Central Province', value: 'Central Province' },
-    { label: 'Southern Province', value: 'Southern Province' },
-    { label: 'Northern Province', value: 'Northern Province' },
-    { label: 'Eastern Province', value: 'Eastern Province' },
-    { label: 'North Western Province', value: 'North Western Province' },
-    { label: 'North Central Province', value: 'North Central Province' },
-    { label: 'Uva Province', value: 'Uva Province' },
-    { label: 'Sabaragamuwa Province', value: 'Sabaragamuwa Province' },
   ];
 
   useEffect(() => {
@@ -102,14 +80,8 @@ function Locations() {
       setFormData({
         name: currentLocation.name || '',
         description: currentLocation.description || '',
-        city: currentLocation.city || '',
-        province: currentLocation.province || 'Western Province',
-        location_type: currentLocation.location_type || 'historical',
-        latitude: currentLocation.latitude || 0,
-        longitude: currentLocation.longitude || 0,
-        entryFee: currentLocation.entryFee || 0,
-        bestTimeToVisit: currentLocation.bestTimeToVisit || '',
-        averageVisitDuration: currentLocation.averageVisitDuration || '',
+        locationType: currentLocation.locationType || 'historical',
+        locationUrl: currentLocation.locationUrl || '',
         isActive: currentLocation.isActive !== undefined ? currentLocation.isActive : true,
       });
     }
@@ -126,30 +98,6 @@ function Locations() {
       newErrors.description = 'Description is required';
     } else if (formData.description.length < 20) {
       newErrors.description = 'Description must be at least 20 characters';
-    }
-
-    if (!formData.city.trim()) {
-      newErrors.city = 'City is required';
-    }
-
-    if (formData.latitude < -90 || formData.latitude > 90) {
-      newErrors.latitude = 'Latitude must be between -90 and 90';
-    }
-
-    if (formData.longitude < -180 || formData.longitude > 180) {
-      newErrors.longitude = 'Longitude must be between -180 and 180';
-    }
-
-    if (formData.entryFee < 0) {
-      newErrors.entryFee = 'Entry fee cannot be negative';
-    }
-
-    if (!formData.bestTimeToVisit.trim()) {
-      newErrors.bestTimeToVisit = 'Best time to visit is required';
-    }
-
-    if (!formData.averageVisitDuration.trim()) {
-      newErrors.averageVisitDuration = 'Average visit duration is required';
     }
 
     setErrors(newErrors);
@@ -293,37 +241,6 @@ function Locations() {
                   {errors.name && <small className="p-error">{errors.name}</small>}
                 </div>
 
-                {/* City */}
-                <div className="col-12 md:col-6">
-                  <label htmlFor="city" className="block text-900 font-medium mb-2">
-                    City <span className="text-red-500">*</span>
-                  </label>
-                  <InputText
-                    id="city"
-                    value={formData.city}
-                    onChange={(e) => handleInputChange('city', e.target.value)}
-                    className={`w-full ${errors.city ? 'p-invalid' : ''}`}
-                    disabled={isViewMode}
-                    placeholder="e.g., Sigiriya"
-                  />
-                  {errors.city && <small className="p-error">{errors.city}</small>}
-                </div>
-
-                {/* Province */}
-                <div className="col-12 md:col-6">
-                  <label htmlFor="province" className="block text-900 font-medium mb-2">
-                    Province <span className="text-red-500">*</span>
-                  </label>
-                  <Dropdown
-                    id="province"
-                    value={formData.province}
-                    options={provinceOptions}
-                    onChange={(e) => handleInputChange('province', e.value)}
-                    className="w-full"
-                    disabled={isViewMode}
-                  />
-                </div>
-
                 {/* Location Type */}
                 <div className="col-12 md:col-6">
                   <label htmlFor="locationType" className="block text-900 font-medium mb-2">
@@ -331,9 +248,9 @@ function Locations() {
                   </label>
                   <Dropdown
                     id="locationType"
-                    value={formData.location_type}
+                    value={formData.locationType}
                     options={locationTypeOptions}
-                    onChange={(e) => handleInputChange('location_type', e.value)}
+                    onChange={(e) => handleInputChange('locationType', e.value)}
                     className="w-full"
                     disabled={isViewMode}
                   />
@@ -359,95 +276,20 @@ function Locations() {
                   </small>
                 </div>
 
-                {/* Latitude */}
-                <div className="col-12 md:col-6">
-                  <label htmlFor="latitude" className="block text-900 font-medium mb-2">
-                    Latitude <span className="text-red-500">*</span>
-                  </label>
-                  <InputNumber
-                    id="latitude"
-                    value={formData.latitude}
-                    onValueChange={(e) => handleInputChange('latitude', e.value)}
-                    className={`w-full ${errors.latitude ? 'p-invalid' : ''}`}
-                    disabled={isViewMode}
-                    minFractionDigits={2}
-                    maxFractionDigits={6}
-                    placeholder="e.g., 7.957"
-                  />
-                  {errors.latitude && <small className="p-error">{errors.latitude}</small>}
-                </div>
-
-                {/* Longitude */}
-                <div className="col-12 md:col-6">
-                  <label htmlFor="longitude" className="block text-900 font-medium mb-2">
-                    Longitude <span className="text-red-500">*</span>
-                  </label>
-                  <InputNumber
-                    id="longitude"
-                    value={formData.longitude}
-                    onValueChange={(e) => handleInputChange('longitude', e.value)}
-                    className={`w-full ${errors.longitude ? 'p-invalid' : ''}`}
-                    disabled={isViewMode}
-                    minFractionDigits={2}
-                    maxFractionDigits={6}
-                    placeholder="e.g., 80.7603"
-                  />
-                  {errors.longitude && <small className="p-error">{errors.longitude}</small>}
-                </div>
-
-                {/* Entry Fee */}
-                <div className="col-12 md:col-4">
-                  <label htmlFor="entryFee" className="block text-900 font-medium mb-2">
-                    Entry Fee (USD) <span className="text-red-500">*</span>
-                  </label>
-                  <InputNumber
-                    id="entryFee"
-                    value={formData.entryFee}
-                    onValueChange={(e) => handleInputChange('entryFee', e.value)}
-                    className={`w-full ${errors.entryFee ? 'p-invalid' : ''}`}
-                    disabled={isViewMode}
-                    min={0}
-                    prefix="$"
-                    placeholder="0"
-                  />
-                  {errors.entryFee && <small className="p-error">{errors.entryFee}</small>}
-                  <small className="text-600 block mt-1">Set to 0 for free entry</small>
-                </div>
-
-                {/* Best Time to Visit */}
-                <div className="col-12 md:col-4">
-                  <label htmlFor="bestTimeToVisit" className="block text-900 font-medium mb-2">
-                    Best Time to Visit <span className="text-red-500">*</span>
+                {/* Location URL */}
+                <div className="col-12">
+                  <label htmlFor="locationUrl" className="block text-900 font-medium mb-2">
+                    Location URL
                   </label>
                   <InputText
-                    id="bestTimeToVisit"
-                    value={formData.bestTimeToVisit}
-                    onChange={(e) => handleInputChange('bestTimeToVisit', e.target.value)}
-                    className={`w-full ${errors.bestTimeToVisit ? 'p-invalid' : ''}`}
+                    id="locationUrl"
+                    value={formData.locationUrl}
+                    onChange={(e) => handleInputChange('locationUrl', e.target.value)}
+                    className="w-full"
                     disabled={isViewMode}
-                    placeholder="e.g., December to April"
+                    placeholder="e.g., https://example.com/location"
                   />
-                  {errors.bestTimeToVisit && (
-                    <small className="p-error">{errors.bestTimeToVisit}</small>
-                  )}
-                </div>
-
-                {/* Average Visit Duration */}
-                <div className="col-12 md:col-4">
-                  <label htmlFor="averageVisitDuration" className="block text-900 font-medium mb-2">
-                    Avg. Visit Duration <span className="text-red-500">*</span>
-                  </label>
-                  <InputText
-                    id="averageVisitDuration"
-                    value={formData.averageVisitDuration}
-                    onChange={(e) => handleInputChange('averageVisitDuration', e.target.value)}
-                    className={`w-full ${errors.averageVisitDuration ? 'p-invalid' : ''}`}
-                    disabled={isViewMode}
-                    placeholder="e.g., 3-4 hours"
-                  />
-                  {errors.averageVisitDuration && (
-                    <small className="p-error">{errors.averageVisitDuration}</small>
-                  )}
+                  <small className="text-600 block mt-1">Optional website or map link</small>
                 </div>
 
                 {/* Active Status */}
