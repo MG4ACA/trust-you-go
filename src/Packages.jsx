@@ -25,8 +25,8 @@ const Packages = () => {
     }));
   };
 
-  const handleBookNow = () => {
-    navigate('/booking');
+  const handleBookNow = (packageName) => {
+    navigate('/booking', { state: { selectedPackage: packageName } });
   };
 
   return (
@@ -101,16 +101,16 @@ const Packages = () => {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-3">
+                  <div className="flex gap-2 sm:gap-3">
                     <button
                       onClick={() => togglePackage(pkg.id)}
-                      className="flex-1 px-6 py-3 bg-[#075b95] text-white rounded-lg font-semibold hover:bg-[#064a7a] transition-colors duration-300"
+                      className="flex-1 px-4 sm:px-6 py-2 sm:py-3 bg-[#075b95] text-white rounded-lg text-sm sm:text-base font-semibold hover:bg-[#064a7a] transition-colors duration-300"
                     >
                       {isExpanded ? t('packages.hideDetails') : t('packages.viewDetails')}
                     </button>
                     <button
-                      onClick={handleBookNow}
-                      className="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors duration-300"
+                      onClick={() => handleBookNow(packageInfo.name)}
+                      className="flex-1 px-4 sm:px-6 py-2 sm:py-3 bg-green-600 text-white rounded-lg text-sm sm:text-base font-semibold hover:bg-green-700 transition-colors duration-300"
                     >
                       {t('packages.bookNow')}
                     </button>

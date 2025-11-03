@@ -1,27 +1,33 @@
-import { useState } from "react";
-import { useLanguage } from "./hooks/useLanguage";
-import useSEO from "./utils/useSEO";
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
+import { useLanguage } from './hooks/useLanguage';
+import useSEO from './utils/useSEO';
 
 const Booking = () => {
   const { t } = useLanguage();
-  useSEO({ title: t("booking.seo.title"), description: t("booking.seo.description") });
+  const location = useLocation();
+  const selectedPackage = location.state?.selectedPackage || '';
+
+  useSEO({ title: t('booking.seo.title'), description: t('booking.seo.description') });
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    checkin: "",
-    checkout: "",
-    guests: "",
-    message: "",
+    name: '',
+    email: '',
+    checkin: '',
+    checkout: '',
+    guests: '',
+    message: '',
     activities: [],
-    accommodation: "",
-    selectedVehicle: "",
+    accommodation: '',
+    selectedVehicle: '',
+    package: selectedPackage,
   });
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    if (type === "checkbox") {
-      if (name === "activities") {
+    if (type === 'checkbox') {
+      if (name === 'activities') {
         setFormData((prev) => ({
           ...prev,
           [name]: checked ? [...prev[name], value] : prev[name].filter((item) => item !== value),
@@ -36,24 +42,54 @@ const Booking = () => {
   };
 
   // Form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically send the inquiry to your backend
-    console.log("Inquiry submitted:", formData);
-    alert("Thank you for your inquiry! We will contact you within 24 hours.");
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      checkin: "",
-      checkout: "",
-      guests: "",
-      message: "",
-      activities: [],
-      accommodation: "",
-      selectedVehicle: "",
-    });
+    // Prepare email template parameters
+    const templateParams = {
+      to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL || 'your-email@example.com',
+      from_name: formData.name,
+      from_email: formData.email,
+      selected_package: formData.package || 'No package selected',
+      checkin_date: formData.checkin,
+      checkout_date: formData.checkout,
+      number_of_guests: formData.guests,
+      accommodation_type: formData.accommodation,
+      selected_vehicle: formData.selectedVehicle,
+      selected_activities: formData.activities.join(', ') || 'None',
+      additional_message: formData.message,
+      reply_to: formData.email,
+    };
+
+    try {
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
+      console.log('Email sent successfully:', result);
+      alert('Thank you for your inquiry! We will contact you within 24 hours.');
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        checkin: '',
+        checkout: '',
+        guests: '',
+        message: '',
+        activities: [],
+        accommodation: '',
+        selectedVehicle: '',
+        package: selectedPackage,
+      });
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      alert('Sorry, there was an error sending your inquiry. Please try again or contact us directly.');
+    }
   };
 
   // Populate form with sample data for testing
@@ -63,20 +99,20 @@ const Booking = () => {
     nextMonth.setMonth(today.getMonth() + 1);
 
     const formatDate = (date) => {
-      return date.toISOString().split("T")[0];
+      return date.toISOString().split('T')[0];
     };
 
     setFormData({
-      name: "John Doe",
-      email: "john.doe@example.com",
+      name: 'John Doe',
+      email: 'john.doe@example.com',
       checkin: formatDate(nextMonth),
       checkout: formatDate(new Date(nextMonth.getTime() + 7 * 24 * 60 * 60 * 1000)), // 7 days later
-      guests: "2",
+      guests: '2',
       message:
-        "We are interested in experiencing authentic Sri Lankan culture and would love to visit ancient temples and enjoy local cuisine. Please suggest the best time to visit tea plantations.",
-      activities: ["hiking", "temples", "tea", "wildlife"],
-      accommodation: "comfort",
-      selectedVehicle: "suv",
+        'We are interested in experiencing authentic Sri Lankan culture and would love to visit ancient temples and enjoy local cuisine. Please suggest the best time to visit tea plantations.',
+      activities: ['hiking', 'temples', 'tea', 'wildlife'],
+      accommodation: 'comfort',
+      selectedVehicle: 'suv',
     });
   };
 
@@ -86,12 +122,12 @@ const Booking = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-[#075b95]/10 text-[#075b95] font-semibold rounded-full text-sm tracking-wide uppercase mb-4">
-            {t("booking.tag")}
+            {t('booking.tag')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t("booking.title")}
+            {t('booking.title')}
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t("booking.description")}</p>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t('booking.description')}</p>
         </div>
 
         {/* Booking Form */}
@@ -99,7 +135,7 @@ const Booking = () => {
           {/* Form Header */}
           <div className="bg-gradient-to-r from-[#075b95] to-[#065a87] px-8 py-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-bold text-white">{t("booking.customize.title")}</h3>
+              <h3 className="text-xl font-bold text-white">{t('booking.customize.title')}</h3>
               <div className="flex items-center space-x-4">
                 {/* <button
                   type="button"
@@ -115,7 +151,7 @@ const Booking = () => {
                       d="M13 10V3L4 14h7v7l9-11h-7z"
                     />
                   </svg>
-                  <span>{t("booking.demoData")}</span>
+                  <span>{t('booking.demoData')}</span>
                 </button> */}
               </div>
             </div>
@@ -124,6 +160,33 @@ const Booking = () => {
           {/* Form Content */}
           <div className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+              {/* Selected Package Display (if coming from Packages page) */}
+              {selectedPackage && (
+                <div className="bg-gradient-to-r from-[#075b95]/10 to-[#075b95]/5 border border-[#075b95]/20 rounded-xl p-4">
+                  <div className="flex items-center gap-3">
+                    <svg
+                      className="w-6 h-6 text-[#075b95]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <div>
+                      <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
+                        {t('booking.selectedPackage') || 'Selected Package'}
+                      </p>
+                      <p className="text-lg font-bold text-[#075b95]">{selectedPackage}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Personal Information */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -131,7 +194,7 @@ const Booking = () => {
                     htmlFor="booking-name"
                     className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                   >
-                    {t("booking.name")}
+                    {t('booking.name')}
                   </label>
                   <input
                     type="text"
@@ -150,7 +213,7 @@ const Booking = () => {
                     htmlFor="booking-email"
                     className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                   >
-                    {t("booking.email")}
+                    {t('booking.email')}
                   </label>
                   <input
                     type="email"
@@ -172,7 +235,7 @@ const Booking = () => {
                     htmlFor="checkin"
                     className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                   >
-                    {t("booking.checkin")}
+                    {t('booking.checkin')}
                   </label>
                   <input
                     type="date"
@@ -190,7 +253,7 @@ const Booking = () => {
                     htmlFor="checkout"
                     className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                   >
-                    {t("booking.checkout")}
+                    {t('booking.checkout')}
                   </label>
                   <input
                     type="date"
@@ -208,7 +271,7 @@ const Booking = () => {
                     htmlFor="guests"
                     className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                   >
-                    {t("booking.guests")}
+                    {t('booking.guests')}
                   </label>
                   <select
                     id="guests"
@@ -234,7 +297,7 @@ const Booking = () => {
                   htmlFor="booking-message"
                   className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                 >
-                  {t("booking.requests")}
+                  {t('booking.requests')}
                 </label>
                 <textarea
                   id="booking-message"
@@ -250,7 +313,7 @@ const Booking = () => {
               {/* Customize Your Package */}
               <div className="bg-gray-50 rounded-2xl p-6 max-sm:p-1">
                 <h4 className="text-lg font-bold text-gray-900 mb-4">
-                  {t("booking.customize.experienceTitle")}
+                  {t('booking.customize.experienceTitle')}
                 </h4>
                 <p className="text-gray-600 mb-6">
                   Select the activities and experiences you'd like to include in your Sri Lankan
@@ -267,7 +330,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="hiking"
-                          checked={formData.activities.includes("hiking")}
+                          checked={formData.activities.includes('hiking')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -278,7 +341,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="wildlife"
-                          checked={formData.activities.includes("wildlife")}
+                          checked={formData.activities.includes('wildlife')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -289,7 +352,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="watersports"
-                          checked={formData.activities.includes("watersports")}
+                          checked={formData.activities.includes('watersports')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -300,7 +363,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="cycling"
-                          checked={formData.activities.includes("cycling")}
+                          checked={formData.activities.includes('cycling')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -317,7 +380,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="temples"
-                          checked={formData.activities.includes("temples")}
+                          checked={formData.activities.includes('temples')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -328,7 +391,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="cooking"
-                          checked={formData.activities.includes("cooking")}
+                          checked={formData.activities.includes('cooking')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -339,7 +402,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="tea"
-                          checked={formData.activities.includes("tea")}
+                          checked={formData.activities.includes('tea')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -350,7 +413,7 @@ const Booking = () => {
                           type="checkbox"
                           name="activities"
                           value="festivals"
-                          checked={formData.activities.includes("festivals")}
+                          checked={formData.activities.includes('festivals')}
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
@@ -369,15 +432,15 @@ const Booking = () => {
                         type="radio"
                         name="accommodation"
                         value="budget"
-                        checked={formData.accommodation === "budget"}
+                        checked={formData.accommodation === 'budget'}
                         onChange={handleInputChange}
                         className="sr-only"
                       />
                       <div
                         className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                          formData.accommodation === "budget"
-                            ? "border-[#075b95] bg-[#075b95]/5"
-                            : "border-gray-200 hover:border-[#075b95]"
+                          formData.accommodation === 'budget'
+                            ? 'border-[#075b95] bg-[#075b95]/5'
+                            : 'border-gray-200 hover:border-[#075b95]'
                         }`}
                       >
                         <div className="text-center">
@@ -391,15 +454,15 @@ const Booking = () => {
                         type="radio"
                         name="accommodation"
                         value="comfort"
-                        checked={formData.accommodation === "comfort"}
+                        checked={formData.accommodation === 'comfort'}
                         onChange={handleInputChange}
                         className="sr-only"
                       />
                       <div
                         className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                          formData.accommodation === "comfort"
-                            ? "border-[#075b95] bg-[#075b95]/5"
-                            : "border-gray-200 hover:border-[#075b95]"
+                          formData.accommodation === 'comfort'
+                            ? 'border-[#075b95] bg-[#075b95]/5'
+                            : 'border-gray-200 hover:border-[#075b95]'
                         }`}
                       >
                         <div className="text-center">
@@ -413,15 +476,15 @@ const Booking = () => {
                         type="radio"
                         name="accommodation"
                         value="luxury"
-                        checked={formData.accommodation === "luxury"}
+                        checked={formData.accommodation === 'luxury'}
                         onChange={handleInputChange}
                         className="sr-only"
                       />
                       <div
                         className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                          formData.accommodation === "luxury"
-                            ? "border-[#075b95] bg-[#075b95]/5"
-                            : "border-gray-200 hover:border-[#075b95]"
+                          formData.accommodation === 'luxury'
+                            ? 'border-[#075b95] bg-[#075b95]/5'
+                            : 'border-gray-200 hover:border-[#075b95]'
                         }`}
                       >
                         <div className="text-center">
@@ -447,15 +510,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="sedan"
-                          checked={formData.selectedVehicle === "sedan"}
+                          checked={formData.selectedVehicle === 'sedan'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "sedan"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'sedan'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -476,15 +539,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="suv"
-                          checked={formData.selectedVehicle === "suv"}
+                          checked={formData.selectedVehicle === 'suv'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "suv"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'suv'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -505,15 +568,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="van"
-                          checked={formData.selectedVehicle === "van"}
+                          checked={formData.selectedVehicle === 'van'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "van"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'van'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -534,15 +597,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="luxury"
-                          checked={formData.selectedVehicle === "luxury"}
+                          checked={formData.selectedVehicle === 'luxury'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "luxury"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'luxury'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -563,15 +626,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="minibus"
-                          checked={formData.selectedVehicle === "minibus"}
+                          checked={formData.selectedVehicle === 'minibus'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "minibus"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'minibus'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -592,15 +655,15 @@ const Booking = () => {
                           type="radio"
                           name="selectedVehicle"
                           value="under-luggage-bus"
-                          checked={formData.selectedVehicle === "under-luggage-bus"}
+                          checked={formData.selectedVehicle === 'under-luggage-bus'}
                           onChange={handleInputChange}
                           className="sr-only"
                         />
                         <div
                           className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === "under-luggage-bus"
-                              ? "border-[#075b95] bg-[#075b95]/5 shadow-md"
-                              : "border-gray-200 hover:border-[#075b95] hover:shadow-sm"
+                            formData.selectedVehicle === 'under-luggage-bus'
+                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
                           }`}
                         >
                           <div className="text-center">
@@ -640,7 +703,7 @@ const Booking = () => {
                       d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                     />
                   </svg>
-                  {t("booking.send")}
+                  {t('booking.send')}
                 </button>
               </div>
             </form>
@@ -662,25 +725,25 @@ const Booking = () => {
                     />
                   </svg>
                 </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">{t("booking.next.title")}</h4>
+                <h4 className="text-xl font-bold text-gray-900 mb-4">{t('booking.next.title')}</h4>
                 <div className="max-w-md mx-auto space-y-3 text-gray-600">
                   <div className="flex items-center space-x-3">
                     <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       1
                     </div>
-                    <span>{t("booking.next.step1")}</span>
+                    <span>{t('booking.next.step1')}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       2
                     </div>
-                    <span>{t("booking.next.step2")}</span>
+                    <span>{t('booking.next.step2')}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="bg-[#075b95]/10 text-[#075b95] rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                       3
                     </div>
-                    <span>{t("booking.next.step3")}</span>
+                    <span>{t('booking.next.step3')}</span>
                   </div>
                 </div>
               </div>
@@ -693,19 +756,19 @@ const Booking = () => {
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
-              <span className="text-sm text-gray-600">{t("booking.badges.secure")}</span>
+              <span className="text-sm text-gray-600">{t('booking.badges.secure')}</span>
             </div>
             <div className="flex items-center space-x-2">
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
-              <span className="text-sm text-gray-600">{t("booking.badges.freeCancel")}</span>
+              <span className="text-sm text-gray-600">{t('booking.badges.freeCancel')}</span>
             </div>
             <div className="flex items-center space-x-2">
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
-              <span className="text-sm text-gray-600">{t("booking.badges.support")}</span>
+              <span className="text-sm text-gray-600">{t('booking.badges.support')}</span>
             </div>
           </div>
         </div>
