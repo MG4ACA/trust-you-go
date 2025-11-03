@@ -3,12 +3,9 @@ import LanguageSelector from '../components/LanguageSelector';
 import SocialMediaLinks from '../components/SocialMediaLinks';
 import VideoBackground from '../components/VideoBackground';
 import { useLanguage } from '../hooks/useLanguage';
-import About from '../sections/About';
-import Booking from '../sections/Booking';
-import Contact from '../sections/Contact';
-import Gallery from '../sections/Gallery';
-import Packages from '../sections/Packages';
-import TravelGuides from '../sections/TravelGuides';
+import Packages from '../Packages';
+import Reviews from '../Reviews';
+import TravelGuides from '../TravelGuides';
 import useSEO from '../utils/useSEO';
 
 const Home = () => {
@@ -63,14 +60,14 @@ const Home = () => {
       {/* Packages Section */}
       <Packages />
 
-      {/* Reviews Section */}
-      <Reviews />
-
       {/* Contact Section */}
       <Contact />
 
       {/* Booking Section */}
       <Booking />
+
+      {/* Reviews Section */}
+      <Reviews />
 
       {/* Travel Guides Section */}
       <TravelGuides />
