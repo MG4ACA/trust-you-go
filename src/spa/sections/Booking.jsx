@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import { useLanguage } from '../hooks/useLanguage';
-import useSEO from '../utils/useSEO';
+import { useLocation } from 'react-router-dom';
+import { useLanguage } from './hooks/useLanguage';
+import useSEO from './utils/useSEO';
 
 const Booking = () => {
   const { t } = useLanguage();
+  const location = useLocation();
+  const selectedPackage = location.state?.selectedPackage || '';
+
   useSEO({ title: t('booking.seo.title'), description: t('booking.seo.description') });
   const [formData, setFormData] = useState({
     name: '',
@@ -15,6 +19,7 @@ const Booking = () => {
     activities: [],
     accommodation: '',
     selectedVehicle: '',
+    package: selectedPackage,
   });
 
   const handleInputChange = (e) => {
@@ -53,6 +58,7 @@ const Booking = () => {
       activities: [],
       accommodation: '',
       selectedVehicle: '',
+      package: selectedPackage,
     });
   };
 
@@ -115,7 +121,7 @@ const Booking = () => {
                       d="M13 10V3L4 14h7v7l9-11h-7z"
                     />
                   </svg>
-                  <span>{t("booking.demoData")}</span>
+                  <span>{t('booking.demoData')}</span>
                 </button> */}
               </div>
             </div>
@@ -124,6 +130,33 @@ const Booking = () => {
           {/* Form Content */}
           <div className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+              {/* Selected Package Display (if coming from Packages page) */}
+              {selectedPackage && (
+                <div className="bg-gradient-to-r from-[#075b95]/10 to-[#075b95]/5 border border-[#075b95]/20 rounded-xl p-4">
+                  <div className="flex items-center gap-3">
+                    <svg
+                      className="w-6 h-6 text-[#075b95]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <div>
+                      <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
+                        {t('booking.selectedPackage') || 'Selected Package'}
+                      </p>
+                      <p className="text-lg font-bold text-[#075b95]">{selectedPackage}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Personal Information */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">

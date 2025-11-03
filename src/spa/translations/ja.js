@@ -288,6 +288,7 @@ export const ja = {
     description: '忘れられないスリランカ体験への第一歩を踏み出しましょう',
     tag: '予約する',
     demoData: 'サンプルデータ',
+    selectedPackage: '選択されたパッケージ',
     customize: { title: '旅をカスタマイズ', experienceTitle: '体験をカスタマイズ' },
     next: {
       title: '次に何が起きるか？',

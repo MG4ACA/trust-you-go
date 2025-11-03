@@ -64,7 +64,7 @@ const Home = () => {
       <Packages />
 
       {/* Reviews Section */}
-      {/* <Reviews /> */}
+      <Reviews />
 
       {/* Contact Section */}
       <Contact />
