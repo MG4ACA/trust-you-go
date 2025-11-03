@@ -312,6 +312,7 @@ export const en = {
     description: 'Take the first step towards your unforgettable Sri Lankan experience',
     tag: 'Book Your Adventure',
     demoData: 'Demo Data',
+    selectedPackage: 'Selected Package',
     customize: {
       title: 'Customize Your Trip',
       experienceTitle: 'Customize Your Experience',
