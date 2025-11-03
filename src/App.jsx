@@ -50,7 +50,8 @@ function App() {
         <Route path="/about" element={<SectionRedirect />} />
         <Route path="/contact" element={<SectionRedirect />} />
         <Route path="/gallery" element={<SectionRedirect />} />
-        <Route path="/offers" element={<SectionRedirect />} />
+        {/* <Route path="/offers" element={<SectionRedirect />} /> */}
+        <Route path="/packages" element={<SectionRedirect />} />
         <Route path="/guides" element={<SectionRedirect />} />
         <Route path="/reviews" element={<SectionRedirect />} />
         <Route path="/booking" element={<SectionRedirect />} />

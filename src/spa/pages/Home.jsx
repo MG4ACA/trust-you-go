@@ -7,9 +7,8 @@ import About from '../sections/About';
 import Booking from '../sections/Booking';
 import Contact from '../sections/Contact';
 import Gallery from '../sections/Gallery';
-import Offers from '../sections/Offers';
+import Packages from '../sections/Packages';
 import TravelGuides from '../sections/TravelGuides';
-import '../styles/index.css';
 import useSEO from '../utils/useSEO';
 
 const Home = () => {
@@ -59,7 +58,10 @@ const Home = () => {
       <Gallery />
 
       {/* Offers Section */}
-      <Offers />
+      {/* <Offers /> */}
+
+      {/* Packages Section */}
+      <Packages />
 
       {/* Reviews Section */}
       {/* <Reviews /> */}
