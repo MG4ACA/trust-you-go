@@ -6,6 +6,9 @@ const Header = () => {
   const [activeSection, setActiveSection] = useState('home');
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useLanguage();
+  const [showOtherNav, setShowOtherNav] = useState(false);
+  const [showDesktopNavIcon, setShowDesktopNavIcon] = useState(false);
 
   const handleNavigation = (sectionId) => {
     if (location.pathname === '/') {
@@ -44,9 +47,7 @@ const Header = () => {
       sections.forEach((section) => observer.unobserve(section));
     };
   }, [location.pathname]);
-  const { t } = useLanguage();
-  const [showOtherNav, setShowOtherNav] = useState(false);
-  const [showDesktopNavIcon, setShowDesktopNavIcon] = useState(false);
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -105,11 +106,17 @@ const Header = () => {
           {t('nav.gallery')}
         </button>
         <button
+          onClick={() => handleNavigation('packages')}
+          className={`header-nav-link ${activeSection === 'packages' ? 'active' : ''}`}
+        >
+          {t('nav.packages')}
+        </button>
+        {/* <button
           onClick={() => handleNavigation('offers')}
           className={`header-nav-link ${activeSection === 'offers' ? 'active' : ''}`}
         >
           {t('nav.offers')}
-        </button>
+        </button> */}
         <button
           onClick={() => handleNavigation('guides')}
           className={`header-nav-link ${activeSection === 'guides' ? 'active' : ''}`}
@@ -171,13 +178,22 @@ const Header = () => {
         </button>
         <button
           onClick={() => {
+            handleNavigation('packages');
+            setShowOtherNav(false);
+          }}
+          className={`p-[5px] ${activeSection === 'packages' ? 'active' : ''}`}
+        >
+          {t('nav.packages')}
+        </button>
+        {/* <button
+          onClick={() => {
             handleNavigation('offers');
             setShowOtherNav(false);
           }}
           className={`p-[5px] ${activeSection === 'offers' ? 'active' : ''}`}
         >
           {t('nav.offers')}
-        </button>
+        </button> */}
         <button
           onClick={() => {
             handleNavigation('guides');
