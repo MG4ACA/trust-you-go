@@ -1,6 +1,6 @@
+import emailjs from '@emailjs/browser';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import emailjs from '@emailjs/browser';
 import { useLanguage } from './hooks/useLanguage';
 import useSEO from './utils/useSEO';
 
@@ -88,7 +88,9 @@ const Booking = () => {
       });
     } catch (error) {
       console.error('Failed to send email:', error);
-      alert('Sorry, there was an error sending your inquiry. Please try again or contact us directly.');
+      alert(
+        'Sorry, there was an error sending your inquiry. Please try again or contact us directly.'
+      );
     }
   };
 
@@ -137,7 +139,7 @@ const Booking = () => {
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-bold text-white">{t('booking.customize.title')}</h3>
               <div className="flex items-center space-x-4">
-                {/* <button
+                <button
                   type="button"
                   onClick={populateFormWithSampleData}
                   className="bg-white/20 hover:bg-white/30 text-white text-sm font-medium px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2"
@@ -152,7 +154,7 @@ const Booking = () => {
                     />
                   </svg>
                   <span>{t('booking.demoData')}</span>
-                </button> */}
+                </button>
               </div>
             </div>
           </div>
