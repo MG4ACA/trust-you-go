@@ -2,7 +2,6 @@ import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { DataTable } from 'primereact/datatable';
-import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
 import { Toast } from 'primereact/toast';
@@ -105,16 +104,16 @@ function AdminList() {
   };
 
   // Table row body templates
-  const roleBodyTemplate = (rowData) => {
-    const roleBadges = {
-      super_admin: { label: 'Super Admin', severity: 'danger' },
-      administrator: { label: 'Administrator', severity: 'warning' },
-      manager: { label: 'Manager', severity: 'info' },
-    };
+  // const roleBodyTemplate = (rowData) => {
+  //   const roleBadges = {
+  //     super_admin: { label: 'Super Admin', severity: 'danger' },
+  //     administrator: { label: 'Administrator', severity: 'warning' },
+  //     manager: { label: 'Manager', severity: 'info' },
+  //   };
 
-    const badge = roleBadges[rowData.role] || { label: rowData.role, severity: 'secondary' };
-    return <Tag value={badge.label} severity={badge.severity} />;
-  };
+  //   const badge = roleBadges[rowData.role] || { label: rowData.role, severity: 'secondary' };
+  //   return <Tag value={badge.label} severity={badge.severity} />;
+  // };
 
   const statusBodyTemplate = (rowData) => {
     return (
@@ -133,6 +132,29 @@ function AdminList() {
           <i className="pi pi-envelope mr-2 text-600"></i>
           <span>{rowData.email}</span>
         </div>
+      </div>
+    );
+  };
+
+  const createdAtBodyTemplate = (rowData) => {
+    const formatDateTime = (dateString) => {
+      if (!dateString) return 'N/A';
+      const date = new Date(dateString);
+      const dateStr = date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+      const timeStr = date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      return `${dateStr} ${timeStr}`;
+    };
+
+    return (
+      <div>
+        <div className="mb-1 font-semibold">{formatDateTime(rowData.createdAt)}</div>
       </div>
     );
   };
@@ -198,15 +220,15 @@ function AdminList() {
         <Tag value={`${filteredAdmins.length} total`} severity="info" />
       </div>
       <div className="flex flex-column md:flex-row gap-2 flex-wrap">
-        <Dropdown
+        {/* <Dropdown
           value={roleFilter}
           options={roleOptions}
           onChange={(e) => setRoleFilter(e.value)}
           placeholder="Filter by Role"
           className="w-full md:w-14rem"
-        />
+        /> */}
         <span className="p-input-icon-left w-full md:w-20rem">
-          <i className="pi pi-search" />
+          <i className="pi pi-search right-[17px]" />
           <InputText
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
@@ -265,11 +287,18 @@ function AdminList() {
           style={{ minWidth: '18rem' }}
         />
         <Column field="contact" header="Contact" sortable style={{ minWidth: '12rem' }} />
-        <Column
+        {/* <Column
           header="Role"
           body={roleBodyTemplate}
           sortable
           sortField="role"
+          style={{ minWidth: '10rem' }}
+        /> */}
+        <Column
+          header="Createed At"
+          body={createdAtBodyTemplate}
+          sortable
+          sortField="createdAt"
           style={{ minWidth: '10rem' }}
         />
         <Column

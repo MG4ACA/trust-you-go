@@ -30,7 +30,7 @@ const authService = {
       const admin = admins[0];
 
       // Simple password check (in production, backend handles this)
-      if (admin.password !== password) {
+      if (admin.password_hash !== password.toString()) {
         throw new Error('Invalid email or password');
       }
 

@@ -3,7 +3,7 @@ const admins = [
   {
     admin_id: '1',
     email: 'admin@trustyougo.com',
-    password_hash: '$2b$10$9ZXZjVAhKTF8ZdZjVmvW6e9XZXZjVAhKTF8ZdZjVmvW6e9XZXZjVA',
+    password_hash: 'admin123',
     name: 'Super Admin',
     contact: '+94XXXXXXXXX',
     is_active: true,
@@ -13,7 +13,7 @@ const admins = [
   {
     admin_id: '2',
     email: 'manager@trustyougo.com',
-    password_hash: '$2b$10$9ZXZjVAhKTF8ZdZjVmvW6e9XZXZjVAhKTF8ZdZjVmvW6e9XZXZjVA',
+    password_hash: 'manager123',
     name: 'Travel Manager',
     contact: '+94XXXXXXXXX',
     is_active: true,
@@ -23,7 +23,7 @@ const admins = [
   {
     admin_id: '3',
     email: 'staff@trustyougo.com',
-    password_hash: '$2b$10$9ZXZjVAhKTF8ZdZjVmvW6e9XZXZjVAhKTF8ZdZjVmvW6e9XZXZjVA',
+    password_hash: 'staff123',
     name: 'Office Staff',
     contact: '+94XXXXXXXXX',
     is_active: true,

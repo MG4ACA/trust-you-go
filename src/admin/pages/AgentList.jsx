@@ -164,7 +164,7 @@ function AgentList() {
       </div>
       <div className="flex flex-column md:flex-row gap-2">
         <span className="p-input-icon-left w-full md:w-20rem">
-          <i className="pi pi-search" />
+          <i className="pi pi-search right-[17px" />
           <InputText
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
