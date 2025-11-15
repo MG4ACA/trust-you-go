@@ -10,8 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import { ADMIN_ROUTES } from '../config/routeConfig';
 import { clearError, loginAdmin } from '../store/slices/authSlice';
 
-// Import admin styles (includes PrimeFlex)
 import '../styles/admin.css';
+import '../styles/login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -123,31 +123,15 @@ function Login() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        padding: '20px',
-      }}
-    >
+    <div className="login-container">
       <Toast ref={toast} />
 
-      <Card
-        title="Admin Login"
-        subTitle="Trust You Go - Admin Portal"
-        style={{ width: '100%', maxWidth: '450px' }}
-      >
-        <form onSubmit={handleSubmit} className="p-fluid">
+      <Card title="Admin Login" subTitle="Trust You Go - Admin Portal" className="login-card">
+        <form onSubmit={handleSubmit} className="login-form p-fluid">
           {/* Email Field */}
-          <div className="p-field" style={{ marginBottom: '1.5rem' }}>
-            <label
-              htmlFor="email"
-              style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}
-            >
-              Email <span style={{ color: 'red' }}>*</span>
+          <div className="login-field">
+            <label htmlFor="email">
+              Email <span className="required">*</span>
             </label>
             <InputText
               id="email"
@@ -159,20 +143,13 @@ function Login() {
               disabled={loading}
               autoFocus
             />
-            {emailError && (
-              <small className="p-error" style={{ display: 'block', marginTop: '0.25rem' }}>
-                {emailError}
-              </small>
-            )}
+            {emailError && <small className="p-error error">{emailError}</small>}
           </div>
 
           {/* Password Field */}
-          <div className="p-field" style={{ marginBottom: '1.5rem' }}>
-            <label
-              htmlFor="password"
-              style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}
-            >
-              Password <span style={{ color: 'red' }}>*</span>
+          <div className="login-field">
+            <label htmlFor="password">
+              Password <span className="required">*</span>
             </label>
             <Password
               id="password"
@@ -184,18 +161,14 @@ function Login() {
               className={passwordError ? 'p-invalid' : ''}
               disabled={loading}
             />
-            {passwordError && (
-              <small className="p-error" style={{ display: 'block', marginTop: '0.25rem' }}>
-                {passwordError}
-              </small>
-            )}
+            {passwordError && <small className="p-error error">{passwordError}</small>}
           </div>
 
           {/* Demo Credentials Message */}
           <Message
             severity="info"
             text="Demo: admin@trustyougo.com / admin123"
-            style={{ marginBottom: '1.5rem' }}
+            className="login-demo-message"
           />
 
           {/* Submit Button */}
@@ -209,9 +182,7 @@ function Login() {
         </form>
 
         {/* Help Text */}
-        <div
-          style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.875rem', color: '#666' }}
-        >
+        <div className="login-help-text">
           <p>Need help? Contact your system administrator</p>
         </div>
       </Card>

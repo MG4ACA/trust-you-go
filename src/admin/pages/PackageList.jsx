@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ADMIN_ROUTES } from '../config/routeConfig';
 import { deletePackage, fetchPackages } from '../store/slices/packageSlice';
+import '../styles/admin.css';
+import '../styles/list-view.css';
 
 const PackageList = () => {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -83,9 +85,9 @@ const PackageList = () => {
     };
 
     return (
-      <div className="flex justify-content-between align-items-center gap-2">
-        <h3 className="m-0">Travel Packages</h3>
-        <div className="flex gap-2">
+      <div className="list-header">
+        <h3 className="list-header-title">Travel Packages</h3>
+        <div className="list-header-actions">
           <Button
             icon="pi pi-refresh"
             rounded

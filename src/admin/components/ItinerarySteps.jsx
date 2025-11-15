@@ -7,6 +7,7 @@ import { Steps } from 'primereact/steps';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ADMIN_ROUTES } from '../config/routeConfig';
+import '../styles/form.css';
 import LocationTypeTag from './LocationTypeTag';
 
 const ItinerarySteps = ({
@@ -167,8 +168,8 @@ const ItinerarySteps = ({
           className={`mt-3 ${activeStep === index ? 'block' : 'hidden'}`}
           title={`Day ${day.dayNumber} Details`}
         >
-          <div className="grid">
-            <div className="col-12">
+          <div className="form-grid">
+            <div className="form-col-12">
               <div className="field">
                 <label htmlFor={`description-${day.dayNumber}`}>Description</label>
                 <InputTextarea
@@ -182,11 +183,11 @@ const ItinerarySteps = ({
             </div>
 
             {!disabled && (
-              <div className="col-12">
+              <div className="form-col-12">
                 <div className="field">
                   <label>Add Location</label>
-                  <div className="grid">
-                    <div className="col-12">
+                  <div className="form-grid">
+                    <div className="form-col-12">
                       <div className="p-inputgroup">
                         <AutoComplete
                           value={locationInput}
@@ -217,17 +218,17 @@ const ItinerarySteps = ({
               </div>
             )}
 
-            <div className="col-12">
-              <div className="grid">
+            <div className="form-col-12">
+              <div className="itinerary-locations-grid">
                 {day.locations &&
                   [...day.locations]
                     .sort((a, b) => a.visit_order - b.visit_order)
                     .map((location) => (
-                      <div key={location.locationId} className="col-12 md:col-6 lg:col-4 xl:col-3">
+                      <div key={location.locationId} className="itinerary-location-card">
                         <Card
                           title={location.name}
                           subTitle={
-                            <div className="flex align-items-center gap-2">
+                            <div className="location-tag-wrapper">
                               <LocationTypeTag type={location.locationType} />
                             </div>
                           }
@@ -286,7 +287,7 @@ const ItinerarySteps = ({
             </div>
           </div>
 
-          <div className="flex justify-content-between mt-3">
+          <div className="itinerary-navigation">
             <Button
               label="Previous"
               icon="pi pi-chevron-left"

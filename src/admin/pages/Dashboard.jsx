@@ -6,6 +6,7 @@ import { DashboardSkeleton } from '../components/LoadingSkeleton';
 import { ADMIN_ROUTES } from '../config/routeConfig';
 import { fetchAgents } from '../store/slices/agentSlice';
 import '../styles/admin.css';
+import '../styles/dashboard.css';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -25,27 +26,22 @@ function Dashboard() {
 
   const StatCard = ({ title, value, icon, color, subtitle }) => (
     <Card role="region" aria-label={`${title} statistics`}>
-      <div className="flex justify-content-between align-items-start">
-        <div>
-          <div className="text-500 font-medium mb-2">{title}</div>
-          <div
-            className="text-900 font-bold text-4xl mb-2"
-            aria-label={`${value} ${title.toLowerCase()}`}
-          >
+      <div className="stat-card-content">
+        <div className="stat-card-info">
+          <div className="stat-card-title">{title}</div>
+          <div className="stat-card-value" aria-label={`${value} ${title.toLowerCase()}`}>
             {value}
           </div>
-          {subtitle && <div className="text-sm text-600">{subtitle}</div>}
+          {subtitle && <div className="stat-card-subtitle">{subtitle}</div>}
         </div>
         <div
-          className="border-round flex align-items-center justify-content-center"
+          className="stat-card-icon"
           style={{
-            width: '3.5rem',
-            height: '3.5rem',
             background: `linear-gradient(135deg, ${color}20, ${color}40)`,
           }}
           aria-hidden="true"
         >
-          <i className={`${icon} text-2xl`} style={{ color }}></i>
+          <i className={icon} style={{ color }}></i>
         </div>
       </div>
     </Card>
@@ -53,7 +49,7 @@ function Dashboard() {
 
   const QuickActionCard = ({ title, description, icon, action, color }) => (
     <Card
-      className="hover:shadow-3 transition-all transition-duration-300 cursor-pointer"
+      className="quick-action-card"
       role="button"
       tabIndex={0}
       aria-label={title}
@@ -64,19 +60,17 @@ function Dashboard() {
         }
       }}
     >
-      <div className="flex flex-column align-items-center text-center" onClick={action}>
+      <div className="quick-action-content" onClick={action}>
         <div
-          className="border-circle mb-3 flex align-items-center justify-content-center"
+          className="quick-action-icon"
           style={{
-            width: '4rem',
-            height: '4rem',
             background: `linear-gradient(135deg, ${color}20, ${color}40)`,
           }}
         >
-          <i className={`${icon} text-3xl`} style={{ color }}></i>
+          <i className={icon} style={{ color }}></i>
         </div>
-        <h3 className="mt-0 mb-2 text-900">{title}</h3>
-        <p className="text-600 text-sm m-0">{description}</p>
+        <h3 className="quick-action-title">{title}</h3>
+        <p className="quick-action-description">{description}</p>
       </div>
     </Card>
   );
@@ -86,9 +80,9 @@ function Dashboard() {
   }
 
   return (
-    <div className="p-4">
-      <div className="flex mb-4">
-        <div className="col-12 md:col-6 lg:col-4">
+    <div className="dashboard-container">
+      <div className="dashboard-stats">
+        <div>
           <StatCard
             title="Total Agents"
             value={stats.total}
@@ -117,10 +111,10 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="mb-4">
-        <h2 className="text-2xl font-bold text-900 mb-3">Quick Actions</h2>
-        <div className="flex">
-          <div className="col-12 md:col-6 lg:col-3">
+      <div className="dashboard-section">
+        <h2 className="dashboard-section-title">Quick Actions</h2>
+        <div className="dashboard-quick-actions">
+          <div>
             <QuickActionCard
               title="View Agents"
               description="Browse and manage all travel agents"
@@ -129,7 +123,7 @@ function Dashboard() {
               action={() => navigate(ADMIN_ROUTES.AGENTS_LIST)}
             />
           </div>
-          <div className="col-12 md:col-6 lg:col-3">
+          <div>
             <QuickActionCard
               title="Add Agent"
               description="Register a new travel agent"
@@ -138,7 +132,7 @@ function Dashboard() {
               action={() => navigate(ADMIN_ROUTES.CREATE_AGENT)}
             />
           </div>
-          <div className="col-12 md:col-6 lg:col-3">
+          <div>
             <QuickActionCard
               title="Create Admin"
               description="Add a new admin user"
@@ -147,7 +141,7 @@ function Dashboard() {
               action={() => navigate(ADMIN_ROUTES.CREATE_ADMIN)}
             />
           </div>
-          <div className="col-12 md:col-6 lg:col-3">
+          <div>
             <QuickActionCard
               title="Refresh Data"
               description="Reload dashboard statistics"
@@ -159,21 +153,14 @@ function Dashboard() {
         </div>
       </div>
 
-      <Card className="mb-4">
-        <h3 className="text-xl font-bold text-900 mt-0 mb-3">Recent Activity</h3>
-        <div className="flex flex-column gap-3">
+      <Card className="dashboard-activity">
+        <h3 className="dashboard-activity-title">Recent Activity</h3>
+        <div className="activity-list">
           {agents.slice(0, 3).map((agent, index) => (
-            <div
-              key={agent.id}
-              className={`flex align-items-center ${
-                index < 2 ? 'border-bottom-1 border-200 pb-3' : ''
-              }`}
-            >
+            <div key={agent.id} className="activity-item">
               <div
-                className="border-circle flex align-items-center justify-content-center mr-3"
+                className="activity-icon"
                 style={{
-                  width: '2.5rem',
-                  height: '2.5rem',
                   background: agent.status === 'active' ? '#48bb7820' : '#667eea20',
                 }}
               >
@@ -182,12 +169,12 @@ function Dashboard() {
                   style={{ color: agent.status === 'active' ? '#48bb78' : '#667eea' }}
                 ></i>
               </div>
-              <div className="flex-1">
-                <div className="text-900 font-medium">
+              <div className="activity-details">
+                <div className="activity-text">
                   {agent.status === 'active' ? 'Agent approved' : 'New agent registered'}:{' '}
                   {agent.name}
                 </div>
-                <div className="text-600 text-sm">{agent.email}</div>
+                <div className="activity-email">{agent.email}</div>
               </div>
             </div>
           ))}

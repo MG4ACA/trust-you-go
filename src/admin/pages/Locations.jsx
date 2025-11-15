@@ -22,6 +22,7 @@ import {
   updateLocation,
 } from '../store/slices/locationSlice';
 import '../styles/admin.css';
+import '../styles/form.css';
 
 function Locations() {
   const { id } = useParams();
@@ -203,7 +204,7 @@ function Locations() {
   };
 
   return (
-    <div className="p-4">
+    <div className="form-container">
       <Toast ref={toast} />
 
       <div className="flex justify-content-between align-items-center mb-4">

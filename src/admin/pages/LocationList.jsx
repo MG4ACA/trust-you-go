@@ -13,6 +13,7 @@ import { TableSkeleton } from '../components/LoadingSkeleton';
 import { ADMIN_ROUTES } from '../config/routeConfig';
 import { deleteLocation, fetchLocations } from '../store/slices/locationSlice';
 import '../styles/admin.css';
+import '../styles/list-view.css';
 
 function LocationList() {
   const navigate = useNavigate();
@@ -41,10 +42,10 @@ function LocationList() {
     confirmDialog({
       message: (
         <div>
-          <p className="m-0 mb-3">
+          <p className="dialog-message-title">
             Are you sure you want to delete <strong>{locationName}</strong>?
           </p>
-          <p className="m-0 text-600 text-sm">
+          <p className="dialog-message-subtitle">
             This action cannot be undone. All location data and associated packages will be
             affected.
           </p>
@@ -108,7 +109,7 @@ function LocationList() {
 
   const actionBodyTemplate = (rowData) => {
     return (
-      <div className="flex gap-2">
+      <div className="table-actions">
         <Button
           icon="pi pi-eye"
           rounded
@@ -180,34 +181,12 @@ function LocationList() {
   };
 
   const header = (
-    <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center gap-3">
-      <div className="flex align-items-center gap-2">
-        <h2 className="m-0 text-2xl font-bold text-900">Tourist Locations</h2>
+    <div className="list-header">
+      <div className="list-header-left">
+        <h2 className="list-header-title">Tourist Locations</h2>
         <Tag value={`${filteredLocations.length} total`} severity="info" />
       </div>
-      <div className="flex flex-column md:flex-row gap-2">
-        <Dropdown
-          value={categoryFilter}
-          options={categoryOptions}
-          onChange={(e) => setCategoryFilter(e.value)}
-          placeholder="Filter by Category"
-          className="w-full md:w-14rem"
-        />
-        <span className="p-input-icon-left w-full md:w-20rem">
-          <i className="pi pi-search right-[17px]" />
-          <InputText
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search locations..."
-            className="w-full"
-          />
-        </span>
-        <Button
-          label="Add Location"
-          icon="pi pi-plus"
-          severity="success"
-          onClick={() => navigate(ADMIN_ROUTES.CREATE_LOCATION)}
-        />
+      <div className="list-header-actions">
         <Button
           icon="pi pi-refresh"
           rounded
@@ -217,6 +196,28 @@ function LocationList() {
           tooltip="Refresh Table"
           tooltipOptions={{ position: 'bottom' }}
         />
+        <Button
+          label="Add Location"
+          icon="pi pi-plus"
+          severity="success"
+          className="w-60"
+          onClick={() => navigate(ADMIN_ROUTES.CREATE_LOCATION)}
+        />
+        <Dropdown
+          value={categoryFilter}
+          options={categoryOptions}
+          onChange={(e) => setCategoryFilter(e.value)}
+          placeholder="Filter by Category"
+        />
+        <span className="list-search-wrapper">
+          <i className="pi pi-search" />
+          <InputText
+            value={globalFilter}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search locations..."
+            className="w-full"
+          />
+        </span>
       </div>
     </div>
   );
@@ -226,7 +227,7 @@ function LocationList() {
   }
 
   return (
-    <div className="p-4">
+    <div className="list-container">
       <Toast ref={toast} />
       <ConfirmDialog />
 

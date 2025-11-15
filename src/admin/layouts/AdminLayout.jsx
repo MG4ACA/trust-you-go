@@ -8,8 +8,8 @@ import { ADMIN_ROUTES } from '../config/routeConfig';
 import { logoutAdmin } from '../store/slices/authSlice';
 import { toggleSidebar } from '../store/slices/uiSlice';
 
-// Import admin styles (includes PrimeFlex)
 import '../styles/admin.css';
+import './AdminLayout.css';
 
 function AdminLayout() {
   const navigate = useNavigate();
@@ -68,112 +68,55 @@ function AdminLayout() {
   ];
 
   return (
-    <div
-      style={{ display: 'flex', minHeight: '100vh', background: '#f8f9fa', position: 'relative' }}
-    >
+    <div className="admin-layout">
       {/* Mobile Overlay */}
       {sidebarVisible && (
-        <div
-          onClick={() => dispatch(toggleSidebar())}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0, 0, 0, 0.5)',
-            zIndex: 999,
-            display: 'none',
-          }}
-          className="mobile-sidebar-overlay"
-        />
+        <div onClick={() => dispatch(toggleSidebar())} className="mobile-sidebar-overlay" />
       )}
 
       {/* Sidebar */}
       {sidebarVisible && (
-        <div
-          style={{
-            width: '15vw',
-            background: '#ffffff',
-            boxShadow: '2px 0 8px rgba(0,0,0,0.1)',
-            display: 'flex',
-            flexDirection: 'column',
-            zIndex: 1000,
-          }}
-          className="admin-sidebar"
-        >
+        <div className="admin-sidebar">
           {/* Logo/Header */}
-          <div
-            style={{
-              padding: '1.5rem',
-              borderBottom: '1px solid #dee2e6',
-              textAlign: 'center',
-            }}
-          >
-            <h2 style={{ margin: 0, color: '#495057' }}>
-              <i className="pi pi-shield" style={{ marginRight: '0.5rem' }}></i>
+          <div className="sidebar-header">
+            <h2 className="sidebar-title">
+              <i className="pi pi-shield sidebar-icon"></i>
               Trust You Go
             </h2>
-            <p style={{ margin: '0.5rem 0 0 0', color: '#6c757d', fontSize: '0.875rem' }}>
-              Admin Portal
-            </p>
+            <p className="sidebar-subtitle">Admin Portal</p>
           </div>
 
           {/* Menu */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
-            <Menu model={menuItems} style={{ width: '100%', border: 'none' }} />
+          <div className="sidebar-menu">
+            <Menu model={menuItems} className="admin-menu" />
           </div>
 
           {/* User Info */}
-          <div
-            style={{
-              padding: '1rem',
-              borderTop: '1px solid #dee2e6',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.75rem',
-            }}
-          >
-            <Avatar
-              icon="pi pi-user"
-              size="large"
-              shape="circle"
-              style={{ backgroundColor: '#667eea', color: '#ffffff' }}
-            />
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 600, fontSize: '0.875rem' }}>
-                {user?.username || 'Admin User'}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: '#6c757d' }}>
-                {user?.role || 'Super Admin'}
-              </div>
+          <div className="sidebar-user">
+            <Avatar icon="pi pi-user" size="large" shape="circle" className="user-avatar" />
+            <div className="user-info">
+              <div className="user-name">{user?.username || 'Admin User'}</div>
+              <div className="user-role">{user?.role || 'Super Admin'}</div>
             </div>
           </div>
         </div>
       )}
 
       {/* Main Content */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <div className="admin-main">
         {/* Top Header */}
-        <div
-          style={{
-            background: '#ffffff',
-            padding: '1rem 1.5rem',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
+        <div className="admin-header">
           <Button
             icon={sidebarVisible ? 'pi pi-times' : 'pi pi-bars'}
             onClick={() => dispatch(toggleSidebar())}
             className="p-button-text"
             tooltip={sidebarVisible ? 'Hide Sidebar' : 'Show Sidebar'}
           />
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <span style={{ color: '#6c757d', fontSize: '0.875rem' }}>
+          <div className="breadcrumb-wrapper">
+            <Breadcrumb />
+          </div>
+          <div className="header-right">
+            <span className="header-date">
               {new Date().toLocaleDateString('en-US', {
                 weekday: 'long',
                 year: 'numeric',
@@ -191,26 +134,12 @@ function AdminLayout() {
         </div>
 
         {/* Page Content */}
-        <div style={{ flex: 1, overflow: 'auto' }}>
-          <div style={{ padding: '1rem 1.5rem 0' }}>
-            <Breadcrumb />
-          </div>
+        <div className="admin-content">
           <Outlet />
         </div>
 
         {/* Footer */}
-        <div
-          style={{
-            background: '#ffffff',
-            padding: '1rem 1.5rem',
-            borderTop: '1px solid #dee2e6',
-            textAlign: 'center',
-            color: '#6c757d',
-            fontSize: '0.875rem',
-          }}
-        >
-          © 2025 Trust You Go. All rights reserved.
-        </div>
+        <div className="admin-footer">© 2025 Trust You Go. All rights reserved.</div>
       </div>
     </div>
   );

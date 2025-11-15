@@ -17,6 +17,7 @@ import {
   updateAgent,
 } from '../store/slices/agentSlice';
 import '../styles/admin.css';
+import '../styles/form.css';
 
 function Agents() {
   const { id } = useParams();
@@ -313,7 +314,7 @@ function Agents() {
                   value={formData.isActive}
                   options={[
                     { label: 'Active', value: true },
-                    { label: 'Inactive', value: false }
+                    { label: 'Inactive', value: false },
                   ]}
                   onChange={(e) => handleInputChange('isActive', e.value)}
                   className="w-full"

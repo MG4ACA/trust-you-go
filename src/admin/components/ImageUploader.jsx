@@ -10,6 +10,7 @@ import {
   deleteLocationImageMetadata,
   uploadLocationImages,
 } from '../services/uploadService';
+import '../styles/form.css';
 
 /**
  * ImageUploader Component
@@ -158,7 +159,7 @@ function ImageUploader({ locationId, initialImages = [], onImagesChange, disable
 
   const itemTemplate = (file, props) => {
     return (
-      <div className="flex align-items-center gap-3 p-2">
+      <div className="upload-item-template">
         <img
           alt={file.name}
           role="presentation"
@@ -166,7 +167,7 @@ function ImageUploader({ locationId, initialImages = [], onImagesChange, disable
           width={60}
           style={{ borderRadius: '4px' }}
         />
-        <div className="flex flex-column gap-1 flex-1">
+        <div className="upload-item-details">
           <span className="font-semibold">{file.name}</span>
           <span className="text-sm text-600">{(file.size / 1024).toFixed(2)} KB</span>
         </div>
@@ -177,7 +178,7 @@ function ImageUploader({ locationId, initialImages = [], onImagesChange, disable
 
   const emptyTemplate = () => {
     return (
-      <div className="flex align-items-center flex-column p-4">
+      <div className="upload-empty-template">
         <i className="pi pi-image text-6xl text-400 mb-3" style={{ fontSize: '4rem' }}></i>
         <span className="text-600 text-center">
           Drag and drop images here
@@ -198,8 +199,8 @@ function ImageUploader({ locationId, initialImages = [], onImagesChange, disable
       {/* Uploaded Images Grid */}
       {images.length > 0 && (
         <Card className="mb-3">
-          <div className="flex justify-content-between align-items-center mb-3">
-            <h3 className="m-0">
+          <div className="image-uploader-header">
+            <h3>
               <i className="pi pi-images mr-2"></i>
               Uploaded Images ({images.length}/{MAX_IMAGES})
             </h3>
@@ -208,9 +209,9 @@ function ImageUploader({ locationId, initialImages = [], onImagesChange, disable
             )}
           </div>
 
-          <div className="grid">
+          <div className="image-uploader-grid">
             {images.map((image, index) => (
-              <div key={image.id} className="col-12 md:col-6 lg:col-4">
+              <div key={image.id}>
                 <Card className="relative">
                   {/* Image Preview */}
                   <img
@@ -229,7 +230,7 @@ function ImageUploader({ locationId, initialImages = [], onImagesChange, disable
                   />
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2 mt-2" style={{ opacity: disabled ? 0.5 : 1 }}>
+                  <div className="image-actions" style={{ opacity: disabled ? 0.5 : 1 }}>
                     <Button
                       icon="pi pi-arrow-up"
                       outlined

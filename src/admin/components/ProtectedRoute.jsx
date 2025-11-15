@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { ADMIN_ROUTES } from '../config/routeConfig';
 import { checkAuthStatus } from '../store/slices/authSlice';
+import '../styles/admin.css';
 
 function ProtectedRoute({ children }) {
   const dispatch = useDispatch();
@@ -18,18 +19,10 @@ function ProtectedRoute({ children }) {
   // Show loading spinner while checking authentication
   if (checkingAuth) {
     return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '100vh',
-          background: '#f8f9fa',
-        }}
-      >
-        <div style={{ textAlign: 'center' }}>
+      <div className="auth-check-container">
+        <div className="auth-check-content">
           <ProgressSpinner />
-          <p style={{ marginTop: '1rem', color: '#6c757d' }}>Checking authentication...</p>
+          <p className="auth-check-message">Checking authentication...</p>
         </div>
       </div>
     );

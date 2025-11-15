@@ -52,7 +52,7 @@ function Breadcrumb() {
   }
 
   return (
-    <div className="mb-3">
+    <div className="">
       <BreadCrumb model={items} home={home} />
     </div>
   );

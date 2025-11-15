@@ -7,6 +7,7 @@ import { InputText } from 'primereact/inputtext';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLocations } from '../store/slices/locationSlice';
+import '../styles/form.css';
 
 const ItineraryBuilder = ({ numDays = 1, onChange, value = [] }) => {
   const [itinerary, setItinerary] = useState(value);
@@ -156,9 +157,9 @@ const ItineraryBuilder = ({ numDays = 1, onChange, value = [] }) => {
   };
 
   return (
-    <div className="grid">
+    <div className="itinerary-builder-grid">
       {itinerary.map((day) => (
-        <div key={day.dayNumber} className="col-12 md:col-6">
+        <div key={day.dayNumber}>
           <Card title={`Day ${day.dayNumber}`}>
             <DataTable
               value={day.items.map((item) => ({
@@ -173,7 +174,7 @@ const ItineraryBuilder = ({ numDays = 1, onChange, value = [] }) => {
               <Column field="notes" header="Notes" body={notesTemplate} />
               <Column header="Actions" body={actionsTemplate} />
             </DataTable>
-            <div className="flex justify-content-end mt-3">
+            <div className="itinerary-builder-actions">
               <Button
                 icon="pi pi-plus"
                 label="Add Stop"

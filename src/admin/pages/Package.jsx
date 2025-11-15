@@ -204,14 +204,14 @@ const Package = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="form-container">
       <Toast ref={toast} />
-      <div className="flex justify-content-between align-items-center mb-4">
-        <div className="flex align-items-center gap-2">
-          <i className={`pi ${getIcon()} text-3xl text-primary`}></i>
-          <h1 className="text-4xl font-bold text-900 m-0">{getTitle()}</h1>
+      <div className="form-header">
+        <div className="form-header-left">
+          <i className={`pi ${getIcon()}`}></i>
+          <h1 className="form-header-title">{getTitle()}</h1>
         </div>
-        <div className="flex gap-2">
+        <div className="form-header-actions">
           <Button
             label="Back to List"
             icon="pi pi-arrow-left"
@@ -228,9 +228,9 @@ const Package = () => {
         </div>
       </div>
       <Card>
-        <form onSubmit={handleSubmit} className="p-fluid">
-          <div className="grid">
-            <div className="col-12">
+        <form onSubmit={handleSubmit}>
+          <div className="form-grid">
+            <div className="form-col-12">
               <div className="field">
                 <label htmlFor="title">Package Title *</label>
                 <InputText
@@ -243,7 +243,7 @@ const Package = () => {
                 />
               </div>
             </div>
-            <div className="col-12">
+            <div className="form-col-12">
               <div className="field">
                 <label htmlFor="description">Description *</label>
                 <InputTextarea
@@ -257,7 +257,7 @@ const Package = () => {
                 />
               </div>
             </div>
-            <div className="col-6">
+            <div className="form-col-6">
               <div className="field">
                 <label htmlFor="noOfDays">Duration (Days) *</label>
                 <InputNumber
@@ -271,9 +271,9 @@ const Package = () => {
                 />
               </div>
             </div>
-            <div className="col-6">
+            <div className="form-col-6">
               <div className="field">
-                <label htmlFor="basePrice">Base Price ($) *</label>
+                <label htmlFor="basePrice">Base Price (USD) *</label>
                 <InputNumber
                   id="basePrice"
                   name="basePrice"
@@ -288,12 +288,10 @@ const Package = () => {
                 />
               </div>
             </div>
-            <div className="col-6">
+            <div className="form-col-6">
               <div className="field">
-                <label htmlFor="isTemplate" className="block">
-                  Template Package
-                </label>
-                <div className="flex align-items-center">
+                <label htmlFor="isTemplate">Template Package</label>
+                <div className="form-checkbox-group">
                   <Checkbox
                     inputId="isTemplate"
                     name="isTemplate"
@@ -308,12 +306,12 @@ const Package = () => {
                 </div>
               </div>
             </div>
-            <div className="col-6">
+            <div className="form-col-6">
               <div className="field">
                 <label htmlFor="isActive" className="block">
                   Active
                 </label>
-                <div className="flex align-items-center">
+                <div className="form-checkbox-group">
                   <Checkbox
                     inputId="isActive"
                     name="isActive"
@@ -328,7 +326,7 @@ const Package = () => {
                 </div>
               </div>
             </div>
-            <div className="col-12">
+            <div className="form-col-12">
               <h3>Package Locations</h3>
               <ItinerarySteps
                 numDays={formData.noOfDays}
@@ -366,7 +364,7 @@ const Package = () => {
                 }}
               />
             </div>
-            <div className="col-12 flex justify-content-between align-items-center gap-2">
+            <div className="form-actions">
               {!isViewMode && (
                 <Button
                   label="Load Sample Data"
@@ -379,7 +377,7 @@ const Package = () => {
                 />
               )}
               {!isViewMode && (
-                <div className="flex gap-2">
+                <div className="form-button-group">
                   <Button
                     label="Cancel"
                     icon="pi pi-times"

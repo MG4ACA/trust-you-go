@@ -12,6 +12,7 @@ import { TableSkeleton } from '../components/LoadingSkeleton';
 import { ADMIN_ROUTES } from '../config/routeConfig';
 import { deleteAdmin, fetchAdmins } from '../store/slices/adminSlice';
 import '../styles/admin.css';
+import '../styles/list-view.css';
 
 function AdminList() {
   const navigate = useNavigate();
@@ -126,10 +127,10 @@ function AdminList() {
 
   const contactBodyTemplate = (rowData) => {
     return (
-      <div>
-        <div className="mb-1 font-semibold">{rowData.name || 'N/A'}</div>
-        <div className="text-sm">
-          <i className="pi pi-envelope mr-2 text-600"></i>
+      <div className="table-cell-contact">
+        <div className="table-cell-name">{rowData.name || 'N/A'}</div>
+        <div className="table-cell-email">
+          <i className="pi pi-envelope"></i>
           <span>{rowData.email}</span>
         </div>
       </div>
@@ -152,16 +153,12 @@ function AdminList() {
       return `${dateStr} ${timeStr}`;
     };
 
-    return (
-      <div>
-        <div className="mb-1 font-semibold">{formatDateTime(rowData.createdAt)}</div>
-      </div>
-    );
+    return <div className="table-cell-date">{formatDateTime(rowData.createdAt)}</div>;
   };
 
   const actionBodyTemplate = (rowData) => {
     return (
-      <div className="flex gap-2">
+      <div className="table-actions">
         <Button
           icon="pi pi-eye"
           rounded
@@ -214,12 +211,12 @@ function AdminList() {
 
   // Define header for list view
   const header = (
-    <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center gap-3">
-      <div className="flex align-items-center gap-2">
-        <h2 className="m-0 text-2xl font-bold text-900">Admin Users</h2>
+    <div className="list-header">
+      <div className="list-header-left">
+        <h2 className="list-header-title">Admin Users</h2>
         <Tag value={`${filteredAdmins.length} total`} severity="info" />
       </div>
-      <div className="flex flex-column md:flex-row gap-2 flex-wrap">
+      <div className="list-header-actions">
         {/* <Dropdown
           value={roleFilter}
           options={roleOptions}
@@ -227,13 +224,12 @@ function AdminList() {
           placeholder="Filter by Role"
           className="w-full md:w-14rem"
         /> */}
-        <span className="p-input-icon-left w-full md:w-20rem">
-          <i className="pi pi-search right-[17px]" />
+        <span className="list-search-wrapper">
+          <i className="pi pi-search" />
           <InputText
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
             placeholder="Search admins..."
-            className="w-full"
           />
         </span>
         <Button
@@ -261,7 +257,7 @@ function AdminList() {
   }
 
   return (
-    <div className="p-4">
+    <div className="list-container">
       <Toast ref={toast} />
       <ConfirmDialog />
 

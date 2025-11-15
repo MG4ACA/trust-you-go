@@ -17,6 +17,7 @@ import {
   updateAdmin,
 } from '../store/slices/adminSlice';
 import '../styles/admin.css';
+import '../styles/form.css';
 
 function Admins() {
   const { id } = useParams();

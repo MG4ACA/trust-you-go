@@ -12,6 +12,7 @@ import { TableSkeleton } from '../components/LoadingSkeleton';
 import { ADMIN_ROUTES } from '../config/routeConfig';
 import { deleteAgent, fetchAgents } from '../store/slices/agentSlice';
 import '../styles/admin.css';
+import '../styles/list-view.css';
 
 function AgentList() {
   const navigate = useNavigate();
@@ -30,10 +31,10 @@ function AgentList() {
     confirmDialog({
       message: (
         <div>
-          <p className="m-0 mb-3">
+          <p className="dialog-message-title">
             Are you sure you want to delete <strong>{displayName}</strong>?
           </p>
-          <p className="m-0 text-600 text-sm">
+          <p className="dialog-message-subtitle">
             This action cannot be undone. All agent data will be permanently removed.
           </p>
         </div>
@@ -77,7 +78,7 @@ function AgentList() {
 
   const actionBodyTemplate = (rowData) => {
     return (
-      <div className="flex gap-2">
+      <div className="table-actions">
         <Button
           icon="pi pi-eye"
           rounded
@@ -157,27 +158,12 @@ function AgentList() {
   };
 
   const header = (
-    <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center gap-3">
-      <div className="flex align-items-center gap-2">
-        <h2 className="m-0 text-2xl font-bold text-900">Travel Agents</h2>
+    <div className="list-header">
+      <div className="list-header-left">
+        <h2 className="list-header-title">Travel Agents</h2>
         <Tag value={`${filteredAgents.length} total`} severity="info" />
       </div>
-      <div className="flex flex-column md:flex-row gap-2">
-        <span className="p-input-icon-left w-full md:w-20rem">
-          <i className="pi pi-search right-[17px" />
-          <InputText
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search agents..."
-            className="w-full"
-          />
-        </span>
-        <Button
-          label="Add Agent"
-          icon="pi pi-plus"
-          severity="success"
-          onClick={() => navigate(ADMIN_ROUTES.CREATE_AGENT)}
-        />
+      <div className="list-header-actions">
         <Button
           icon="pi pi-refresh"
           rounded
@@ -187,6 +173,22 @@ function AgentList() {
           tooltip="Refresh Table"
           tooltipOptions={{ position: 'bottom' }}
         />
+        <Button
+          label="Add Agent"
+          icon="pi pi-plus"
+          severity="success"
+          onClick={() => navigate(ADMIN_ROUTES.CREATE_AGENT)}
+          className="w-50"
+        />
+
+        <span className="list-search-wrapper">
+          <i className="pi pi-search" />
+          <InputText
+            value={globalFilter}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search agents..."
+          />
+        </span>
       </div>
     </div>
   );
@@ -196,7 +198,7 @@ function AgentList() {
   }
 
   return (
-    <div className="p-4">
+    <div className="list-container">
       <Toast ref={toast} />
       <ConfirmDialog />
 
