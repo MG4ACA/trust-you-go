@@ -1,7 +1,21 @@
 import { useEffect } from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
-import Home from './pages/Home';
-import LearnAboutSriLanka from './pages/LearnAboutSriLanka';
+import Home from './spa/pages/Home';
+import LearnAboutSriLanka from './spa/pages/LearnAboutSriLanka';
+
+// Admin Portal Imports
+import ProtectedRoute from './admin/components/ProtectedRoute';
+import AdminLayout from './admin/layouts/AdminLayout';
+import AdminList from './admin/pages/AdminList';
+import Admins from './admin/pages/Admins';
+import AgentList from './admin/pages/AgentList';
+import Agents from './admin/pages/Agents';
+import Dashboard from './admin/pages/Dashboard';
+import LocationList from './admin/pages/LocationList';
+import Locations from './admin/pages/Locations';
+import Login from './admin/pages/Login';
+import Package from './admin/pages/Package';
+import PackageList from './admin/pages/PackageList';
 
 function ScrollToSection({ section }) {
   useEffect(() => {
@@ -30,6 +44,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Main SPA Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/learn-about-sri-lanka" element={<LearnAboutSriLanka />} />
         <Route path="/about" element={<SectionRedirect />} />
@@ -40,6 +55,38 @@ function App() {
         <Route path="/guides" element={<SectionRedirect />} />
         <Route path="/reviews" element={<SectionRedirect />} />
         <Route path="/booking" element={<SectionRedirect />} />
+
+        {/* Admin Portal Routes */}
+        <Route path="/admin/login" element={<Login />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="agents" element={<AgentList />} />
+          <Route path="agents/create" element={<Agents />} />
+          <Route path="agents/edit/:id" element={<Agents />} />
+          <Route path="agents/:id" element={<Agents />} />
+          <Route path="packages" element={<PackageList />} />
+          <Route path="packages/create" element={<Package />} />
+          <Route path="packages/edit/:id" element={<Package />} />
+          <Route path="packages/:id" element={<Package />} />
+          <Route path="locations" element={<LocationList />} />
+          <Route path="locations/create" element={<Locations />} />
+          <Route path="locations/edit/:id" element={<Locations />} />
+          <Route path="locations/:id" element={<Locations />} />
+          <Route path="admins" element={<AdminList />} />
+          <Route path="admins/create" element={<Admins />} />
+          <Route path="admins/edit/:id" element={<Admins />} />
+          <Route path="admins/:id" element={<Admins />} />
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+        </Route>
+
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

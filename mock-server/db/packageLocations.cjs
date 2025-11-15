@@ -1,0 +1,182 @@
+// mock-server/db/packageLocations.cjs
+const packageLocations = [
+  // Cultural Triangle Explorer (Package 1)
+  {
+    id: '1',
+    package_id: '1',
+    location_id: '1',
+    day_number: 1,
+    visit_order: 0,
+    notes: 'Morning visit to Sigiriya Rock Fortress',
+  },
+  {
+    id: '2',
+    package_id: '1',
+    location_id: '2',
+    day_number: 2,
+    visit_order: 0,
+    notes: 'Visit to Temple of the Tooth in Kandy',
+  },
+  {
+    id: '3',
+    package_id: '1',
+    location_id: '7',
+    day_number: 2,
+    visit_order: 1,
+    notes: 'Overnight stay at Grand Hotel Kandy',
+  },
+
+  // Beach & Wildlife Adventure (Package 2)
+  {
+    id: '4',
+    package_id: '2',
+    location_id: '3',
+    day_number: 1,
+    visit_order: 0,
+    notes: 'Morning safari at Yala National Park',
+  },
+  {
+    id: '5',
+    package_id: '2',
+    location_id: '11',
+    day_number: 1,
+    visit_order: 1,
+    notes: 'Guided jeep safari tour',
+  },
+  {
+    id: '6',
+    package_id: '2',
+    location_id: '8',
+    day_number: 1,
+    visit_order: 2,
+    notes: 'Stay at Jetwing Yala',
+  },
+  {
+    id: '7',
+    package_id: '2',
+    location_id: '6',
+    day_number: 2,
+    visit_order: 0,
+    notes: 'Relax at Mirissa Beach',
+  },
+  {
+    id: '8',
+    package_id: '2',
+    location_id: '4',
+    day_number: 3,
+    visit_order: 0,
+    notes: 'Explore Galle Fort',
+  },
+  {
+    id: '9',
+    package_id: '2',
+    location_id: '9',
+    day_number: 3,
+    visit_order: 1,
+    notes: 'Stay at The Fortress Galle',
+  },
+
+  // Hill Country Tea Experience (Package 3)
+  {
+    id: '10',
+    package_id: '3',
+    location_id: '2',
+    day_number: 1,
+    visit_order: 0,
+    notes: 'Visit Temple of the Tooth',
+  },
+  {
+    id: '11',
+    package_id: '3',
+    location_id: '7',
+    day_number: 1,
+    visit_order: 1,
+    notes: 'Stay at Grand Hotel Kandy',
+  },
+  {
+    id: '12',
+    package_id: '3',
+    location_id: '5',
+    day_number: 2,
+    visit_order: 0,
+    notes: 'Tea plantation tour in Nuwara Eliya',
+  },
+
+  // Complete Sri Lanka (Package 4)
+  {
+    id: '13',
+    package_id: '4',
+    location_id: '1',
+    day_number: 1,
+    visit_order: 0,
+    notes: 'Sigiriya Rock Fortress',
+  },
+  {
+    id: '14',
+    package_id: '4',
+    location_id: '2',
+    day_number: 2,
+    visit_order: 0,
+    notes: 'Temple of the Tooth',
+  },
+  {
+    id: '15',
+    package_id: '4',
+    location_id: '3',
+    day_number: 3,
+    visit_order: 0,
+    notes: 'Yala National Park Safari',
+  },
+  {
+    id: '16',
+    package_id: '4',
+    location_id: '6',
+    day_number: 4,
+    visit_order: 0,
+    notes: 'Mirissa Beach relaxation',
+  },
+  {
+    id: '17',
+    package_id: '4',
+    location_id: '4',
+    day_number: 5,
+    visit_order: 0,
+    notes: 'Galle Fort exploration',
+  },
+  {
+    id: '18',
+    package_id: '4',
+    location_id: '5',
+    day_number: 6,
+    visit_order: 0,
+    notes: 'Nuwara Eliya tea plantations',
+  },
+
+  // Weekend Getaway (Package 5)
+  {
+    id: '19',
+    package_id: '5',
+    location_id: '2',
+    day_number: 1,
+    visit_order: 0,
+    notes: 'Temple of the Tooth visit',
+  },
+  {
+    id: '20',
+    package_id: '5',
+    location_id: '7',
+    day_number: 1,
+    visit_order: 1,
+    notes: 'Stay at Grand Hotel Kandy',
+  },
+  {
+    id: '21',
+    package_id: '5',
+    location_id: '5',
+    day_number: 2,
+    visit_order: 0,
+    notes: 'Nuwara Eliya tea estates',
+  },
+];
+
+module.exports = { packageLocations };

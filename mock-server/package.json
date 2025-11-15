@@ -1,0 +1,25 @@
+{
+  "name": "trust-you-go-mock-server",
+  "version": "1.0.0",
+  "description": "Mock API server for Trust You Go travel application",
+  "main": "server.cjs",
+  "scripts": {
+    "start": "node server.cjs",
+    "dev": "nodemon server.cjs"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4",
+    "lowdb": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "keywords": [
+    "mock",
+    "api",
+    "json-server",
+    "travel"
+  ],
+  "author": "Trust You Go",
+  "license": "MIT"
+}

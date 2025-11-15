@@ -1,0 +1,71 @@
+/* Admin Portal Responsive Styles */
+
+/* Mobile Sidebar */
+@media screen and (max-width: 768px) {
+  .admin-sidebar {
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+  }
+
+  .mobile-sidebar-overlay {
+    display: block !important;
+  }
+}
+
+/* Improved Form Spacing on Mobile */
+@media screen and (max-width: 576px) {
+  .p-card .p-card-body {
+    padding: 1rem;
+  }
+
+  .p-datatable .p-datatable-header {
+    padding: 0.75rem;
+  }
+
+  .p-button {
+    font-size: 0.875rem;
+  }
+}
+
+/* Skeleton Loading Animations */
+.p-skeleton {
+  animation: p-skeleton-animation 1.2s infinite;
+}
+
+@keyframes p-skeleton-animation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Toast Improvements */
+.p-toast {
+  opacity: 0.98;
+}
+
+.p-toast .p-toast-message {
+  backdrop-filter: blur(10px);
+}
+
+/* DataTable Enhancements */
+.p-datatable .p-datatable-tbody > tr:hover {
+  background-color: rgba(103, 126, 234, 0.05);
+}
+
+/* Confirm Dialog Improvements */
+.p-confirm-dialog .p-dialog-content {
+  padding: 1.5rem;
+}
+
+.p-confirm-dialog .p-confirm-dialog-message {
+  margin-left: 0;
+}
