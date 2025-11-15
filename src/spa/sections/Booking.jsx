@@ -1,8 +1,8 @@
 import emailjs from '@emailjs/browser';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useLanguage } from './hooks/useLanguage';
-import useSEO from './utils/useSEO';
+import { useLanguage } from '../hooks/useLanguage';
+import useSEO from '../utils/useSEO';
 
 const Booking = () => {
   const { t } = useLanguage();
@@ -45,6 +45,10 @@ const Booking = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const userId = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
     // Prepare email template parameters
     const templateParams = {
       to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL || 'your-email@example.com',
@@ -63,12 +67,7 @@ const Booking = () => {
 
     try {
       // Send email using EmailJS
-      const result = await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        templateParams,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
+      const result = await emailjs.send(serviceId, templateId, templateParams, userId);
 
       console.log('Email sent successfully:', result);
       alert('Thank you for your inquiry! We will contact you within 24 hours.');

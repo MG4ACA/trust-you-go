@@ -3,9 +3,13 @@ import LanguageSelector from '../components/LanguageSelector';
 import SocialMediaLinks from '../components/SocialMediaLinks';
 import VideoBackground from '../components/VideoBackground';
 import { useLanguage } from '../hooks/useLanguage';
-import Packages from '../Packages';
-import Reviews from '../Reviews';
-import TravelGuides from '../TravelGuides';
+import About from '../sections/About';
+import Booking from '../sections/Booking';
+import Contact from '../sections/Contact';
+import Gallery from '../sections/Gallery';
+import Packages from '../sections/Packages';
+import Reviews from '../sections/Reviews';
+import TravelGuides from '../sections/TravelGuides';
 import useSEO from '../utils/useSEO';
 
 const Home = () => {

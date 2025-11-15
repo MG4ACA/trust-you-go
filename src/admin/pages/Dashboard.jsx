@@ -87,14 +87,7 @@ function Dashboard() {
 
   return (
     <div className="p-4">
-      <div className="mb-4">
-        <h1 className="text-4xl font-bold text-900 mt-0 mb-2">
-          Welcome back, {user?.username || 'Admin'}! 👋
-        </h1>
-        <p className="text-600 mt-0">Here's what's happening with your travel agency today.</p>
-      </div>
-
-      <div className="grid mb-4">
+      <div className="flex mb-4">
         <div className="col-12 md:col-6 lg:col-4">
           <StatCard
             title="Total Agents"
@@ -126,7 +119,7 @@ function Dashboard() {
 
       <div className="mb-4">
         <h2 className="text-2xl font-bold text-900 mb-3">Quick Actions</h2>
-        <div className="grid">
+        <div className="flex">
           <div className="col-12 md:col-6 lg:col-3">
             <QuickActionCard
               title="View Agents"

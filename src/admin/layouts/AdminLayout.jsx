@@ -93,7 +93,7 @@ function AdminLayout() {
       {sidebarVisible && (
         <div
           style={{
-            width: '280px',
+            width: '15vw',
             background: '#ffffff',
             boxShadow: '2px 0 8px rgba(0,0,0,0.1)',
             display: 'flex',
