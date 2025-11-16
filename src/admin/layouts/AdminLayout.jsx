@@ -27,11 +27,6 @@ function AdminLayout() {
           command: () => navigate(ADMIN_ROUTES.DASHBOARD),
         },
         {
-          label: 'Agents',
-          icon: 'pi pi-users',
-          command: () => navigate(ADMIN_ROUTES.AGENTS_LIST),
-        },
-        {
           label: 'Locations',
           icon: 'pi pi-map-marker',
           command: () => navigate(ADMIN_ROUTES.LOCATIONS_LIST),
@@ -41,6 +36,12 @@ function AdminLayout() {
           icon: 'pi pi-box',
           command: () => navigate(ADMIN_ROUTES.PACKAGES_LIST),
         },
+        {
+          label: 'Agents',
+          icon: 'pi pi-users',
+          command: () => navigate(ADMIN_ROUTES.AGENTS_LIST),
+        },
+
         {
           label: 'Admins',
           icon: 'pi pi-shield',
@@ -79,11 +80,9 @@ function AdminLayout() {
         <div className="admin-sidebar">
           {/* Logo/Header */}
           <div className="sidebar-header">
-            <h2 className="sidebar-title">
-              <i className="pi pi-shield sidebar-icon"></i>
-              Trust You Go
-            </h2>
-            <p className="sidebar-subtitle">Admin Portal</p>
+            <div className="sidebar-logo-container">
+              <img className="sidebar-logo" src="/logo.png" alt="Trust You Go Logo" />
+            </div>
           </div>
 
           {/* Menu */}

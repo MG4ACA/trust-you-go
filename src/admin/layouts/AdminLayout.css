@@ -35,20 +35,14 @@
   text-align: center;
 }
 
-.sidebar-title {
-  margin: 0;
-  color: #495057;
-  font-size: 1.25rem;
+.sidebar-logo-container {
+  display: flex;
+  justify-content: center;
 }
 
-.sidebar-icon {
-  margin-right: 0.5rem;
-}
-
-.sidebar-subtitle {
-  margin: 0.5rem 0 0 0;
-  color: #6c757d;
-  font-size: 0.875rem;
+.sidebar-logo {
+  width: 10vw;
+  border-radius: 1rem;
 }
 
 .sidebar-menu {
@@ -122,6 +116,9 @@
 .admin-content {
   flex: 1;
   overflow: auto;
+}
+.admin-content > div {
+  padding: 0 1.5rem;
 }
 
 .breadcrumb-wrapper {

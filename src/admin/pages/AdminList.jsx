@@ -130,7 +130,7 @@ function AdminList() {
       <div className="table-cell-contact">
         <div className="table-cell-name">{rowData.name || 'N/A'}</div>
         <div className="table-cell-email">
-          <i className="pi pi-envelope"></i>
+          <i className="pi pi-envelope mr-2 text-600"></i>
           <span>{rowData.email}</span>
         </div>
       </div>
@@ -224,20 +224,6 @@ function AdminList() {
           placeholder="Filter by Role"
           className="w-full md:w-14rem"
         /> */}
-        <span className="list-search-wrapper">
-          <i className="pi pi-search" />
-          <InputText
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search admins..."
-          />
-        </span>
-        <Button
-          label="Add New Admin"
-          icon="pi pi-plus"
-          severity="success"
-          onClick={() => navigate(`${ADMIN_ROUTES.ADMINS_LIST}/create`)}
-        />
         <Button
           icon="pi pi-refresh"
           rounded
@@ -247,6 +233,20 @@ function AdminList() {
           tooltip="Refresh Table"
           tooltipOptions={{ position: 'bottom' }}
         />
+        <Button
+          label="Add New Admin"
+          icon="pi pi-plus"
+          severity="success"
+          onClick={() => navigate(`${ADMIN_ROUTES.ADMINS_LIST}/create`)}
+        />
+        <span className="list-search-wrapper">
+          <i className="pi pi-search right-[17px] absolute" />
+          <InputText
+            value={globalFilter}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search admins..."
+          />
+        </span>
       </div>
     </div>
   );

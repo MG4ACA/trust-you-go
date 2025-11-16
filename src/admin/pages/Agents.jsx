@@ -178,14 +178,10 @@ function Agents() {
   };
 
   return (
-    <div className="p-4">
+    <div>
       <Toast ref={toast} />
 
       <div className="flex justify-content-between align-items-center mb-4">
-        <div className="flex align-items-center gap-2">
-          <i className={`pi ${getIcon()} text-3xl text-primary`}></i>
-          <h1 className="text-4xl font-bold text-900 m-0">{getTitle()}</h1>
-        </div>
         <Button
           label="Back to List"
           icon="pi pi-arrow-left"
@@ -196,148 +192,128 @@ function Agents() {
 
       <Card>
         <form onSubmit={handleSubmit}>
-          <div className="grid">
-            {/* Name */}
-            <div className="col-12">
-              <label htmlFor="name" className="block text-900 font-medium mb-2">
-                Name <span className="text-red-500">*</span>
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">{formData.name}</div>
-              ) : (
-                <>
-                  <InputText
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
-                    className={`w-full ${errors.name ? 'p-invalid' : ''}`}
-                  />
-                  {errors.name && <small className="p-error">{errors.name}</small>}
-                </>
-              )}
-            </div>
+          <div>
+            <div className="flex justify-content-around">
+              {/* Name */}
+              <div className="w-40">
+                <label htmlFor="name" className="block text-900 font-medium mb-2">
+                  Name <span className="text-red-500">*</span>
+                </label>
 
-            {/* Email */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="email" className="block text-900 font-medium mb-2">
-                Email <span className="text-red-500">*</span>
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">
-                  <i className="pi pi-envelope mr-2"></i>
-                  {formData.email}
-                </div>
-              ) : (
-                <>
-                  <InputText
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    className={`w-full ${errors.email ? 'p-invalid' : ''}`}
-                  />
-                  {errors.email && <small className="p-error">{errors.email}</small>}
-                </>
-              )}
-            </div>
-
-            {/* Contact */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="contact" className="block text-900 font-medium mb-2">
-                Contact <span className="text-red-500">*</span>
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">
-                  <i className="pi pi-phone mr-2"></i>
-                  {formData.contact}
-                </div>
-              ) : (
-                <>
-                  <InputText
-                    id="contact"
-                    value={formData.contact}
-                    onChange={(e) => handleInputChange('contact', e.target.value)}
-                    className={`w-full ${errors.contact ? 'p-invalid' : ''}`}
-                    placeholder="+94XXXXXXXXX"
-                  />
-                  {errors.contact && <small className="p-error">{errors.contact}</small>}
-                </>
-              )}
-            </div>
-
-            {/* Commission Rate */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="commissionRate" className="block text-900 font-medium mb-2">
-                Commission Rate (%)
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">{formData.commissionRate}%</div>
-              ) : (
-                <>
-                  <InputText
-                    id="commissionRate"
-                    type="number"
-                    value={formData.commissionRate}
-                    onChange={(e) =>
-                      handleInputChange('commissionRate', parseFloat(e.target.value))
-                    }
-                    className={`w-full ${errors.commissionRate ? 'p-invalid' : ''}`}
-                    min="0"
-                    max="100"
-                  />
-                  {errors.commissionRate && (
-                    <small className="p-error">{errors.commissionRate}</small>
-                  )}
-                </>
-              )}
-            </div>
-
-            {/* Active Status */}
-            <div className="col-12 md:col-6">
-              <label htmlFor="isActive" className="block text-900 font-medium mb-2">
-                Status
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">
-                  <i
-                    className={`pi ${
-                      formData.isActive
-                        ? 'pi-check-circle text-green-500'
-                        : 'pi-times-circle text-red-500'
-                    } mr-2`}
-                  ></i>
-                  {formData.isActive ? 'Active' : 'Inactive'}
-                </div>
-              ) : (
-                <Dropdown
-                  id="isActive"
-                  value={formData.isActive}
-                  options={[
-                    { label: 'Active', value: true },
-                    { label: 'Inactive', value: false },
-                  ]}
-                  onChange={(e) => handleInputChange('isActive', e.value)}
-                  className="w-full"
+                <InputText
+                  id="name"
+                  disabled={isViewMode}
+                  value={formData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
+                  className={`w-full ${errors.name ? 'p-invalid' : ''}`}
+                  placeholder="e.g., John Silva"
                 />
-              )}
+                {errors.name && <small className="p-error">{errors.name}</small>}
+              </div>
+
+              {/* Email */}
+              <div className="w-40">
+                <label htmlFor="email" className="block text-900 font-medium mb-2">
+                  Email <span className="text-red-500">*</span>
+                </label>
+                <InputText
+                  id="email"
+                  type="email"
+                  disabled={isViewMode}
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  className={`w-full ${errors.email ? 'p-invalid' : ''}`}
+                />
+                {errors.email && <small className="p-error">{errors.email}</small>}
+              </div>
             </div>
 
-            {/* Notes */}
-            <div className="col-12">
-              <label htmlFor="notes" className="block text-900 font-medium mb-2">
-                Notes
-              </label>
-              {isViewMode ? (
-                <div className="text-900 text-xl">{formData.notes || 'No notes'}</div>
-              ) : (
+            <div className="flex justify-content-around">
+              {/* Contact */}
+              <div className="w-40">
+                <label htmlFor="contact" className="block text-900 font-medium mb-2">
+                  Contact <span className="text-red-500">*</span>
+                </label>
+
+                <InputText
+                  id="contact"
+                  disabled={isViewMode}
+                  value={formData.contact}
+                  onChange={(e) => handleInputChange('contact', e.target.value)}
+                  className={`w-full ${errors.contact ? 'p-invalid' : ''}`}
+                  placeholder="+94XXXXXXXXX"
+                />
+                {errors.contact && <small className="p-error">{errors.contact}</small>}
+              </div>
+
+              {/* Commission Rate */}
+              <div className="w-40">
+                <label htmlFor="commissionRate" className="block text-900 font-medium mb-2">
+                  Commission Rate (%)
+                </label>
+
+                <InputText
+                  id="commissionRate"
+                  type="number"
+                  disabled={isViewMode}
+                  value={formData.commissionRate}
+                  onChange={(e) => handleInputChange('commissionRate', parseFloat(e.target.value))}
+                  className={`w-full ${errors.commissionRate ? 'p-invalid' : ''}`}
+                  min="0"
+                  max="100"
+                />
+                {errors.commissionRate && (
+                  <small className="p-error">{errors.commissionRate}</small>
+                )}
+              </div>
+            </div>
+
+            <div className="flex justify-content-around">
+              {/* Status */}
+              <div className="w-40">
+                <label htmlFor="isActive" className="block text-900 font-medium mb-2">
+                  Status <span className="text-red-500">*</span>
+                </label>
+                {isViewMode ? (
+                  <div className="text-900 text-xl">
+                    <i
+                      className={`pi ${
+                        formData.isActive
+                          ? 'pi-check-circle text-green-500'
+                          : 'pi-times-circle text-red-500'
+                      } mr-2`}
+                    ></i>
+                    {formData.isActive ? 'Active' : 'Inactive'}
+                  </div>
+                ) : (
+                  <Dropdown
+                    id="isActive"
+                    value={formData.isActive}
+                    options={[
+                      { label: 'Active', value: true },
+                      { label: 'Inactive', value: false },
+                    ]}
+                    onChange={(e) => handleInputChange('isActive', e.value)}
+                    className="w-full"
+                  />
+                )}
+              </div>
+
+              {/* Notes */}
+              <div className="w-40">
+                <label htmlFor="notes" className="block text-900 font-medium mb-2">
+                  Notes
+                </label>
+
                 <InputText
                   id="notes"
+                  disabled={isViewMode}
                   value={formData.notes}
                   onChange={(e) => handleInputChange('notes', e.target.value)}
                   className="w-full"
                   placeholder="Additional notes about the agent..."
                 />
-              )}
+              </div>
             </div>
           </div>
 

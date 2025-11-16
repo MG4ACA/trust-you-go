@@ -208,10 +208,6 @@ function Locations() {
       <Toast ref={toast} />
 
       <div className="flex justify-content-between align-items-center mb-4">
-        <div className="flex align-items-center gap-2">
-          <i className={`pi ${getIcon()} text-3xl text-primary`}></i>
-          <h1 className="text-4xl font-bold text-900 m-0">{getTitle()}</h1>
-        </div>
         <Button
           label="Back to List"
           icon="pi pi-arrow-left"
@@ -225,86 +221,95 @@ function Locations() {
         <TabPanel header="Location Details" leftIcon="pi pi-map-marker mr-2">
           <Card>
             <form onSubmit={handleSubmit}>
-              <div className="grid">
-                {/* Name */}
-                <div className="col-12 md:col-6">
-                  <label htmlFor="name" className="block text-900 font-medium mb-2">
-                    Location Name <span className="text-red-500">*</span>
-                  </label>
-                  <InputText
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
-                    className={`w-full ${errors.name ? 'p-invalid' : ''}`}
-                    disabled={isViewMode}
-                    placeholder="e.g., Sigiriya Rock Fortress"
-                  />
-                  {errors.name && <small className="p-error">{errors.name}</small>}
-                </div>
+              <div>
+                <div className="flex justify-content-around">
+                  {/* Name */}
+                  <div className="w-40">
+                    <label htmlFor="name" className="block text-900 font-medium mb-2">
+                      Location Name <span className="text-red-500">*</span>
+                    </label>
 
-                {/* Location Type */}
-                <div className="col-12 md:col-6">
-                  <label htmlFor="locationType" className="block text-900 font-medium mb-2">
-                    Location Type <span className="text-red-500">*</span>
-                  </label>
-                  <Dropdown
-                    id="locationType"
-                    value={formData.locationType}
-                    options={locationTypeOptions}
-                    onChange={(e) => handleInputChange('locationType', e.value)}
-                    className="w-full"
-                    disabled={isViewMode}
-                  />
-                </div>
+                    <InputText
+                      id="name"
+                      disabled={isViewMode}
+                      value={formData.name}
+                      onChange={(e) => handleInputChange('name', e.target.value)}
+                      className={`w-full ${errors.name ? 'p-invalid' : ''}`}
+                      placeholder="e.g., Sigiriya Rock Fortress"
+                    />
+                    {errors.name && <small className="p-error">{errors.name}</small>}
+                  </div>
 
-                {/* Description */}
-                <div className="col-12">
-                  <label htmlFor="description" className="block text-900 font-medium mb-2">
-                    Description <span className="text-red-500">*</span>
-                  </label>
-                  <InputTextarea
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) => handleInputChange('description', e.target.value)}
-                    rows={4}
-                    className={`w-full ${errors.description ? 'p-invalid' : ''}`}
-                    disabled={isViewMode}
-                    placeholder="Provide a detailed description of the location..."
-                  />
-                  {errors.description && <small className="p-error">{errors.description}</small>}
-                  <small className="text-600 block mt-1">
-                    {formData.description.length} characters (minimum 20 required)
-                  </small>
-                </div>
-
-                {/* Location URL */}
-                <div className="col-12">
-                  <label htmlFor="locationUrl" className="block text-900 font-medium mb-2">
-                    Location URL
-                  </label>
-                  <InputText
-                    id="locationUrl"
-                    value={formData.locationUrl}
-                    onChange={(e) => handleInputChange('locationUrl', e.target.value)}
-                    className="w-full"
-                    disabled={isViewMode}
-                    placeholder="e.g., https://example.com/location"
-                  />
-                  <small className="text-600 block mt-1">Optional website or map link</small>
-                </div>
-
-                {/* Active Status */}
-                <div className="col-12">
-                  <div className="flex align-items-center">
-                    <Checkbox
-                      inputId="isActive"
-                      checked={formData.isActive}
-                      onChange={(e) => handleInputChange('isActive', e.checked)}
+                  {/* Location Type */}
+                  <div className="w-40">
+                    <label htmlFor="locationType" className="block text-900 font-medium mb-2">
+                      Location Type <span className="text-red-500">*</span>
+                    </label>
+                    <Dropdown
+                      id="locationType"
+                      value={formData.locationType}
+                      options={locationTypeOptions}
+                      onChange={(e) => handleInputChange('locationType', e.value)}
+                      className="w-full"
                       disabled={isViewMode}
                     />
-                    <label htmlFor="isActive" className="ml-2 text-900">
-                      Active (Location visible to agents and customers)
+                  </div>
+                </div>
+
+                <div className="flex justify-content-around">
+                  {/* Description */}
+                  <div className="w-40">
+                    <label htmlFor="description" className="block text-900 font-medium mb-2">
+                      Description <span className="text-red-500">*</span>
                     </label>
+
+                    <InputTextarea
+                      id="description"
+                      disabled={isViewMode}
+                      value={formData.description}
+                      onChange={(e) => handleInputChange('description', e.target.value)}
+                      rows={4}
+                      className={`w-full ${errors.description ? 'p-invalid' : ''}`}
+                      placeholder="Provide a detailed description of the location..."
+                    />
+                    {errors.description && <small className="p-error">{errors.description}</small>}
+                    <small className="text-600 block mt-1">
+                      {formData.description.length} characters (minimum 20 required)
+                    </small>
+                  </div>
+
+                  {/* Location URL */}
+                  <div className="w-40">
+                    <label htmlFor="locationUrl" className="block text-900 font-medium mb-2">
+                      Location URL
+                    </label>
+
+                    <InputText
+                      id="locationUrl"
+                      disabled={isViewMode}
+                      value={formData.locationUrl}
+                      onChange={(e) => handleInputChange('locationUrl', e.target.value)}
+                      className="w-full"
+                      placeholder="e.g., https://example.com/location"
+                    />
+                    <small className="text-600 block mt-1">Optional website or map link</small>
+                  </div>
+                </div>
+
+                <div className="flex justify-content-around">
+                  {/* Active Status */}
+                  <div className="w-40">
+                    <div className="flex align-items-center">
+                      <Checkbox
+                        inputId="isActive"
+                        checked={formData.isActive}
+                        onChange={(e) => handleInputChange('isActive', e.checked)}
+                        disabled={isViewMode}
+                      />
+                      <label htmlFor="isActive" className="ml-2 text-900">
+                        Active (Location visible to agents and customers)
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>

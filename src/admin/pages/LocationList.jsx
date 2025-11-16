@@ -200,7 +200,7 @@ function LocationList() {
           label="Add Location"
           icon="pi pi-plus"
           severity="success"
-          className="w-60"
+          className="w-25"
           onClick={() => navigate(ADMIN_ROUTES.CREATE_LOCATION)}
         />
         <Dropdown
@@ -210,7 +210,7 @@ function LocationList() {
           placeholder="Filter by Category"
         />
         <span className="list-search-wrapper">
-          <i className="pi pi-search" />
+          <i className="pi pi-search right-[17px] absolute" />
           <InputText
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}

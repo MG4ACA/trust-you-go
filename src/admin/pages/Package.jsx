@@ -206,92 +206,98 @@ const Package = () => {
   return (
     <div className="form-container">
       <Toast ref={toast} />
-      <div className="form-header">
-        <div className="form-header-left">
-          <i className={`pi ${getIcon()}`}></i>
-          <h1 className="form-header-title">{getTitle()}</h1>
-        </div>
-        <div className="form-header-actions">
-          <Button
-            label="Back to List"
-            icon="pi pi-arrow-left"
-            outlined
-            onClick={() => navigate(ADMIN_ROUTES.PACKAGES_LIST)}
-          />
-          {isViewMode && (
-            <Button
-              label="Edit Package"
-              icon="pi pi-pencil"
-              onClick={() => navigate(ADMIN_ROUTES.EDIT_PACKAGE(id))}
-            />
-          )}
-        </div>
+      <div className="flex justify-content-between align-items-center mb-4">
+        <Button
+          label="Back to List"
+          icon="pi pi-arrow-left"
+          outlined
+          onClick={() => navigate(ADMIN_ROUTES.PACKAGES_LIST)}
+        />
       </div>
       <Card>
         <form onSubmit={handleSubmit}>
-          <div className="form-grid">
-            <div className="form-col-12">
-              <div className="field">
-                <label htmlFor="title">Package Title *</label>
+          <div>
+            <div className="flex justify-content-around">
+              <div className="w-40">
+                <label htmlFor="title" className="block text-900 font-medium mb-2">
+                  Package Title <span className="text-red-500">*</span>
+                </label>
+
                 <InputText
                   id="title"
                   name="title"
+                  disabled={isViewMode}
                   value={formData.title}
                   onChange={handleChange}
+                  className="w-full"
                   required
-                  disabled={isViewMode}
                 />
               </div>
-            </div>
-            <div className="form-col-12">
-              <div className="field">
-                <label htmlFor="description">Description *</label>
+
+              <div className="w-40">
+                <label htmlFor="description" className="block text-900 font-medium mb-2">
+                  Description <span className="text-red-500">*</span>
+                </label>
+
                 <InputTextarea
                   id="description"
                   name="description"
+                  disabled={isViewMode}
                   value={formData.description}
                   onChange={handleChange}
                   rows={3}
+                  className="w-full"
                   required
-                  disabled={isViewMode}
                 />
               </div>
             </div>
-            <div className="form-col-6">
-              <div className="field">
-                <label htmlFor="noOfDays">Duration (Days) *</label>
+
+            <div className="flex justify-content-around">
+              <div className="w-40">
+                <label htmlFor="noOfDays" className="block text-900 font-medium mb-2">
+                  Duration (Days) <span className="text-red-500">*</span>
+                </label>
+
                 <InputNumber
                   id="noOfDays"
                   name="noOfDays"
+                  disabled={isViewMode}
                   value={formData.noOfDays}
                   onValueChange={(e) => handleNumberChange(e, 'noOfDays')}
                   min={1}
+                  className="w-full"
                   required
-                  disabled={isViewMode}
                 />
               </div>
-            </div>
-            <div className="form-col-6">
-              <div className="field">
-                <label htmlFor="basePrice">Base Price (USD) *</label>
+
+              <div className="w-40">
+                <label htmlFor="basePrice" className="block text-900 font-medium mb-2">
+                  Base Price (USD) <span className="text-red-500">*</span>
+                </label>
+
                 <InputNumber
                   id="basePrice"
                   name="basePrice"
+                  disabled={isViewMode}
                   value={formData.basePrice}
                   onValueChange={(e) => handleNumberChange(e, 'basePrice')}
                   mode="currency"
                   currency="USD"
                   locale="en-US"
                   min={0}
+                  className="w-full"
                   required
-                  disabled={isViewMode}
                 />
               </div>
             </div>
-            <div className="form-col-6">
-              <div className="field">
-                <label htmlFor="isTemplate">Template Package</label>
-                <div className="form-checkbox-group">
+
+            <div className="flex justify-content-around">
+              <div className="w-40">
+                <label htmlFor="isTemplate" className="block text-900 font-medium mb-2">
+                  Template Package
+                </label>
+
+                <div className="flex align-items-center">
                   <Checkbox
                     inputId="isTemplate"
                     name="isTemplate"
@@ -305,13 +311,13 @@ const Package = () => {
                   />
                 </div>
               </div>
-            </div>
-            <div className="form-col-6">
-              <div className="field">
-                <label htmlFor="isActive" className="block">
+
+              <div className="w-40">
+                <label htmlFor="isActive" className="block text-900 font-medium mb-2">
                   Active
                 </label>
-                <div className="form-checkbox-group">
+
+                <div className="flex align-items-center">
                   <Checkbox
                     inputId="isActive"
                     name="isActive"
@@ -326,7 +332,8 @@ const Package = () => {
                 </div>
               </div>
             </div>
-            <div className="form-col-12">
+
+            <div>
               <h3>Package Locations</h3>
               <ItinerarySteps
                 numDays={formData.noOfDays}

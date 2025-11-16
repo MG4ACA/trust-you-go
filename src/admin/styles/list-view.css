@@ -6,9 +6,10 @@
 
 .list-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1rem;
   margin-bottom: 1rem;
+  justify-content: space-between;
 }
 
 .list-header-top {
@@ -34,7 +35,7 @@
 
 .list-header-actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.5rem;
 }
 
@@ -47,8 +48,10 @@
 
 .list-search-wrapper {
   position: relative;
-  flex: 1;
-  min-width: 250px;
+  /* flex: 1; */
+  /* min-width: 250px; */
+  display: flex;
+  align-items: center;
 }
 
 .list-filter-dropdown {
