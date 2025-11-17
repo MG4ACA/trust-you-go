@@ -389,15 +389,14 @@ const Booking = () => {
                 <h4 className="text-lg font-bold text-gray-900 mb-4">
                   {t('booking.customize.experienceTitle')}
                 </h4>
-                <p className="text-gray-600 mb-6">
-                  Select the activities and experiences you'd like to include in your Sri Lankan
-                  adventure
-                </p>
+                <p className="text-gray-600 mb-6">{t('booking.customize.experienceDescription')}</p>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   {/* Activity Categories */}
                   <div className="space-y-4">
-                    <h5 className="font-semibold text-gray-800">Adventure Activities</h5>
+                    <h5 className="font-semibold text-gray-800">
+                      {t('booking.activities.adventureTitle')}
+                    </h5>
                     <div className="space-y-3">
                       <label className="flex items-center space-x-3">
                         <input
@@ -408,7 +407,7 @@ const Booking = () => {
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
-                        <span className="text-gray-700">Mountain Hiking & Trekking</span>
+                        <span className="text-gray-700">{t('booking.activities.hiking')}</span>
                       </label>
                       <label className="flex items-center space-x-3">
                         <input
@@ -419,7 +418,7 @@ const Booking = () => {
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
-                        <span className="text-gray-700">Wildlife Safari (Yala National Park)</span>
+                        <span className="text-gray-700">{t('booking.activities.wildlife')}</span>
                       </label>
                       <label className="flex items-center space-x-3">
                         <input
@@ -430,7 +429,7 @@ const Booking = () => {
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
-                        <span className="text-gray-700">Water Sports & Diving</span>
+                        <span className="text-gray-700">{t('booking.activities.watersports')}</span>
                       </label>
                       <label className="flex items-center space-x-3">
                         <input
@@ -441,13 +440,15 @@ const Booking = () => {
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
-                        <span className="text-gray-700">Cycling Tours</span>
+                        <span className="text-gray-700">{t('booking.activities.cycling')}</span>
                       </label>
                     </div>
                   </div>
 
                   <div className="space-y-4">
-                    <h5 className="font-semibold text-gray-800">Cultural Experiences</h5>
+                    <h5 className="font-semibold text-gray-800">
+                      {t('booking.activities.culturalTitle')}
+                    </h5>
                     <div className="space-y-3">
                       <label className="flex items-center space-x-3">
                         <input
@@ -458,7 +459,7 @@ const Booking = () => {
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
-                        <span className="text-gray-700">Ancient Temples & Heritage Sites</span>
+                        <span className="text-gray-700">{t('booking.activities.temples')}</span>
                       </label>
                       <label className="flex items-center space-x-3">
                         <input
@@ -469,7 +470,7 @@ const Booking = () => {
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
-                        <span className="text-gray-700">Cooking Classes</span>
+                        <span className="text-gray-700">{t('booking.activities.cooking')}</span>
                       </label>
                       <label className="flex items-center space-x-3">
                         <input
@@ -480,7 +481,7 @@ const Booking = () => {
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
-                        <span className="text-gray-700">Tea Plantation Tours</span>
+                        <span className="text-gray-700">{t('booking.activities.tea')}</span>
                       </label>
                       <label className="flex items-center space-x-3">
                         <input
@@ -491,7 +492,7 @@ const Booking = () => {
                           onChange={handleInputChange}
                           className="rounded text-[#075b95] focus:ring-[#075b95]"
                         />
-                        <span className="text-gray-700">Local Festivals & Events</span>
+                        <span className="text-gray-700">{t('booking.activities.festivals')}</span>
                       </label>
                     </div>
                   </div>
@@ -518,8 +519,12 @@ const Booking = () => {
                       }`}
                     >
                       <div className="text-center">
-                        <div className="text-sm font-semibold text-gray-900">Budget</div>
-                        <div className="text-xs text-gray-600">Guesthouses & Hostels</div>
+                        <div className="text-sm font-semibold text-gray-900">
+                          {t('booking.accommodation.budget')}
+                        </div>
+                        <div className="text-xs text-gray-600">
+                          {t('booking.accommodation.budgetDesc')}
+                        </div>
                       </div>
                     </button>
                     <button
@@ -537,8 +542,12 @@ const Booking = () => {
                       }`}
                     >
                       <div className="text-center">
-                        <div className="text-sm font-semibold text-gray-900">Comfort</div>
-                        <div className="text-xs text-gray-600">3-4 Star Hotels</div>
+                        <div className="text-sm font-semibold text-gray-900">
+                          {t('booking.accommodation.comfort')}
+                        </div>
+                        <div className="text-xs text-gray-600">
+                          {t('booking.accommodation.comfortDesc')}
+                        </div>
                       </div>
                     </button>
                     <button
@@ -556,8 +565,12 @@ const Booking = () => {
                       }`}
                     >
                       <div className="text-center">
-                        <div className="text-sm font-semibold text-gray-900">Luxury</div>
-                        <div className="text-xs text-gray-600">5 Star Resorts</div>
+                        <div className="text-sm font-semibold text-gray-900">
+                          {t('booking.accommodation.luxury')}
+                        </div>
+                        <div className="text-xs text-gray-600">
+                          {t('booking.accommodation.luxuryDesc')}
+                        </div>
                       </div>
                     </button>
                   </div>
@@ -566,10 +579,9 @@ const Booking = () => {
                 {/* Transportation */}
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <div className="mb-4">
-                    <h5 className="font-semibold text-gray-800">Select Your Vehicle</h5>
+                    <h5 className="font-semibold text-gray-800">{t('booking.vehicles.title')}</h5>
                     <p className="text-sm text-gray-600 mt-1">
-                      Choose the vehicle that best suits your group size and comfort preferences.
-                      Click again to deselect.
+                      {t('booking.vehicles.description')}
                     </p>
                   </div>
                   <div className="p-4 bg-white rounded-xl border border-gray-200 max-sm:h-[40vh] max-sm:overflow-y-scroll">
@@ -592,11 +604,15 @@ const Booking = () => {
                         <div className="text-center">
                           <img
                             src="/car-icon.png"
-                            alt="Sedan"
+                            alt={t('booking.vehicles.sedan')}
                             className="mx-auto mb-2 w-10 h-10 object-contain"
                           />
-                          <div className="text-sm font-semibold text-gray-900">Sedan</div>
-                          <div className="text-xs text-gray-500">Comfortable for city tours</div>
+                          <div className="text-sm font-semibold text-gray-900">
+                            {t('booking.vehicles.sedan')}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {t('booking.vehicles.sedanDesc')}
+                          </div>
                         </div>
                       </button>
 
@@ -618,11 +634,15 @@ const Booking = () => {
                         <div className="text-center">
                           <img
                             src="/car-icon-02.png"
-                            alt="SUV"
+                            alt={t('booking.vehicles.suv')}
                             className="mx-auto mb-2 w-10 h-10 object-contain"
                           />
-                          <div className="text-sm font-semibold text-gray-900">SUV</div>
-                          <div className="text-xs text-gray-500">Perfect for families</div>
+                          <div className="text-sm font-semibold text-gray-900">
+                            {t('booking.vehicles.suv')}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {t('booking.vehicles.suvDesc')}
+                          </div>
                         </div>
                       </button>
 
@@ -644,11 +664,15 @@ const Booking = () => {
                         <div className="text-center">
                           <img
                             src="/van-icon-02.png"
-                            alt="Van"
+                            alt={t('booking.vehicles.van')}
                             className="mx-auto mb-2 w-10 h-10 object-contain"
                           />
-                          <div className="text-sm font-semibold text-gray-900">Van</div>
-                          <div className="text-xs text-gray-500">Great for large groups</div>
+                          <div className="text-sm font-semibold text-gray-900">
+                            {t('booking.vehicles.van')}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {t('booking.vehicles.vanDesc')}
+                          </div>
                         </div>
                       </button>
 
@@ -670,11 +694,15 @@ const Booking = () => {
                         <div className="text-center">
                           <img
                             src="/luxury-car.png"
-                            alt="Luxury Car"
+                            alt={t('booking.vehicles.luxury')}
                             className="mx-auto mb-2 w-10 h-10 object-contain"
                           />
-                          <div className="text-sm font-semibold text-gray-900">Luxury Car</div>
-                          <div className="text-xs text-gray-500">Premium comfort</div>
+                          <div className="text-sm font-semibold text-gray-900">
+                            {t('booking.vehicles.luxury')}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {t('booking.vehicles.luxuryDesc')}
+                          </div>
                         </div>
                       </button>
 
@@ -696,11 +724,15 @@ const Booking = () => {
                         <div className="text-center">
                           <img
                             src="/bus-icon.png"
-                            alt="Mini Bus"
+                            alt={t('booking.vehicles.minibus')}
                             className="mx-auto mb-2 w-10 h-10 object-contain"
                           />
-                          <div className="text-sm font-semibold text-gray-900">Mini Bus</div>
-                          <div className="text-xs text-gray-500">For large tour groups</div>
+                          <div className="text-sm font-semibold text-gray-900">
+                            {t('booking.vehicles.minibus')}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {t('booking.vehicles.minibusDesc')}
+                          </div>
                         </div>
                       </button>
 
@@ -725,13 +757,15 @@ const Booking = () => {
                         <div className="text-center">
                           <img
                             src="/bus-icon.png"
-                            alt="Under Luggage Bus"
+                            alt={t('booking.vehicles.underLuggageBus')}
                             className="mx-auto mb-2 w-10 h-10 object-contain"
                           />
                           <div className="text-sm font-semibold text-gray-900">
-                            Under Luggage Bus
+                            {t('booking.vehicles.underLuggageBus')}
                           </div>
-                          <div className="text-xs text-gray-500">For large tour groups</div>
+                          <div className="text-xs text-gray-500">
+                            {t('booking.vehicles.underLuggageBusDesc')}
+                          </div>
                         </div>
                       </button>
                     </div>
