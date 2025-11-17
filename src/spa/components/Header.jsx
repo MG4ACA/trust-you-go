@@ -47,7 +47,6 @@ const Header = () => {
       sections.forEach((section) => observer.unobserve(section));
     };
   }, [location.pathname]);
-  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -118,16 +117,10 @@ const Header = () => {
           {t('nav.offers')}
         </button> */}
         <button
-          onClick={() => handleNavigation('guides')}
-          className={`header-nav-link ${activeSection === 'guides' ? 'active' : ''}`}
+          onClick={() => handleNavigation('booking')}
+          className={`header-nav-link ${activeSection === 'booking' ? 'active' : ''}`}
         >
-          {t('nav.guides')}
-        </button>
-        <button
-          onClick={() => handleNavigation('reviews')}
-          className={`header-nav-link ${activeSection === 'reviews' ? 'active' : ''}`}
-        >
-          {t('nav.reviews')}
+          {t('nav.booking')}
         </button>
         <button
           onClick={() => handleNavigation('contact')}
@@ -136,10 +129,17 @@ const Header = () => {
           {t('nav.contact')}
         </button>
         <button
-          onClick={() => handleNavigation('booking')}
-          className={`header-nav-link ${activeSection === 'booking' ? 'active' : ''}`}
+          onClick={() => handleNavigation('reviews')}
+          className={`header-nav-link ${activeSection === 'reviews' ? 'active' : ''}`}
         >
-          {t('nav.booking')}
+          {t('nav.reviews')}
+        </button>
+
+        <button
+          onClick={() => handleNavigation('travel-guides')}
+          className={`header-nav-link ${activeSection === 'travel-guides' ? 'active' : ''}`}
+        >
+          {t('nav.guides')}
         </button>
       </nav>
 
@@ -185,6 +185,15 @@ const Header = () => {
         >
           {t('nav.packages')}
         </button>
+        <button
+          onClick={() => {
+            handleNavigation('booking');
+            setShowOtherNav(false);
+          }}
+          className={`p-[5px] ${activeSection === 'booking' ? 'active' : ''}`}
+        >
+          {t('nav.booking')}
+        </button>
         {/* <button
           onClick={() => {
             handleNavigation('offers');
@@ -196,12 +205,12 @@ const Header = () => {
         </button> */}
         <button
           onClick={() => {
-            handleNavigation('guides');
+            handleNavigation('contact');
             setShowOtherNav(false);
           }}
-          className={`p-[5px] ${activeSection === 'guides' ? 'active' : ''}`}
+          className={`p-[5px] ${activeSection === 'contact' ? 'active' : ''}`}
         >
-          {t('nav.guides')}
+          {t('nav.contact')}
         </button>
         <button
           onClick={() => {
@@ -212,23 +221,15 @@ const Header = () => {
         >
           {t('nav.reviews')}
         </button>
+
         <button
           onClick={() => {
-            handleNavigation('contact');
+            handleNavigation('travel-guides');
             setShowOtherNav(false);
           }}
-          className={`p-[5px] ${activeSection === 'contact' ? 'active' : ''}`}
+          className={`p-[5px] ${activeSection === 'travel-guides' ? 'active' : ''}`}
         >
-          {t('nav.contact')}
-        </button>
-        <button
-          onClick={() => {
-            handleNavigation('booking');
-            setShowOtherNav(false);
-          }}
-          className={`p-[5px] ${activeSection === 'booking' ? 'active' : ''}`}
-        >
-          {t('nav.booking')}
+          {t('nav.guides')}
         </button>
       </nav>
       {/* Desktop Top-right icon to show nav when hidden */}

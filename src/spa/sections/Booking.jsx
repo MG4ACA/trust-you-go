@@ -1,6 +1,8 @@
-import emailjs from '@emailjs/browser';
-import { useState } from 'react';
+import { Toast } from 'primereact/toast';
+import { useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { packagesData } from '../../data/packagesData';
+import { sendBookingEmail } from '../../services/emailService';
 import { useLanguage } from '../hooks/useLanguage';
 import useSEO from '../utils/useSEO';
 
@@ -8,6 +10,7 @@ const Booking = () => {
   const { t } = useLanguage();
   const location = useLocation();
   const selectedPackage = location.state?.selectedPackage || '';
+  const toast = useRef(null);
 
   useSEO({ title: t('booking.seo.title'), description: t('booking.seo.description') });
   const [formData, setFormData] = useState({
@@ -45,51 +48,56 @@ const Booking = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const userId = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
     // Prepare email template parameters
     const templateParams = {
-      to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL || 'your-email@example.com',
+      to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL || 'hello@trustyou-go.com',
       from_name: formData.name,
       from_email: formData.email,
       selected_package: formData.package || 'No package selected',
       checkin_date: formData.checkin,
       checkout_date: formData.checkout,
       number_of_guests: formData.guests,
-      accommodation_type: formData.accommodation,
-      selected_vehicle: formData.selectedVehicle,
+      accommodation_type: formData.accommodation || 'Not specified',
+      selected_vehicle: formData.selectedVehicle || 'Not specified',
       selected_activities: formData.activities.join(', ') || 'None',
-      additional_message: formData.message,
-      reply_to: formData.email,
+      additional_message: formData.message || 'No additional message',
     };
 
     try {
-      // Send email using EmailJS
-      const result = await emailjs.send(serviceId, templateId, templateParams, userId);
+      // Send booking email using the email service
+      const response = await sendBookingEmail(templateParams);
 
-      console.log('Email sent successfully:', result);
-      alert('Thank you for your inquiry! We will contact you within 24 hours.');
+      if (response.success) {
+        toast.current.show({
+          severity: 'success',
+          summary: 'Booking Inquiry Sent',
+          detail: 'Thank you for your inquiry! We will contact you within 24 hours.',
+          life: 5000,
+        });
 
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        checkin: '',
-        checkout: '',
-        guests: '',
-        message: '',
-        activities: [],
-        accommodation: '',
-        selectedVehicle: '',
-        package: selectedPackage,
-      });
+        // Reset form on success
+        setFormData({
+          name: '',
+          email: '',
+          checkin: '',
+          checkout: '',
+          guests: '',
+          message: '',
+          activities: [],
+          accommodation: '',
+          selectedVehicle: '',
+          package: selectedPackage,
+        });
+      }
     } catch (error) {
       console.error('Failed to send email:', error);
-      alert(
-        'Sorry, there was an error sending your inquiry. Please try again or contact us directly.'
-      );
+      toast.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail:
+          'Sorry, there was an error sending your inquiry. Please try again or contact us directly.',
+        life: 5000,
+      });
     }
   };
 
@@ -114,11 +122,13 @@ const Booking = () => {
       activities: ['hiking', 'temples', 'tea', 'wildlife'],
       accommodation: 'comfort',
       selectedVehicle: 'suv',
+      package: selectedPackage,
     });
   };
 
   return (
     <section id="booking" className="py-20 px-6 bg-gradient-to-br from-[#075b95]/10 ">
+      <Toast ref={toast} />
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -137,6 +147,7 @@ const Booking = () => {
           <div className="bg-gradient-to-r from-[#075b95] to-[#065a87] px-8 py-6">
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-bold text-white">{t('booking.customize.title')}</h3>
+              {/* demo data button */}
               <div className="flex items-center space-x-4">
                 <button
                   type="button"
@@ -161,12 +172,77 @@ const Booking = () => {
           {/* Form Content */}
           <div className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-              {/* Selected Package Display (if coming from Packages page) */}
-              {selectedPackage && (
-                <div className="bg-gradient-to-r from-[#075b95]/10 to-[#075b95]/5 border border-[#075b95]/20 rounded-xl p-4">
-                  <div className="flex items-center gap-3">
+              {/* Package Selection */}
+              <div className="space-y-4">
+                <label className="block text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                  {t('booking.selectPackage') || 'Select Package'} (Optional)
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[60vh] overflow-y-auto p-2">
+                  {packagesData.map((pkg, index) => {
+                    const packageInfo = t(`packages.items.${index}`);
+                    const isSelected = formData.package === packageInfo.name;
+                    return (
+                      <button
+                        key={pkg.id}
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({
+                            ...prev,
+                            package: isSelected ? '' : packageInfo.name,
+                          }));
+                        }}
+                        className={`relative overflow-hidden rounded-xl transition-all duration-300 ${
+                          isSelected
+                            ? 'ring-4 ring-[#075b95] shadow-xl scale-105'
+                            : 'hover:shadow-lg hover:scale-102 ring-2 ring-gray-200'
+                        }`}
+                      >
+                        {/* Package Image */}
+                        <div className="relative h-32 overflow-hidden">
+                          <img
+                            src={`/package-locations/${pkg.locationFolders[0]}/${pkg.images[0]}`}
+                            alt={packageInfo.name}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+
+                          {/* Selection Indicator */}
+                          {isSelected && (
+                            <div className="absolute top-2 right-2 bg-[#075b95] text-white rounded-full p-2">
+                              <svg
+                                className="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={3}
+                                  d="M5 13l4 4L19 7"
+                                />
+                              </svg>
+                            </div>
+                          )}
+
+                          {/* Package Info */}
+                          <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
+                            <h4 className="font-bold text-sm mb-1 line-clamp-2">
+                              {packageInfo.name}
+                            </h4>
+                            <span className="inline-block px-2 py-1 bg-white/20 backdrop-blur-sm rounded text-xs font-semibold">
+                              {packageInfo.duration} {t('packages.days')}
+                            </span>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                {formData.package && (
+                  <div className="flex items-center gap-2 p-3 bg-[#075b95]/10 rounded-lg">
                     <svg
-                      className="w-6 h-6 text-[#075b95]"
+                      className="w-5 h-5 text-[#075b95]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -178,15 +254,12 @@ const Booking = () => {
                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
-                        {t('booking.selectedPackage') || 'Selected Package'}
-                      </p>
-                      <p className="text-lg font-bold text-[#075b95]">{selectedPackage}</p>
-                    </div>
+                    <span className="text-sm font-semibold text-[#075b95]">
+                      Selected: {formData.package}
+                    </span>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
               {/* Personal Information */}
               <div className="grid md:grid-cols-2 gap-6">
@@ -426,260 +499,241 @@ const Booking = () => {
 
                 {/* Accommodation Preference */}
                 <div className="mt-6 pt-6 border-t border-gray-200">
-                  <h5 className="font-semibold text-gray-800 mb-4">Accommodation Preference</h5>
+                  <div className="flex items-center justify-between mb-4">
+                    <h5 className="font-semibold text-gray-800">Accommodation Preference</h5>
+                  </div>
                   <div className="grid md:grid-cols-3 gap-4">
-                    <label className="relative">
-                      <input
-                        type="radio"
-                        name="accommodation"
-                        value="budget"
-                        checked={formData.accommodation === 'budget'}
-                        onChange={handleInputChange}
-                        className="sr-only"
-                      />
-                      <div
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                          formData.accommodation === 'budget'
-                            ? 'border-[#075b95] bg-[#075b95]/5'
-                            : 'border-gray-200 hover:border-[#075b95]'
-                        }`}
-                      >
-                        <div className="text-center">
-                          <div className="text-sm font-semibold text-gray-900">Budget</div>
-                          <div className="text-xs text-gray-600">Guesthouses & Hostels</div>
-                        </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          accommodation: prev.accommodation === 'budget' ? '' : 'budget',
+                        }));
+                      }}
+                      className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
+                        formData.accommodation === 'budget'
+                          ? 'border-[#075b95] bg-[#075b95]/5'
+                          : 'border-gray-200 hover:border-[#075b95]'
+                      }`}
+                    >
+                      <div className="text-center">
+                        <div className="text-sm font-semibold text-gray-900">Budget</div>
+                        <div className="text-xs text-gray-600">Guesthouses & Hostels</div>
                       </div>
-                    </label>
-                    <label className="relative">
-                      <input
-                        type="radio"
-                        name="accommodation"
-                        value="comfort"
-                        checked={formData.accommodation === 'comfort'}
-                        onChange={handleInputChange}
-                        className="sr-only"
-                      />
-                      <div
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                          formData.accommodation === 'comfort'
-                            ? 'border-[#075b95] bg-[#075b95]/5'
-                            : 'border-gray-200 hover:border-[#075b95]'
-                        }`}
-                      >
-                        <div className="text-center">
-                          <div className="text-sm font-semibold text-gray-900">Comfort</div>
-                          <div className="text-xs text-gray-600">3-4 Star Hotels</div>
-                        </div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          accommodation: prev.accommodation === 'comfort' ? '' : 'comfort',
+                        }));
+                      }}
+                      className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
+                        formData.accommodation === 'comfort'
+                          ? 'border-[#075b95] bg-[#075b95]/5'
+                          : 'border-gray-200 hover:border-[#075b95]'
+                      }`}
+                    >
+                      <div className="text-center">
+                        <div className="text-sm font-semibold text-gray-900">Comfort</div>
+                        <div className="text-xs text-gray-600">3-4 Star Hotels</div>
                       </div>
-                    </label>
-                    <label className="relative">
-                      <input
-                        type="radio"
-                        name="accommodation"
-                        value="luxury"
-                        checked={formData.accommodation === 'luxury'}
-                        onChange={handleInputChange}
-                        className="sr-only"
-                      />
-                      <div
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
-                          formData.accommodation === 'luxury'
-                            ? 'border-[#075b95] bg-[#075b95]/5'
-                            : 'border-gray-200 hover:border-[#075b95]'
-                        }`}
-                      >
-                        <div className="text-center">
-                          <div className="text-sm font-semibold text-gray-900">Luxury</div>
-                          <div className="text-xs text-gray-600">5 Star Resorts</div>
-                        </div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          accommodation: prev.accommodation === 'luxury' ? '' : 'luxury',
+                        }));
+                      }}
+                      className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
+                        formData.accommodation === 'luxury'
+                          ? 'border-[#075b95] bg-[#075b95]/5'
+                          : 'border-gray-200 hover:border-[#075b95]'
+                      }`}
+                    >
+                      <div className="text-center">
+                        <div className="text-sm font-semibold text-gray-900">Luxury</div>
+                        <div className="text-xs text-gray-600">5 Star Resorts</div>
                       </div>
-                    </label>
+                    </button>
                   </div>
                 </div>
 
                 {/* Transportation */}
                 <div className="mt-6 pt-6 border-t border-gray-200">
-                  <h5 className="font-semibold text-gray-800 mb-4">Select Your Vehicle</h5>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Choose the vehicle that best suits your group size and comfort preferences
-                  </p>
+                  <div className="mb-4">
+                    <h5 className="font-semibold text-gray-800">Select Your Vehicle</h5>
+                    <p className="text-sm text-gray-600 mt-1">
+                      Choose the vehicle that best suits your group size and comfort preferences.
+                      Click again to deselect.
+                    </p>
+                  </div>
                   <div className="p-4 bg-white rounded-xl border border-gray-200 max-sm:h-[40vh] max-sm:overflow-y-scroll">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {/* Sedan */}
-                      <label className="relative">
-                        <input
-                          type="radio"
-                          name="selectedVehicle"
-                          value="sedan"
-                          checked={formData.selectedVehicle === 'sedan'}
-                          onChange={handleInputChange}
-                          className="sr-only"
-                        />
-                        <div
-                          className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === 'sedan'
-                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
-                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
-                          }`}
-                        >
-                          <div className="text-center">
-                            <img
-                              src="/car-icon.png"
-                              alt="Sedan"
-                              className="mx-auto mb-2 w-10 h-10 object-contain"
-                            />
-                            <div className="text-sm font-semibold text-gray-900">Sedan</div>
-                            <div className="text-xs text-gray-500">Comfortable for city tours</div>
-                          </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({
+                            ...prev,
+                            selectedVehicle: prev.selectedVehicle === 'sedan' ? '' : 'sedan',
+                          }));
+                        }}
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                          formData.selectedVehicle === 'sedan'
+                            ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                            : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
+                        }`}
+                      >
+                        <div className="text-center">
+                          <img
+                            src="/car-icon.png"
+                            alt="Sedan"
+                            className="mx-auto mb-2 w-10 h-10 object-contain"
+                          />
+                          <div className="text-sm font-semibold text-gray-900">Sedan</div>
+                          <div className="text-xs text-gray-500">Comfortable for city tours</div>
                         </div>
-                      </label>
+                      </button>
 
                       {/* SUV */}
-                      <label className="relative">
-                        <input
-                          type="radio"
-                          name="selectedVehicle"
-                          value="suv"
-                          checked={formData.selectedVehicle === 'suv'}
-                          onChange={handleInputChange}
-                          className="sr-only"
-                        />
-                        <div
-                          className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === 'suv'
-                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
-                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
-                          }`}
-                        >
-                          <div className="text-center">
-                            <img
-                              src="/car-icon-02.png"
-                              alt="SUV"
-                              className="mx-auto mb-2 w-10 h-10 object-contain"
-                            />
-                            <div className="text-sm font-semibold text-gray-900">SUV</div>
-                            <div className="text-xs text-gray-500">Perfect for families</div>
-                          </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({
+                            ...prev,
+                            selectedVehicle: prev.selectedVehicle === 'suv' ? '' : 'suv',
+                          }));
+                        }}
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                          formData.selectedVehicle === 'suv'
+                            ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                            : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
+                        }`}
+                      >
+                        <div className="text-center">
+                          <img
+                            src="/car-icon-02.png"
+                            alt="SUV"
+                            className="mx-auto mb-2 w-10 h-10 object-contain"
+                          />
+                          <div className="text-sm font-semibold text-gray-900">SUV</div>
+                          <div className="text-xs text-gray-500">Perfect for families</div>
                         </div>
-                      </label>
+                      </button>
 
                       {/* Van */}
-                      <label className="relative">
-                        <input
-                          type="radio"
-                          name="selectedVehicle"
-                          value="van"
-                          checked={formData.selectedVehicle === 'van'}
-                          onChange={handleInputChange}
-                          className="sr-only"
-                        />
-                        <div
-                          className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === 'van'
-                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
-                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
-                          }`}
-                        >
-                          <div className="text-center">
-                            <img
-                              src="/van-icon-02.png"
-                              alt="Van"
-                              className="mx-auto mb-2 w-10 h-10 object-contain"
-                            />
-                            <div className="text-sm font-semibold text-gray-900">Van</div>
-                            <div className="text-xs text-gray-500">Great for large groups</div>
-                          </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({
+                            ...prev,
+                            selectedVehicle: prev.selectedVehicle === 'van' ? '' : 'van',
+                          }));
+                        }}
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                          formData.selectedVehicle === 'van'
+                            ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                            : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
+                        }`}
+                      >
+                        <div className="text-center">
+                          <img
+                            src="/van-icon-02.png"
+                            alt="Van"
+                            className="mx-auto mb-2 w-10 h-10 object-contain"
+                          />
+                          <div className="text-sm font-semibold text-gray-900">Van</div>
+                          <div className="text-xs text-gray-500">Great for large groups</div>
                         </div>
-                      </label>
+                      </button>
 
                       {/* Luxury Car */}
-                      <label className="relative">
-                        <input
-                          type="radio"
-                          name="selectedVehicle"
-                          value="luxury"
-                          checked={formData.selectedVehicle === 'luxury'}
-                          onChange={handleInputChange}
-                          className="sr-only"
-                        />
-                        <div
-                          className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === 'luxury'
-                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
-                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
-                          }`}
-                        >
-                          <div className="text-center">
-                            <img
-                              src="/luxury-car.png"
-                              alt="Luxury Car"
-                              className="mx-auto mb-2 w-10 h-10 object-contain"
-                            />
-                            <div className="text-sm font-semibold text-gray-900">Luxury Car</div>
-                            <div className="text-xs text-gray-500">Premium comfort</div>
-                          </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({
+                            ...prev,
+                            selectedVehicle: prev.selectedVehicle === 'luxury' ? '' : 'luxury',
+                          }));
+                        }}
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                          formData.selectedVehicle === 'luxury'
+                            ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                            : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
+                        }`}
+                      >
+                        <div className="text-center">
+                          <img
+                            src="/luxury-car.png"
+                            alt="Luxury Car"
+                            className="mx-auto mb-2 w-10 h-10 object-contain"
+                          />
+                          <div className="text-sm font-semibold text-gray-900">Luxury Car</div>
+                          <div className="text-xs text-gray-500">Premium comfort</div>
                         </div>
-                      </label>
+                      </button>
 
                       {/* Mini Bus */}
-                      <label className="relative">
-                        <input
-                          type="radio"
-                          name="selectedVehicle"
-                          value="minibus"
-                          checked={formData.selectedVehicle === 'minibus'}
-                          onChange={handleInputChange}
-                          className="sr-only"
-                        />
-                        <div
-                          className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === 'minibus'
-                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
-                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
-                          }`}
-                        >
-                          <div className="text-center">
-                            <img
-                              src="/bus-icon.png"
-                              alt="Mini Bus"
-                              className="mx-auto mb-2 w-10 h-10 object-contain"
-                            />
-                            <div className="text-sm font-semibold text-gray-900">Mini Bus</div>
-                            <div className="text-xs text-gray-500">For large tour groups</div>
-                          </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({
+                            ...prev,
+                            selectedVehicle: prev.selectedVehicle === 'minibus' ? '' : 'minibus',
+                          }));
+                        }}
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                          formData.selectedVehicle === 'minibus'
+                            ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                            : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
+                        }`}
+                      >
+                        <div className="text-center">
+                          <img
+                            src="/bus-icon.png"
+                            alt="Mini Bus"
+                            className="mx-auto mb-2 w-10 h-10 object-contain"
+                          />
+                          <div className="text-sm font-semibold text-gray-900">Mini Bus</div>
+                          <div className="text-xs text-gray-500">For large tour groups</div>
                         </div>
-                      </label>
+                      </button>
 
                       {/* Under luggage Bus */}
-                      <label className="relative">
-                        <input
-                          type="radio"
-                          name="selectedVehicle"
-                          value="under-luggage-bus"
-                          checked={formData.selectedVehicle === 'under-luggage-bus'}
-                          onChange={handleInputChange}
-                          className="sr-only"
-                        />
-                        <div
-                          className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                            formData.selectedVehicle === 'under-luggage-bus'
-                              ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
-                              : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
-                          }`}
-                        >
-                          <div className="text-center">
-                            <img
-                              src="/bus-icon.png"
-                              alt="Mini Bus"
-                              className="mx-auto mb-2 w-10 h-10 object-contain"
-                            />
-                            <div className="text-sm font-semibold text-gray-900">
-                              Under Luggage Bus
-                            </div>
-                            <div className="text-xs text-gray-500">For large tour groups</div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({
+                            ...prev,
+                            selectedVehicle:
+                              prev.selectedVehicle === 'under-luggage-bus'
+                                ? ''
+                                : 'under-luggage-bus',
+                          }));
+                        }}
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                          formData.selectedVehicle === 'under-luggage-bus'
+                            ? 'border-[#075b95] bg-[#075b95]/5 shadow-md'
+                            : 'border-gray-200 hover:border-[#075b95] hover:shadow-sm'
+                        }`}
+                      >
+                        <div className="text-center">
+                          <img
+                            src="/bus-icon.png"
+                            alt="Under Luggage Bus"
+                            className="mx-auto mb-2 w-10 h-10 object-contain"
+                          />
+                          <div className="text-sm font-semibold text-gray-900">
+                            Under Luggage Bus
                           </div>
+                          <div className="text-xs text-gray-500">For large tour groups</div>
                         </div>
-                      </label>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -704,7 +758,7 @@ const Booking = () => {
                       d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                     />
                   </svg>
-                  {t('booking.send')}
+                  {t('booking.tag')}
                 </button>
               </div>
             </form>

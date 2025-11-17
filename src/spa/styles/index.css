@@ -76,7 +76,7 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  /* border: 1px solid transparent; */
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -295,7 +295,7 @@ button {
 }
 
 .header-nav-link:hover {
-  color: #65b25f;
+  color: #0d20c9;
   transform: translateY(-1px);
 }
 
@@ -306,7 +306,7 @@ button {
   height: 2px;
   bottom: 0;
   left: 50%;
-  background-color: #65b25f;
+  background-color: #0844d0;
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }

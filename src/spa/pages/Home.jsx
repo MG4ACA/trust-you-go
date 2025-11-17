@@ -64,11 +64,11 @@ const Home = () => {
       {/* Packages Section */}
       <Packages />
 
-      {/* Contact Section */}
-      <Contact />
-
       {/* Booking Section */}
       <Booking />
+
+      {/* Contact Section */}
+      <Contact />
 
       {/* Reviews Section */}
       <Reviews />
