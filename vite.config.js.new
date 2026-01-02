@@ -1,0 +1,74 @@
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  
+  // SEO Optimization: Pre-rendering configuration
+  build: {
+    // Generate sourcemaps for debugging (optional, disable in production)
+    sourcemap: false,
+    
+    // Optimize chunks
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          redux: ['@reduxjs/toolkit', 'react-redux'],
+          ui: ['primereact', 'primeicons', 'primeflex'],
+        }
+      }
+    }
+  },
+  
+  // Performance optimization
+  server: {
+    port: 5173,
+  },
+  
+  // SEO: Ensure proper base URL
+  base: '/',
+});
+
+/* 
+ * NEXT STEPS FOR CSR/SEO FIX:
+ * 
+ * Option 1: Install Pre-rendering Plugin (RECOMMENDED)
+ * ------------------------------------------------
+ * 1. Install: npm install vite-plugin-prerender-routes --save-dev
+ * 2. Import at top: import prerenderRoutes from 'vite-plugin-prerender-routes';
+ * 3. Add to plugins array:
+ *    prerenderRoutes({
+ *      routes: [
+ *        '/',
+ *        '/learn-about-sri-lanka',
+ *        '/about',
+ *        '/contact',
+ *        '/packages',
+ *        '/destinations',
+ *        // Add individual package routes:
+ *        '/packages/5-day-cultural-tour',
+ *        '/packages/7-day-wildlife-safari',
+ *        // Add individual location routes:
+ *        '/destinations/kandy',
+ *        '/destinations/ella',
+ *        '/destinations/galle',
+ *      ]
+ *    })
+ * 
+ * Option 2: Use vite-plugin-ssr (More Advanced)
+ * ------------------------------------------------
+ * 1. Install: npm install vite-plugin-ssr --save-dev
+ * 2. Follow: https://vite-plugin-ssr.com/
+ * 
+ * Option 3: React Helmet (Temporary Solution)
+ * ------------------------------------------------
+ * 1. Install: npm install react-helmet-async
+ * 2. Wrap app in HelmetProvider
+ * 3. Add <Helmet> to each page component
+ * 
+ * IMPORTANT: Choose ONE option and implement before deploying
+ * Without pre-rendering, search engines won't index your content properly!
+ */

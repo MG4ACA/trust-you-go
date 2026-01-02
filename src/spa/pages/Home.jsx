@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Header from '../components/Header';
 import LanguageSelector from '../components/LanguageSelector';
 import SocialMediaLinks from '../components/SocialMediaLinks';
@@ -17,6 +18,28 @@ const Home = () => {
   useSEO({ title: t('site.title'), description: t('site.description') });
 
   return (
+    <>
+      <Helmet>
+        <title>Sri Lanka Tours UK | Custom Holiday Packages from £899 | Trust You Go</title>
+        <meta 
+          name="description" 
+          content="UK's trusted Sri Lanka tour operator based in London. Custom-built holidays to Sri Lanka with expert planning, 24/7 support, and ATOL protection. Speak to our Sri Lankan-born specialists on +44 7444 879173." 
+        />
+        <meta name="keywords" content="sri lanka tours uk, sri lanka holidays from uk, sri lanka travel packages, customized sri lanka tours from london, sri lanka tour operators uk" />
+        <link rel="canonical" href="https://trustyou-go.com/" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="Sri Lanka Tours UK | Custom Holiday Packages from £899" />
+        <meta property="og:description" content="UK's trusted Sri Lanka tour operator. Custom holidays with expert planning, 24/7 support, ATOL protection. Call +44 7444 879173" />
+        <meta property="og:url" content="https://trustyou-go.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_GB" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Sri Lanka Tours UK | Custom Holiday Packages" />
+        <meta name="twitter:description" content="UK's trusted Sri Lanka tour operator. Custom holidays from £899. Expert planning & 24/7 support." />
+      </Helmet>
     <div className="main-container w-full bg-white text-gray-900 font-sans">
       <Header />
       <LanguageSelector />
@@ -141,6 +164,7 @@ const Home = () => {
         {t('footer.copyright')}
       </footer>
     </div>
+    </>
   );
 };
 
