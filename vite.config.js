@@ -24,7 +24,8 @@ export default defineConfig({
   },
 
   optimizeDeps: {
-    include: ['primereact', 'primeicons'],
+    include: ['primereact'],
+    exclude: ['primeicons', 'primeflex'],
   },
 
   base: '/',

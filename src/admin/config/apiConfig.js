@@ -6,7 +6,7 @@
  * import { API_BASE_URL, API_ENDPOINTS } from '@/admin/config/apiConfig';
  */
 
-export const API_BASE_URL = 'http://localhost:3001';
+export const API_BASE_URL = 'https://api.trustyou-go.com:3000';
 
 export const API_ENDPOINTS = {
   // Admin endpoints

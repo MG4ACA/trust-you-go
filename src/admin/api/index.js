@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = 'https://api.trustyou-go.com:3000/api';
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,
