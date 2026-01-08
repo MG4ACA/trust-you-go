@@ -17,10 +17,14 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
           redux: ['@reduxjs/toolkit', 'react-redux'],
-          ui: ['primereact', 'primeflex'],
+          ui: ['primereact'],
         },
       },
     },
+  },
+
+  optimizeDeps: {
+    include: ['primereact', 'primeicons'],
   },
 
   base: '/',
