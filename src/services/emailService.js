@@ -1,84 +1,45 @@
-import emailjs from '@emailjs/browser';
+import axios from 'axios';
+
+// Points to the backend API. In production this is proxied by Nginx at /api.
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 /**
- * Email Service for sending emails using EmailJS
- * This service can be used across both SPA and Admin sections
- */
-
-/**
- * Send booking inquiry email
- * @param {Object} templateParams - The email template parameters
- * @returns {Promise<Object>} - { success: boolean, result?: any, error?: any }
+ * Send a booking inquiry to the backend, which forwards it via Hostinger SMTP.
+ *
+ * @param {Object} templateParams - Booking form data (matches keys sent from Booking.jsx)
+ * @returns {Promise<{ success: boolean, message?: string }>}
  */
 export const sendBookingEmail = async (templateParams) => {
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-  const userId = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-  // Validate required environment variables
-  if (!serviceId || !templateId || !userId) {
-    throw new Error('EmailJS configuration is missing. Please check environment variables.');
-  }
-
-  // Initialize EmailJS with public key
-  emailjs.init({
-    publicKey: userId,
-    // Do not allow headless browsers
-    blockHeadless: true,
-    limitRate: {
-      // Set the limit rate for the application
-      id: 'app',
-      // Allow 1 request per 10s
-      throttle: 10000,
-    },
-  });
-
-  // Send email using EmailJS
-  const result = await emailjs.send(serviceId, templateId, templateParams);
-
-  console.log('Email sent successfully:', result);
-
-  return {
-    success: true,
-    result,
+  const payload = {
+    name: templateParams.from_name,
+    email: templateParams.from_email,
+    selected_package: templateParams.selected_package,
+    checkin_date: templateParams.checkin_date,
+    checkout_date: templateParams.checkout_date,
+    number_of_guests: templateParams.number_of_guests,
+    accommodation_type: templateParams.accommodation_type,
+    selected_vehicle: templateParams.selected_vehicle,
+    selected_activities: templateParams.selected_activities,
+    message: templateParams.additional_message,
   };
+
+  const response = await axios.post(`${API_BASE_URL}/contact`, payload);
+  return response.data; // { success: true, message: '...' }
 };
 
 /**
- * Send a general email (can be used for admin notifications, contact forms, etc.)
- * @param {Object} emailData - The email data
- * @param {string} emailData.templateId - The EmailJS template ID to use
- * @param {Object} emailData.templateParams - The template parameters
- * @returns {Promise<Object>} - { success: boolean, message: string, result?: any, error?: any }
+ * Generic email sender — kept for backward compatibility.
+ * Now also routes through the backend.
+ *
+ * @param {Object} emailData
+ * @param {Object} emailData.templateParams
+ * @returns {Promise<{ success: boolean, message: string }>}
  */
-export const sendEmail = async ({ templateId, templateParams }) => {
+export const sendEmail = async ({ templateParams }) => {
   try {
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const userId = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-    // Validate required environment variables
-    if (!serviceId || !templateId || !userId) {
-      throw new Error('EmailJS configuration is missing. Please check environment variables.');
-    }
-
-    // Initialize EmailJS with public key
-    emailjs.init({
-      publicKey: userId,
-    });
-
-    // Send email using EmailJS
-    const result = await emailjs.send(serviceId, templateId, templateParams, userId);
-
-    console.log('Email sent successfully:', result);
-
-    return {
-      success: true,
-      message: 'Email sent successfully!',
-      result,
-    };
+    return await sendBookingEmail(templateParams);
   } catch (error) {
     console.error('Failed to send email:', error);
-
     return {
       success: false,
       message: 'Failed to send email. Please try again.',

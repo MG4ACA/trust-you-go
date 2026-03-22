@@ -50,7 +50,6 @@ const Booking = () => {
 
     // Prepare email template parameters
     const templateParams = {
-      to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL || 'hello@trustyou-go.com',
       from_name: formData.name,
       from_email: formData.email,
       selected_package: formData.package || 'No package selected',
@@ -62,6 +61,7 @@ const Booking = () => {
       selected_activities: formData.activities.join(', ') || 'None',
       additional_message: formData.message || 'No additional message',
     };
+
 
     try {
       // Send booking email using the email service
