@@ -92,12 +92,12 @@ const Header = () => {
         >
           {t('nav.home')}
         </button>
-        <button
+        {/* <button
           onClick={() => handleNavigation('about')}
           className={`header-nav-link ${activeSection === 'about' ? 'active' : ''}`}
         >
           {t('nav.about')}
-        </button>
+        </button> */}
         <button
           onClick={() => handleNavigation('gallery')}
           className={`header-nav-link ${activeSection === 'gallery' ? 'active' : ''}`}

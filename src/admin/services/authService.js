@@ -15,51 +15,25 @@ const authService = {
    */
   async login(email, password) {
     try {
-      // Query mock server for admin by email
-      const response = await apiClient.get(API_ENDPOINTS.ADMINS, {
-        params: { email },
+      // Make a POST request to the real backend login endpoint
+      const response = await apiClient.post(API_ENDPOINTS.AUTH_LOGIN, {
+        email,
+        password,
       });
 
-      // Handle new response structure
-      const admins = response.data.success ? response.data.data : response.data;
-
-      if (!admins || admins.length === 0) {
-        throw new Error('Invalid email or password');
-      }
-
-      const admin = admins[0];
-
-      // Simple password check (in production, backend handles this)
-      if (admin.password_hash !== password.toString()) {
-        throw new Error('Invalid email or password');
-      }
-
-      // Generate mock JWT token
-      const token = `mock_jwt_token_${admin.id}_${Date.now()}`;
+      // The backend returns { success: true, data: { token, user }, message: ... }
+      const { token, user } = response.data.data;
 
       // Store token and user in localStorage
       localStorage.setItem('adminToken', token);
-      localStorage.setItem(
-        'adminUser',
-        JSON.stringify({
-          id: admin.id,
-          username: admin.username,
-          email: admin.email,
-          role: admin.role,
-        })
-      );
+      localStorage.setItem('adminUser', JSON.stringify(user));
 
       return {
-        user: {
-          id: admin.id,
-          username: admin.username,
-          email: admin.email,
-          role: admin.role,
-        },
+        user,
         token,
       };
     } catch (error) {
-      throw new Error(error.message || 'Login failed');
+      throw new Error(error.response?.data?.message || error.message || 'Login failed');
     }
   },
 

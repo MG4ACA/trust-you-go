@@ -58,7 +58,7 @@ sudo mysql -u root -p
 CREATE DATABASE trust_you_go CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- Create dedicated user
-CREATE USER 'tyg_user'@'localhost' IDENTIFIED BY 'YourStrongPassword123!';
+CREATE USER 'tyg_user'@'localhost' IDENTIFIED BY 'Velou@123';
 
 -- Grant privileges
 GRANT ALL PRIVILEGES ON trust_you_go.* TO 'tyg_user'@'localhost';
@@ -117,7 +117,7 @@ Paste and fill in your values:
 
 # Server
 NODE_ENV=production
-PORT=3001
+PORT=3006
 API_PREFIX=/api
 
 # Database
@@ -125,7 +125,7 @@ DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=trust_you_go
 DB_USER=tyg_user
-DB_PASSWORD=YourStrongPassword123!
+DB_PASSWORD=Velou@123
 
 # JWT
 JWT_SECRET=replace_with_64_char_random_string
@@ -293,7 +293,7 @@ Paste this configuration:
 
 ```nginx
 upstream tyg_backend {
-    server localhost:3001;
+    server localhost:3006;
     keepalive 64;
 }
 
@@ -381,10 +381,16 @@ sudo certbot --nginx -d trustyou-go.com -d www.trustyou-go.com
 
 Certbot will automatically update the Nginx config with SSL and set up auto-renewal.
 
-**Test auto-renewal:**
+**Test auto-renewal (this domain only):**
+
+> ⚠️ Do **not** run `sudo certbot renew --dry-run` without `--cert-name` — it will attempt renewal of **all** certificates on this VPS. Use the scoped command below instead.
 
 ```bash
-sudo certbot renew --dry-run
+# First, confirm the exact certificate name assigned by Certbot
+sudo certbot certificates
+
+# Then test renewal for this domain only
+sudo certbot renew --dry-run --cert-name trustyou-go.com
 ```
 
 ---

@@ -6,9 +6,12 @@
  * import { API_BASE_URL, API_ENDPOINTS } from '@/admin/config/apiConfig';
  */
 
-export const API_BASE_URL = 'https://api.trustyou-go.com:3000';
-
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 export const API_ENDPOINTS = {
+  // Auth endpoints
+  AUTH_LOGIN: '/auth/login',
+
   // Admin endpoints
   ADMINS: '/admins',
   ADMIN_BY_ID: (id) => `/admins/${id}`,
