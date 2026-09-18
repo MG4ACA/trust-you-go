@@ -315,10 +315,22 @@ function Locations() {
                       disabled={isViewMode}
                       value={formData.latitude}
                       onChange={(e) => handleInputChange('latitude', e.target.value)}
+                      onPaste={(e) => {
+                        const pasted = e.clipboardData.getData('text');
+                        // Handle "lat, lng" paste from Google Maps
+                        if (pasted.includes(',')) {
+                          e.preventDefault();
+                          const parts = pasted.split(',').map((s) => s.trim());
+                          if (parts.length >= 2 && !isNaN(parseFloat(parts[0])) && !isNaN(parseFloat(parts[1]))) {
+                            handleInputChange('latitude', parts[0]);
+                            handleInputChange('longitude', parts[1]);
+                          }
+                        }
+                      }}
                       className="w-full"
-                      placeholder="e.g., 7.9570 (Sigiriya)"
+                      placeholder="e.g., 7.9570"
                     />
-                    <small className="text-600 block mt-1">GPS Latitude for interactive map</small>
+                    <small className="text-600 block mt-1">GPS Latitude · Tip: paste <em>lat, lng</em> here to auto-fill both</small>
                   </div>
 
                   {/* Longitude */}
@@ -332,7 +344,7 @@ function Locations() {
                       value={formData.longitude}
                       onChange={(e) => handleInputChange('longitude', e.target.value)}
                       className="w-full"
-                      placeholder="e.g., 80.7603 (Sigiriya)"
+                      placeholder="e.g., 80.7603"
                     />
                     <small className="text-600 block mt-1">GPS Longitude for interactive map</small>
                   </div>

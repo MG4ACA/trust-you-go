@@ -118,19 +118,19 @@ const PackageList = () => {
         <Button
           icon="pi pi-eye"
           className="p-button-rounded p-button-text mr-2"
-          onClick={() => navigate(ADMIN_ROUTES.VIEW_PACKAGE(rowData.id))}
+          onClick={() => navigate(ADMIN_ROUTES.VIEW_PACKAGE(rowData.packageId))}
           tooltip="View"
         />
         <Button
           icon="pi pi-pencil"
           className="p-button-rounded p-button-text mr-2"
-          onClick={() => navigate(ADMIN_ROUTES.EDIT_PACKAGE(rowData.id))}
+          onClick={() => navigate(ADMIN_ROUTES.EDIT_PACKAGE(rowData.packageId))}
           tooltip="Edit"
         />
         <Button
           icon="pi pi-trash"
           className="p-button-rounded p-button-text p-button-danger"
-          onClick={() => handleDelete(rowData.id)}
+          onClick={() => handleDelete(rowData.packageId)}
           tooltip="Delete"
         />
       </div>
@@ -154,7 +154,7 @@ const PackageList = () => {
         value={packages}
         selection={selectedItems}
         onSelectionChange={(e) => setSelectedItems(e.value)}
-        dataKey="id"
+        dataKey="packageId"
         paginator
         rows={10}
         rowsPerPageOptions={[5, 10, 25]}

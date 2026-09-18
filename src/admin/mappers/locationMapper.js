@@ -89,13 +89,22 @@ export const locationMapper = {
    * @returns {Object} API format (snake_case)
    */
   formToAPI: (formData) => {
+    const parsedLat =
+      formData.latitude !== undefined && formData.latitude !== ''
+        ? parseFloat(String(formData.latitude).trim())
+        : null;
+    const parsedLng =
+      formData.longitude !== undefined && formData.longitude !== ''
+        ? parseFloat(String(formData.longitude).trim())
+        : null;
+
     return {
       name: formData.name || '',
       description: formData.description || '',
       location_type: formData.locationType || 'tourist_spot',
       location_url: formData.locationUrl || '',
-      latitude: formData.latitude !== undefined && formData.latitude !== '' ? formData.latitude : null,
-      longitude: formData.longitude !== undefined && formData.longitude !== '' ? formData.longitude : null,
+      latitude: parsedLat !== null && !isNaN(parsedLat) ? parsedLat : null,
+      longitude: parsedLng !== null && !isNaN(parsedLng) ? parsedLng : null,
       is_active: formData.isActive ?? true,
     };
   },

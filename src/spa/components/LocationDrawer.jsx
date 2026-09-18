@@ -85,7 +85,7 @@ const LocationDrawer = ({ location, onClose }) => {
           <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
         </div>
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50/80">
+        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-100 bg-gray-50/80">
           <div className="flex items-center gap-2">
             <span
               className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${getCategoryColor(
@@ -111,7 +111,7 @@ const LocationDrawer = ({ location, onClose }) => {
         </div>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+        <div className="flex-1 overflow-y-auto p-3 space-y-6">
           {/* Image Carousel */}
           <div className="relative rounded-2xl overflow-hidden bg-gray-900 shadow-md group aspect-16/10">
             <img
@@ -238,8 +238,8 @@ const LocationDrawer = ({ location, onClose }) => {
         </div>
 
         {/* Footer Action Buttons */}
-        <div className="p-4 md:p-6 border-t border-gray-100 bg-white space-y-2.5">
-          <button
+        <div className="px-4 pb-3 md:p-6 border-t border-gray-100 bg-white space-y-2.5">
+          {/* <button
             onClick={handleBookTour}
             className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#075b95] to-[#043e68] hover:from-[#064c7d] hover:to-[#032e4d] text-white font-semibold shadow-lg shadow-[#075b95]/20 hover:shadow-xl transition-all flex items-center justify-center gap-2 focus:outline-none"
           >
@@ -247,7 +247,7 @@ const LocationDrawer = ({ location, onClose }) => {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
-          </button>
+          </button> */}
 
           {location.googleMapsUrl && (
             <a
