@@ -124,6 +124,7 @@ export const ta = {
     home: 'முகப்பு',
     about: 'எங்களைப் பற்றி',
     gallery: 'படத்தொகுப்பு',
+    destinations: 'இடங்கள்',
     offers: 'சிறப்பு வழங்கல்கள்',
     guides: 'பயண வழிகாட்டிகள்',
     reviews: 'கருத்துகள்',

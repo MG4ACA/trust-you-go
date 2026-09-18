@@ -40,6 +40,8 @@ function Locations() {
     description: '',
     locationType: 'historical',
     locationUrl: '',
+    latitude: '',
+    longitude: '',
     isActive: true,
   });
 
@@ -53,6 +55,10 @@ function Locations() {
     { label: 'Nature', value: 'nature' },
     { label: 'Beach', value: 'beach' },
     { label: 'Adventure', value: 'adventure' },
+    { label: 'Tourist Spot', value: 'tourist_spot' },
+    { label: 'Accommodation', value: 'accommodation' },
+    { label: 'Restaurant', value: 'restaurant' },
+    { label: 'Activity', value: 'activity' },
   ];
 
   useEffect(() => {
@@ -83,6 +89,8 @@ function Locations() {
         description: currentLocation.description || '',
         locationType: currentLocation.locationType || 'historical',
         locationUrl: currentLocation.locationUrl || '',
+        latitude: currentLocation.latitude !== null && currentLocation.latitude !== undefined ? currentLocation.latitude : '',
+        longitude: currentLocation.longitude !== null && currentLocation.longitude !== undefined ? currentLocation.longitude : '',
         isActive: currentLocation.isActive !== undefined ? currentLocation.isActive : true,
       });
     }
@@ -293,6 +301,40 @@ function Locations() {
                       placeholder="e.g., https://example.com/location"
                     />
                     <small className="text-600 block mt-1">Optional website or map link</small>
+                  </div>
+                </div>
+
+                <div className="flex justify-content-around">
+                  {/* Latitude */}
+                  <div className="w-40">
+                    <label htmlFor="latitude" className="block text-900 font-medium mb-2">
+                      Latitude
+                    </label>
+                    <InputText
+                      id="latitude"
+                      disabled={isViewMode}
+                      value={formData.latitude}
+                      onChange={(e) => handleInputChange('latitude', e.target.value)}
+                      className="w-full"
+                      placeholder="e.g., 7.9570 (Sigiriya)"
+                    />
+                    <small className="text-600 block mt-1">GPS Latitude for interactive map</small>
+                  </div>
+
+                  {/* Longitude */}
+                  <div className="w-40">
+                    <label htmlFor="longitude" className="block text-900 font-medium mb-2">
+                      Longitude
+                    </label>
+                    <InputText
+                      id="longitude"
+                      disabled={isViewMode}
+                      value={formData.longitude}
+                      onChange={(e) => handleInputChange('longitude', e.target.value)}
+                      className="w-full"
+                      placeholder="e.g., 80.7603 (Sigiriya)"
+                    />
+                    <small className="text-600 block mt-1">GPS Longitude for interactive map</small>
                   </div>
                 </div>
 

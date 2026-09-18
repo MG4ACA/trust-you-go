@@ -84,6 +84,7 @@ export const ja = {
     home: 'ホーム',
     about: '私たちについて',
     gallery: 'ギャラリー',
+    destinations: '目的地',
     offers: 'オファー',
     guides: '旅行ガイド',
     reviews: 'レビュー',

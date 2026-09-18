@@ -134,6 +134,7 @@ export const en = {
     home: 'Home',
     about: 'About',
     gallery: 'Gallery',
+    destinations: 'Destinations',
     offers: 'Offers',
     packages: 'Packages',
     guides: 'Travel Guides',

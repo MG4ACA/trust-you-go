@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
 import Home from './spa/pages/Home';
 import LearnAboutSriLanka from './spa/pages/LearnAboutSriLanka';
@@ -49,6 +50,8 @@ function App() {
         <Route path="/about" element={<SectionRedirect />} />
         <Route path="/contact" element={<SectionRedirect />} />
         <Route path="/gallery" element={<SectionRedirect />} />
+        <Route path="/map" element={<SectionRedirect />} />
+        <Route path="/destinations" element={<SectionRedirect />} />
         {/* <Route path="/offers" element={<SectionRedirect />} /> */}
         <Route path="/packages" element={<SectionRedirect />} />
         <Route path="/guides" element={<SectionRedirect />} />

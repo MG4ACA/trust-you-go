@@ -105,6 +105,12 @@ const Header = () => {
           {t('nav.gallery')}
         </button>
         <button
+          onClick={() => handleNavigation('map')}
+          className={`header-nav-link ${activeSection === 'map' ? 'active' : ''}`}
+        >
+          {t('nav.destinations')}
+        </button>
+        <button
           onClick={() => handleNavigation('packages')}
           className={`header-nav-link ${activeSection === 'packages' ? 'active' : ''}`}
         >
@@ -175,6 +181,15 @@ const Header = () => {
           className={`p-[5px] ${activeSection === 'gallery' ? 'active' : ''}`}
         >
           {t('nav.gallery')}
+        </button>
+        <button
+          onClick={() => {
+            handleNavigation('map');
+            setShowOtherNav(false);
+          }}
+          className={`p-[5px] ${activeSection === 'map' ? 'active' : ''}`}
+        >
+          {t('nav.destinations')}
         </button>
         <button
           onClick={() => {

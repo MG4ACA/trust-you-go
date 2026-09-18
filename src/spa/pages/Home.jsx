@@ -8,6 +8,7 @@ import About from '../sections/About';
 import Booking from '../sections/Booking';
 import Contact from '../sections/Contact';
 import Gallery from '../sections/Gallery';
+import InteractiveMapSection from '../sections/InteractiveMapSection';
 import Packages from '../sections/Packages';
 import Reviews from '../sections/Reviews';
 import TravelGuides from '../sections/TravelGuides';
@@ -80,6 +81,9 @@ const Home = () => {
 
       {/* Gallery Section */}
       <Gallery />
+
+      {/* Interactive Sri Lanka Map Section */}
+      <InteractiveMapSection />
 
       {/* Offers Section */}
       {/* <Offers /> */}
